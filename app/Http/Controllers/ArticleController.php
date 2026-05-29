@@ -81,7 +81,7 @@ class ArticleController extends Controller
             'author'      => 'required|string|max:100',
             'category_id' => 'nullable|exists:article_categories,id',
             'is_published'=> 'boolean',
-            'thumbnail'   => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+            'thumbnail'   => 'nullable|image|mimes:jpg,jpeg,png,webp|max:512000',
         ]);
 
         $thumbnailName = null;
@@ -122,7 +122,7 @@ class ArticleController extends Controller
             'content'     => 'required|string',
             'author'      => 'required|string|max:100',
             'category_id' => 'nullable|exists:article_categories,id',
-            'thumbnail'   => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+            'thumbnail'   => 'nullable|image|mimes:jpg,jpeg,png,webp|max:512000',
         ]);
 
         $thumbnailName = $article->thumbnail;

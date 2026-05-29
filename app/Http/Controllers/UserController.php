@@ -36,7 +36,7 @@ class UserController extends Controller
     public function uploadPhoto(Request $request)
     {
         $request->validate([
-            'photo' => 'required|image|mimes:jpg,jpeg,png,webp|max:5120',
+            'photo' => 'required|image|mimes:jpg,jpeg,png,webp|max:512000',
         ]);
 
         $user = Auth::user()->load('profile');

@@ -7,7 +7,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         .method-tab-active {
-            background-color: #10b981;
+            background-color: #208457;
             color: #ffffff;
         }
     </style>

@@ -48,7 +48,7 @@
                 <label for="thumbnail" class="form-label">Thumbnail Artikel</label>
                 <input id="thumbnail" name="thumbnail" type="file" accept="image/jpeg,image/jpg,image/png,image/webp"
                        class="form-input" onchange="previewThumb(this)">
-                <p class="text-xs text-gray-400 mt-1">Format: JPG, PNG, WebP • Maks. 5MB</p>
+                <p class="text-xs text-gray-400 mt-1">Format: JPG, PNG, WebP • Maks. 500MB</p>
                 <div id="thumb-preview" class="hidden mt-3">
                     <img id="thumb-img" src="" alt="Preview" class="max-h-48 rounded-xl object-cover border border-gray-200 dark:border-gray-800">
                 </div>

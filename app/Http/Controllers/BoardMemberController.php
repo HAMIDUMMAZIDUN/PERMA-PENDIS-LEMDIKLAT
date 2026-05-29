@@ -31,7 +31,7 @@ class BoardMemberController extends Controller
             'color' => 'required|string|max:10',
             'is_leader' => 'required|boolean',
             'sort_order' => 'required|integer|min:0',
-            'photo_file' => 'nullable|image|max:2048',
+            'photo_file' => 'nullable|image|max:512000',
         ]);
 
         $data = $request->except('photo_file');
@@ -66,7 +66,7 @@ class BoardMemberController extends Controller
             'color' => 'required|string|max:10',
             'is_leader' => 'required|boolean',
             'sort_order' => 'required|integer|min:0',
-            'photo_file' => 'nullable|image|max:2048',
+            'photo_file' => 'nullable|image|max:512000',
         ]);
 
         $data = $request->except('photo_file');
