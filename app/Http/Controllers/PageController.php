@@ -29,10 +29,14 @@ class PageController extends Controller
         $direktur = \App\Models\BoardMember::where('category', 'Direktur')->first();
         $wakilDirekturs = \App\Models\BoardMember::where('category', 'Wakil Direktur')->orderBy('sort_order')->get();
 
+        $sekretarisBendaharas = \App\Models\BoardMember::where('category', 'Sekretaris & Bendahara')->orderBy('sort_order')->get();
+        $kabags = \App\Models\BoardMember::where('category', 'Kepala Bagian dan Unit')->orderBy('sort_order')->get();
+
         return view('pages.about', compact(
             'pembinaLeader', 'pembinaMembers',
             'pengarahLeader', 'pengarahMembers',
-            'direktur', 'wakilDirekturs'
+            'direktur', 'wakilDirekturs',
+            'sekretarisBendaharas', 'kabags'
         ));
     }
 

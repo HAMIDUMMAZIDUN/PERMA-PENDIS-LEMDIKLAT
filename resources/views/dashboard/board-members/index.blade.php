@@ -6,7 +6,7 @@
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-gray-100 pb-4 dark:border-gray-800 gap-4">
         <div>
             <h1 class="text-3xl font-extrabold text-primary-900 dark:text-white">Kelola Pengurus</h1>
-            <p class="text-gray-500 text-sm mt-1 dark:text-gray-400">Atur susunan Dewan Pembina, Dewan Pengarah, Direktur, dan Wakil Direktur.</p>
+            <p class="text-gray-500 text-sm mt-1 dark:text-gray-400">Atur susunan Dewan Pembina, Dewan Pengarah, Direktur, Wakil Direktur, Sekretaris & Bendahara, serta Kepala Bagian dan Unit.</p>
         </div>
         <a href="{{ route('dashboard.board-members.create') }}" class="btn-primary inline-flex items-center gap-2 self-start">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
@@ -21,7 +21,7 @@
     @endif
 
     {{-- Groups --}}
-    @foreach(['Dewan Pembina', 'Dewan Pengarah', 'Direktur', 'Wakil Direktur'] as $category)
+    @foreach(['Dewan Pembina', 'Dewan Pengarah', 'Direktur', 'Wakil Direktur', 'Sekretaris & Bendahara', 'Kepala Bagian dan Unit'] as $category)
     @php
         $categoryMembers = $members->where('category', $category);
     @endphp
@@ -37,7 +37,7 @@
         @if($categoryMembers->count() === 0)
         <p class="text-gray-400 text-sm text-center py-6 dark:text-gray-500">Tidak ada pengurus di kategori ini.</p>
         @else
-        <div class="overflow-x-auto overflow-y-auto w-full max-h-[500px] border border-gray-100 rounded-xl dark:border-gray-800">
+        <div class="overflow-x-auto overflow-y-auto w-full max-h-[500px] border border-gray-100 rounded-none dark:border-gray-800">
             <table class="w-full min-w-[650px] text-left text-sm text-gray-500 dark:text-gray-400">
                 <thead>
                     <tr class="text-xs text-gray-400 uppercase tracking-wider border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/20">
@@ -49,14 +49,14 @@
                         <th class="py-3 px-4 font-semibold text-center">Urutan</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-50 dark:divide-gray-850">
+                <tbody class="divide-y divide-gray-50 dark:divide-gray-855">
                     @foreach($categoryMembers as $member)
                     <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-900/30 transition">
                         <td class="py-4 px-4">
                             @if($member->photo)
-                                <img src="{{ $member->photo }}" alt="{{ $member->name }}" class="w-12 h-12 rounded-full object-cover shadow-sm border border-gray-100 dark:border-gray-850">
+                                <img src="{{ $member->photo }}" alt="{{ $member->name }}" class="w-12 h-12 rounded-none object-cover shadow-sm border border-gray-100 dark:border-gray-850">
                             @else
-                                <div class="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-sm"
+                                <div class="w-12 h-12 rounded-none flex items-center justify-center text-white font-bold text-sm"
                                      style="background-color: #{{ $member->color }};">
                                     {{ collect(explode(' ', $member->name))->map(fn($w) => strtoupper(substr($w, 0, 1)))->take(2)->join('') }}
                                 </div>

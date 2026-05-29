@@ -8,6 +8,19 @@ module.exports = {
   ],
   theme: {
     extend: {
+      borderRadius: {
+        'none': '0px',
+        'xs': '0px',
+        'sm': '0px',
+        'DEFAULT': '0px',
+        'md': '0px',
+        'lg': '0px',
+        'xl': '0px',
+        '2xl': '0px',
+        '3xl': '0px',
+        '4xl': '0px',
+        'full': '0px',
+      },
       colors: {
         primary: {
           DEFAULT: '#208457',

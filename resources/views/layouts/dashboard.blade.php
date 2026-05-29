@@ -131,9 +131,8 @@
                 </div>
             </div>
             <div class="flex items-center gap-3">
-                <button onclick="toggleTheme()" class="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors mr-1 dark:hover:bg-gray-800/50" aria-label="Toggle Theme">
-                    <span class="dark:hidden">🌙</span>
-                    <span class="hidden dark:block">☀️</span>
+                <button onclick="toggleTheme()" class="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors mr-1 dark:hover:bg-gray-800/50 text-xs font-bold uppercase tracking-wider" aria-label="Toggle Theme">
+                    <span>Tema</span>
                 </button>
                 <a href="{{ route('dashboard.profile') }}" class="flex items-center gap-2 hover:opacity-80 transition">
                     @if(auth()->user()->profile?->profile_picture)

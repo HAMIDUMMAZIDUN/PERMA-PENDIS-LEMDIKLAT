@@ -37,5 +37,7 @@ class DatabaseSeeder extends Seeder
             'user_profile_id' => $profile->id,
             'is_activated'    => true,
         ]);
+
+        $this->call(BoardMemberSeeder::class);
     }
 }

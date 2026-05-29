@@ -6,13 +6,6 @@
 
 {{-- Elegant Page Header --}}
 <section class="relative bg-gradient-to-br from-primary-950 via-primary-900 to-emerald-950 text-white py-24 text-center overflow-hidden">
-    {{-- High-end background decorations --}}
-    <div class="absolute inset-0 opacity-15 pointer-events-none">
-        <svg class="absolute top-0 left-0 w-[600px] h-[600px] text-primary-500/20 transform -translate-x-1/4 -translate-y-1/4" fill="none" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="0.3" stroke-dasharray="2 2" />
-        </svg>
-    </div>
-    
     <div class="relative max-w-4xl mx-auto px-4 space-y-6 animate-slide-up">
         <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold tracking-wide backdrop-blur-md">
             Mengenal Lembaga Kami
@@ -31,9 +24,6 @@
     <div class="grid md:grid-cols-2 gap-8">
         <div class="card border-l-4 border-primary-600 space-y-4">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-primary-500/10 flex items-center justify-center text-primary-700">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                </div>
                 <h2 class="text-2xl font-extrabold text-gray-900 dark:text-white">Visi Kami</h2>
             </div>
             <p class="text-gray-500 leading-relaxed dark:text-gray-400 font-medium text-base">Menjadi pusat keunggulan (center of excellence) pengembangan kompetensi pendidik dan kependidikan yang berdaya saing tinggi, relevan dengan kemajuan digital, serta mendorong terciptanya budaya belajar sepanjang hayat di Indonesia.</p>
@@ -41,22 +31,19 @@
         
         <div class="card border-l-4 border-secondary-600 space-y-4">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-secondary-500/10 flex items-center justify-center text-secondary-700">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                </div>
                 <h2 class="text-2xl font-extrabold text-gray-900 dark:text-white">Misi Kami</h2>
             </div>
             <ul class="space-y-3 font-medium text-gray-500 dark:text-gray-400">
                 <li class="flex items-start gap-3">
-                    <span class="w-5 h-5 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0 text-xs mt-0.5">✓</span> 
+                    <span class="w-1.5 h-1.5 bg-emerald-500 shrink-0 mt-2"></span> 
                     <span>Menyelenggarakan program pelatihan berbasis kompetensi riil dan praktik manajemen terbaik.</span>
                 </li>
                 <li class="flex items-start gap-3">
-                    <span class="w-5 h-5 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0 text-xs mt-0.5">✓</span> 
+                    <span class="w-1.5 h-1.5 bg-emerald-500 shrink-0 mt-2"></span> 
                     <span>Memfasilitasi ujian sertifikasi profesi untuk memvalidasi kualifikasi keahlian pendidik.</span>
                 </li>
                 <li class="flex items-start gap-3">
-                    <span class="w-5 h-5 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0 text-xs mt-0.5">✓</span> 
+                    <span class="w-1.5 h-1.5 bg-emerald-500 shrink-0 mt-2"></span> 
                     <span>Membangun kolaborasi strategis dengan kementerian, dinas pendidikan, serta lembaga internasional.</span>
                 </li>
             </ul>
@@ -67,26 +54,22 @@
     <div class="grid md:grid-cols-3 gap-8">
         @foreach([
             [
-                'icon' => '🏆', 
                 'title' => 'Profesional & Teruji', 
                 'desc' => 'Instruktur bersertifikat BNSP, kurikulum adaptif standar industri, dan fasilitas memadai.', 
                 'color' => 'bg-emerald-500/5 text-emerald-900 dark:text-emerald-300 border border-emerald-500/10'
             ],
             [
-                'icon' => '🤝', 
                 'title' => 'Kolaborasi Luas', 
                 'desc' => 'Kemitraan global & dinas pendidikan daerah untuk perluasan kesempatan karir alumni.', 
                 'color' => 'bg-amber-500/5 text-amber-900 dark:text-amber-300 border border-amber-500/10'
             ],
             [
-                'icon' => '🎯', 
                 'title' => 'Berorientasi Output', 
                 'desc' => 'Fokus utama kami adalah keberhasilan lulusan dalam menerapkan program belajar inovatif di sekolah.', 
                 'color' => 'bg-indigo-500/5 text-indigo-900 dark:text-indigo-300 border border-indigo-500/10'
             ],
         ] as $val)
         <div class="rounded-3xl p-8 space-y-4 {{ $val['color'] }}">
-            <div class="text-3xl">{{ $val['icon'] }}</div>
             <h3 class="font-extrabold text-xl dark:text-white">{{ $val['title'] }}</h3>
             <p class="text-sm leading-relaxed opacity-85 font-medium">{{ $val['desc'] }}</p>
         </div>
@@ -187,6 +170,38 @@
                     </div>
                 </div>
                 @endif
+            </div>
+        </div>
+        @endif
+
+        {{-- Sekretaris & Bendahara --}}
+        @if($sekretarisBendaharas->count() > 0)
+        <div class="space-y-8 p-8 bg-gray-50/50 dark:bg-[#09100d]/50 rounded-3xl border border-gray-100/50 dark:border-emerald-950/20 animate-slide-up">
+            <h3 class="text-2xl font-extrabold text-primary-950 dark:text-white border-b border-gray-200/50 dark:border-emerald-950/30 pb-4 flex items-center gap-3">
+                <span class="w-2.5 h-6 bg-gradient-to-b from-amber-500 to-amber-700 rounded-full"></span>
+                Sekretaris & Bendahara
+            </h3>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                @foreach($sekretarisBendaharas as $member)
+                @include('pages.partials.org-card', ['name' => $member->name, 'role' => $member->role, 'color' => $member->color, 'photo' => $member->photo])
+                @endforeach
+            </div>
+        </div>
+        @endif
+
+        {{-- Kepala Bagian dan Unit --}}
+        @if($kabags->count() > 0)
+        <div class="space-y-8 p-8 bg-gray-50/50 dark:bg-[#09100d]/50 rounded-3xl border border-gray-100/50 dark:border-emerald-950/20 animate-slide-up">
+            <h3 class="text-2xl font-extrabold text-primary-950 dark:text-white border-b border-gray-200/50 dark:border-emerald-950/30 pb-4 flex items-center gap-3">
+                <span class="w-2.5 h-6 bg-gradient-to-b from-indigo-500 to-indigo-700 rounded-full"></span>
+                Kepala Bagian dan Unit
+            </h3>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                @foreach($kabags as $member)
+                @include('pages.partials.org-card', ['name' => $member->name, 'role' => $member->role, 'color' => $member->color, 'photo' => $member->photo])
+                @endforeach
             </div>
         </div>
         @endif

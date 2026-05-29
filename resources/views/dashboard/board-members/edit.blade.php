@@ -19,9 +19,9 @@
             {{-- Image / Profile Preview --}}
             <div class="flex items-center gap-4 p-5 rounded-2xl border border-gray-100 bg-gray-50/50 dark:border-emerald-950/20 dark:bg-[#080d0b]/40">
                 @if($member->photo)
-                    <img src="{{ $member->photo }}" alt="{{ $member->name }}" class="w-16 h-16 rounded-full object-cover shadow-md border-2 border-white dark:border-[#0c1410]">
+                    <img src="{{ $member->photo }}" alt="{{ $member->name }}" class="w-16 h-16 rounded-none object-cover shadow-md border-2 border-white dark:border-[#0c1410]">
                 @else
-                    <div class="w-16 h-16 rounded-full flex items-center justify-center text-white font-bold text-lg border-2 border-white dark:border-[#0c1410]"
+                    <div class="w-16 h-16 rounded-none flex items-center justify-center text-white font-bold text-lg border-2 border-white dark:border-[#0c1410]"
                          style="background-color: #{{ $member->color }};">
                         {{ collect(explode(' ', $member->name))->map(fn($w) => strtoupper(substr($w, 0, 1)))->take(2)->join('') }}
                     </div>
@@ -60,6 +60,8 @@
                         <option value="Dewan Pengarah" {{ old('category', $member->category) == 'Dewan Pengarah' ? 'selected' : '' }}>Dewan Pengarah</option>
                         <option value="Direktur" {{ old('category', $member->category) == 'Direktur' ? 'selected' : '' }}>Direktur</option>
                         <option value="Wakil Direktur" {{ old('category', $member->category) == 'Wakil Direktur' ? 'selected' : '' }}>Wakil Direktur</option>
+                        <option value="Sekretaris & Bendahara" {{ old('category', $member->category) == 'Sekretaris & Bendahara' ? 'selected' : '' }}>Sekretaris & Bendahara</option>
+                        <option value="Kepala Bagian dan Unit" {{ old('category', $member->category) == 'Kepala Bagian dan Unit' ? 'selected' : '' }}>Kepala Bagian dan Unit</option>
                     </select>
                     @error('category')
                         <p class="text-red-500 text-xs mt-1.5 font-semibold">{{ $message }}</p>

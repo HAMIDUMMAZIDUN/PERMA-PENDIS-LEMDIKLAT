@@ -43,6 +43,8 @@
                         <option value="Dewan Pengarah" {{ old('category') == 'Dewan Pengarah' ? 'selected' : '' }}>Dewan Pengarah</option>
                         <option value="Direktur" {{ old('category') == 'Direktur' ? 'selected' : '' }}>Direktur</option>
                         <option value="Wakil Direktur" {{ old('category') == 'Wakil Direktur' ? 'selected' : '' }}>Wakil Direktur</option>
+                        <option value="Sekretaris & Bendahara" {{ old('category') == 'Sekretaris & Bendahara' ? 'selected' : '' }}>Sekretaris & Bendahara</option>
+                        <option value="Kepala Bagian dan Unit" {{ old('category') == 'Kepala Bagian dan Unit' ? 'selected' : '' }}>Kepala Bagian dan Unit</option>
                     </select>
                     @error('category')
                         <p class="text-red-500 text-xs mt-1.5 font-semibold">{{ $message }}</p>
