@@ -95,17 +95,15 @@
                 <div class="border-t border-gray-50 pt-6 dark:border-emerald-950/20 space-y-4">
                     <span class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Konfigurasi Gambar Latar</span>
                     
-                    @if(!empty($settings['home_bg_image']))
-                    <div class="w-full h-40 rounded-2xl overflow-hidden border border-gray-200 relative mb-4 dark:border-emerald-950/20 shadow-sm">
-                        <img src="{{ $settings['home_bg_image'] }}" alt="Current BG" class="w-full h-full object-cover">
+                    <div id="preview-bg-container" class="w-full h-40 rounded-2xl overflow-hidden border border-gray-200 relative mb-4 dark:border-emerald-950/20 shadow-sm {{ empty($settings['home_bg_image']) ? 'hidden' : '' }}">
+                        <img id="preview-bg" src="{{ $settings['home_bg_image'] }}" alt="Current BG" class="w-full h-full object-cover">
                         <span class="absolute top-3 left-3 px-3 py-1 bg-black/60 backdrop-blur text-white text-[10px] font-bold rounded-full">Background Aktif Saat Ini</span>
                     </div>
-                    @endif
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-[11px] font-bold text-gray-450 mb-1.5 dark:text-gray-500 uppercase tracking-wide">Unggah Gambar Latar Baru</label>
-                            <input type="file" name="home_bg_image_file" accept="image/*"
+                            <input type="file" name="home_bg_image_file" accept="image/*" onchange="previewSettingsImage(this, 'preview-bg')"
                                    class="block w-full text-xs text-gray-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-primary-50 file:text-primary-750 hover:file:bg-primary-100 dark:file:bg-emerald-950/40 dark:file:text-emerald-300 dark:hover:file:bg-emerald-900/30 transition">
                             @error("home_bg_image_file")
                                 <p class="text-red-500 text-[10px] mt-1">{{ $message }}</p>
@@ -135,7 +133,7 @@
                 <div class="p-5 rounded-2xl border border-gray-100 bg-gray-50/50 dark:border-emerald-950/20 dark:bg-[#080d0b]/40 flex flex-col md:flex-row gap-6 items-center">
                     {{-- Image Preview with Outer border --}}
                     <div class="w-32 h-20 rounded-xl overflow-hidden shrink-0 border border-gray-200 shadow-sm dark:border-emerald-950/40 relative">
-                        <img src="{{ $settings["home_img_{$i}"] }}" alt="Preview {{ $i }}" class="w-full h-full object-cover">
+                        <img id="preview-grid-{{ $i }}" src="{{ $settings["home_img_{$i}"] }}" alt="Preview {{ $i }}" class="w-full h-full object-cover">
                     </div>
                     
                     {{-- Form Controls --}}
@@ -148,7 +146,7 @@
                             {{-- Upload File Option --}}
                             <div>
                                 <label class="block text-[11px] font-bold text-gray-450 mb-1.5 dark:text-gray-500 uppercase tracking-wide">Unggah Foto Baru</label>
-                                <input type="file" name="home_img_file_{{ $i }}" accept="image/*"
+                                <input type="file" name="home_img_file_{{ $i }}" accept="image/*" onchange="previewSettingsImage(this, 'preview-grid-{{ $i }}')"
                                        class="block w-full text-xs text-gray-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-primary-50 file:text-primary-750 hover:file:bg-primary-100 dark:file:bg-emerald-950/40 dark:file:text-emerald-300 dark:hover:file:bg-emerald-900/30 transition">
                                 @error("home_img_file_{$i}")
                                     <p class="text-red-500 text-[10px] mt-1">{{ $message }}</p>
@@ -184,7 +182,7 @@
                 <div class="p-5 rounded-2xl border border-gray-100 bg-gray-50/50 dark:border-emerald-950/20 dark:bg-[#080d0b]/40 flex flex-col md:flex-row gap-6 items-center">
                     {{-- Image Preview --}}
                     <div class="w-32 h-20 rounded-xl overflow-hidden shrink-0 border border-gray-200 shadow-sm dark:border-emerald-950/40 relative">
-                        <img src="{{ $settings["home_program_img_{$i}"] }}" alt="Preview {{ $i }}" class="w-full h-full object-cover">
+                        <img id="preview-program-{{ $i }}" src="{{ $settings["home_program_img_{$i}"] }}" alt="Preview {{ $i }}" class="w-full h-full object-cover">
                     </div>
                     
                     {{-- Form Controls --}}
@@ -197,7 +195,7 @@
                             {{-- Upload File Option --}}
                             <div>
                                 <label class="block text-[11px] font-bold text-gray-455 mb-1.5 dark:text-gray-500 uppercase tracking-wide">Unggah Foto Baru</label>
-                                <input type="file" name="home_program_img_file_{{ $i }}" accept="image/*"
+                                <input type="file" name="home_program_img_file_{{ $i }}" accept="image/*" onchange="previewSettingsImage(this, 'preview-program-{{ $i }}')"
                                        class="block w-full text-xs text-gray-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-primary-50 file:text-primary-750 hover:file:bg-primary-100 dark:file:bg-emerald-950/40 dark:file:text-emerald-300 dark:hover:file:bg-emerald-900/30 transition">
                                 @error("home_program_img_file_{$i}")
                                     <p class="text-red-500 text-[10px] mt-1">{{ $message }}</p>
@@ -227,4 +225,19 @@
         </div>
     </form>
 </div>
+
+<script>
+    function previewSettingsImage(input, previewId) {
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = e => {
+                document.getElementById(previewId).src = e.target.result;
+                if (previewId === 'preview-bg') {
+                    document.getElementById('preview-bg-container').classList.remove('hidden');
+                }
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
 @endsection

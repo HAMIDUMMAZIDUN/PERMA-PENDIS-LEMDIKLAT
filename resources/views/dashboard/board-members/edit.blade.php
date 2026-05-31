@@ -103,12 +103,15 @@
 
             <div>
                 <label for="photo_file" class="form-label">Ganti Foto Profil (Opsional)</label>
-                <input id="photo_file" name="photo_file" type="file" accept="image/*"
+                <input id="photo_file" name="photo_file" type="file" accept="image/*" onchange="previewThumb(this)"
                        class="block w-full text-xs text-gray-500 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-primary-50 file:text-primary-750 hover:file:bg-primary-100 dark:file:bg-emerald-950/40 dark:file:text-emerald-300 dark:hover:file:bg-emerald-900/30 transition">
                 <p class="text-gray-400 text-xs mt-2 font-medium">Format berkas didukung: PNG, JPG, JPEG dengan batas ukuran maksimal 500MB. Biarkan kosong jika tidak ingin mengubah foto profil.</p>
                 @error('photo_file')
                     <p class="text-red-500 text-xs mt-1.5 font-semibold">{{ $message }}</p>
                 @enderror
+                <div id="thumb-preview" class="hidden mt-4">
+                    <img id="thumb-img" src="" alt="Preview" class="w-16 h-16 rounded-none object-cover shadow-md border-2 border-white dark:border-[#0c1410]">
+                </div>
             </div>
         </div>
 
@@ -118,4 +121,17 @@
         </div>
     </form>
 </div>
+
+<script>
+    function previewThumb(input) {
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = e => {
+                document.getElementById('thumb-img').src = e.target.result;
+                document.getElementById('thumb-preview').classList.remove('hidden');
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
 @endsection

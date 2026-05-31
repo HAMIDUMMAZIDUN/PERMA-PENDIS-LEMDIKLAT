@@ -112,7 +112,7 @@
                 @forelse($recentBoardMembers as $member)
                 <div class="flex items-center gap-4 px-6 py-4.5 hover:bg-gray-50/50 dark:hover:bg-[#101b15]/30 transition-colors">
                     @if($member->photo)
-                        <img src="{{ asset('uploads/board/' . $member->photo) }}" class="w-10 h-10 rounded-xl object-cover shrink-0" alt="{{ $member->name }}">
+                        <img src="{{ $member->photo }}" class="w-10 h-10 rounded-xl object-cover shrink-0" alt="{{ $member->name }}">
                     @else
                         <div class="w-10 h-10 rounded-xl bg-teal-50 dark:bg-teal-950/20 text-teal-700 dark:text-teal-400 flex items-center justify-center shrink-0">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
