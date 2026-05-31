@@ -56,6 +56,11 @@
         <div class="dashboard-stat-card group hover:-translate-y-1 hover:shadow-md transition-all duration-300">
             <div class="flex items-center justify-between mb-4">
                 <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">{{ $stat['label'] }}</p>
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center {{ $stat['color'] }}">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        {!! $stat['icon'] !!}
+                    </svg>
+                </div>
             </div>
             <p class="text-3xl font-black text-gray-900 dark:text-white tracking-tight">{{ $stat['value'] }}</p>
         </div>
@@ -78,6 +83,11 @@
                     ['name' => 'Digital Marketing', 'no' => 'LSP-003-2024-018', 'date' => '10 Okt 2024', 'status' => 'Lulus'],
                 ] as $cert)
                 <div class="flex items-center gap-4 px-6 py-4.5 hover:bg-gray-50/50 dark:hover:bg-[#101b15]/30 transition-colors">
+                    <div class="w-10 h-10 rounded-xl bg-primary-50 dark:bg-primary-950/20 flex items-center justify-center text-primary-700 dark:text-primary-400 shrink-0">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
                     <div class="flex-1 min-w-0">
                         <p class="font-bold text-gray-900 text-sm truncate dark:text-white">{{ $cert['name'] }}</p>
                         <p class="text-xs text-gray-400 font-semibold mt-0.5">{{ $cert['no'] }} • {{ $cert['date'] }}</p>
@@ -100,6 +110,11 @@
                     ['title' => 'Uji Kompetensi Web Developer', 'date' => '20 Jan 2025', 'time' => '10:00 - 12:00', 'location' => 'Online', 'type' => 'Ujian'],
                 ] as $sched)
                 <div class="flex items-start gap-4 px-6 py-4.5 hover:bg-gray-50/50 dark:hover:bg-[#101b15]/30 transition-colors">
+                    <div class="w-10 h-10 rounded-xl bg-primary-50 dark:bg-primary-950/20 flex items-center justify-center text-primary-700 dark:text-primary-400 shrink-0 mt-0.5">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                    </div>
                     <div class="flex-1">
                         <p class="font-bold text-gray-900 text-sm dark:text-white leading-snug">{{ $sched['title'] }}</p>
                         <p class="text-xs text-gray-400 font-semibold mt-1">{{ $sched['date'] }} • {{ $sched['time'] }}</p>
@@ -156,6 +171,9 @@
                 ['label' => 'Jadwal Saya', 'icon' => 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z', 'href' => '#', 'style' => 'bg-white dark:bg-[#111e19]/60 border border-gray-150 dark:border-emerald-900/30 text-gray-700 dark:text-primary-300 hover:bg-gray-50 dark:hover:bg-primary-950/40'],
             ] as $action)
             <a href="{{ $action['href'] }}" class="flex flex-col items-center justify-center gap-2.5 h-24 rounded-2xl font-bold text-sm transition-all duration-350 active:scale-95 text-center p-3 {{ $action['style'] }}">
+                <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $action['icon'] }}" />
+                </svg>
                 {{ $action['label'] }}
             </a>
             @endforeach
