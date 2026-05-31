@@ -8,12 +8,12 @@
 <section class="relative bg-gradient-to-br from-primary-950 via-primary-900 to-emerald-950 text-white py-24 text-center overflow-hidden">
     <div class="relative max-w-4xl mx-auto px-4 space-y-6 animate-slide-up">
         <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-medium tracking-wide backdrop-blur-md">
-            Mengenal Lembaga Kami
+            {{ \App\Models\Setting::get('about_badge', 'Mengenal Lembaga Kami') }}
         </span>
-        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">Tentang Lemdiklat Permapendis</h1>
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">{{ \App\Models\Setting::get('about_title', 'Tentang Lemdiklat Permapendis') }}</h1>
         <div class="w-16 h-1 bg-gradient-to-r from-primary-600 to-secondary-500 mx-auto rounded-full"></div>
         <p class="text-lg md:text-xl text-emerald-100/80 max-w-3xl mx-auto leading-relaxed font-medium">
-            Lembaga Pendidikan dan Pelatihan berkomitmen tinggi meningkatkan kompetensi melalui program pelatihan terstruktur, kurikulum mutakhir, instruktur berpengalaman, serta pendekatan modern yang berorientasi hasil nyata.
+            {{ \App\Models\Setting::get('about_desc', 'Lembaga Pendidikan dan Pelatihan berkomitmen tinggi meningkatkan kompetensi melalui program pelatihan terstruktur, kurikulum mutakhir, instruktur berpengalaman, serta pendekatan modern yang berorientasi hasil nyata.') }}
         </p>
     </div>
 </section>
@@ -26,7 +26,7 @@
             <div class="flex items-center gap-3">
                 <h2 class="text-xl font-bold text-gray-900 dark:text-white">Visi Kami</h2>
             </div>
-            <p class="text-gray-500 leading-relaxed dark:text-gray-400 font-medium text-base">Menjadi pusat keunggulan (center of excellence) pengembangan kompetensi pendidik dan kependidikan yang berdaya saing tinggi, relevan dengan kemajuan digital, serta mendorong terciptanya budaya belajar sepanjang hayat di Indonesia.</p>
+            <p class="text-gray-500 leading-relaxed dark:text-gray-400 font-medium text-base">{{ \App\Models\Setting::get('about_visi', 'Menjadi pusat keunggulan (center of excellence) pengembangan kompetensi pendidik dan kependidikan yang berdaya saing tinggi, relevan dengan kemajuan digital, serta mendorong terciptanya budaya belajar sepanjang hayat di Indonesia.') }}</p>
         </div>
         
         <div class="card border-l-4 border-secondary-600 space-y-4">
@@ -34,18 +34,18 @@
                 <h2 class="text-xl font-bold text-gray-900 dark:text-white">Misi Kami</h2>
             </div>
             <ul class="space-y-3 font-medium text-gray-500 dark:text-gray-400">
+                @php
+                    $misiText = \App\Models\Setting::get('about_misi', "- Menyelenggarakan program pelatihan berbasis kompetensi riil dan praktik manajemen terbaik.\n- Memfasilitasi ujian sertifikasi profesi untuk memvalidasi kualifikasi keahlian pendidik.\n- Membangun kolaborasi strategis dengan kementerian, dinas pendidikan, serta lembaga internasional.");
+                    $misiItems = array_filter(array_map('trim', explode("\n", str_replace("\r", "", $misiText))));
+                @endphp
+                @foreach($misiItems as $item)
+                @if(!empty($item))
                 <li class="flex items-start gap-3">
                     <span class="w-1.5 h-1.5 bg-emerald-500 shrink-0 mt-2"></span> 
-                    <span>Menyelenggarakan program pelatihan berbasis kompetensi riil dan praktik manajemen terbaik.</span>
+                    <span>{{ ltrim(trim($item), '-*• ') }}</span>
                 </li>
-                <li class="flex items-start gap-3">
-                    <span class="w-1.5 h-1.5 bg-emerald-500 shrink-0 mt-2"></span> 
-                    <span>Memfasilitasi ujian sertifikasi profesi untuk memvalidasi kualifikasi keahlian pendidik.</span>
-                </li>
-                <li class="flex items-start gap-3">
-                    <span class="w-1.5 h-1.5 bg-emerald-500 shrink-0 mt-2"></span> 
-                    <span>Membangun kolaborasi strategis dengan kementerian, dinas pendidikan, serta lembaga internasional.</span>
-                </li>
+                @endif
+                @endforeach
             </ul>
         </div>
     </div>
@@ -54,18 +54,18 @@
     <div class="grid md:grid-cols-3 gap-8">
         @foreach([
             [
-                'title' => 'Profesional & Teruji', 
-                'desc' => 'Instruktur bersertifikat BNSP, kurikulum adaptif standar industri, dan fasilitas memadai.', 
+                'title' => \App\Models\Setting::get('about_value_title_1', 'Profesional & Teruji'), 
+                'desc' => \App\Models\Setting::get('about_value_desc_1', 'Instruktur bersertifikat BNSP, kurikulum adaptif standar industri, dan fasilitas memadai.'), 
                 'color' => 'bg-emerald-500/5 text-emerald-900 dark:text-emerald-300 border border-emerald-500/10'
             ],
             [
-                'title' => 'Kolaborasi Luas', 
-                'desc' => 'Kemitraan global & dinas pendidikan daerah untuk perluasan kesempatan karir alumni.', 
+                'title' => \App\Models\Setting::get('about_value_title_2', 'Kolaborasi Luas'), 
+                'desc' => \App\Models\Setting::get('about_value_desc_2', 'Kemitraan global & dinas pendidikan daerah untuk perluasan kesempatan karir alumni.'), 
                 'color' => 'bg-amber-500/5 text-amber-900 dark:text-amber-300 border border-amber-500/10'
             ],
             [
-                'title' => 'Berorientasi Output', 
-                'desc' => 'Fokus utama kami adalah keberhasilan lulusan dalam menerapkan program belajar inovatif di sekolah.', 
+                'title' => \App\Models\Setting::get('about_value_title_3', 'Berorientasi Output'), 
+                'desc' => \App\Models\Setting::get('about_value_desc_3', 'Fokus utama kami adalah keberhasilan lulusan dalam menerapkan program belajar inovatif di sekolah.'), 
                 'color' => 'bg-indigo-500/5 text-indigo-900 dark:text-indigo-300 border border-indigo-500/10'
             ],
         ] as $val)

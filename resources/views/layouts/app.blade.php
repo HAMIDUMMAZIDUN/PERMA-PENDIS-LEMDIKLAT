@@ -69,6 +69,9 @@
                 <a href="{{ request()->routeIs('home') ? '#about' : route('home') . '#about' }}" class="{{ request()->routeIs('about') ? 'nav-link-active' : 'nav-link' }}" data-section="about">
                     Tentang
                 </a>
+                <a href="{{ request()->routeIs('home') ? '#gallery' : route('home') . '#gallery' }}" class="nav-link" data-section="gallery">
+                    Dokumentasi
+                </a>
                 <a href="{{ request()->routeIs('home') ? '#contact' : route('home') . '#contact' }}" class="{{ request()->routeIs('contact') ? 'nav-link-active' : 'nav-link' }}" data-section="contact">
                     Kontak
                 </a>
@@ -117,6 +120,7 @@
             <a href="{{ request()->routeIs('home') ? '#hero' : route('home') . '#hero' }}" class="{{ request()->routeIs('home') ? 'sidebar-link-active' : 'sidebar-link' }}" data-section="hero">Beranda</a>
             <a href="{{ route('articles') }}" class="{{ request()->routeIs('articles*') ? 'sidebar-link-active' : 'sidebar-link' }}">Artikel</a>
             <a href="{{ request()->routeIs('home') ? '#about' : route('home') . '#about' }}" class="{{ request()->routeIs('about') ? 'sidebar-link-active' : 'sidebar-link' }}" data-section="about">Tentang</a>
+            <a href="{{ request()->routeIs('home') ? '#gallery' : route('home') . '#gallery' }}" class="sidebar-link" data-section="gallery">Dokumentasi</a>
             <a href="{{ request()->routeIs('home') ? '#contact' : route('home') . '#contact' }}" class="{{ request()->routeIs('contact') ? 'sidebar-link-active' : 'sidebar-link' }}" data-section="contact">Kontak</a>
             <div class="pt-2 border-t border-gray-200 flex gap-2 dark:border-gray-800">
                 @auth
@@ -271,7 +275,7 @@
                     }
                 });
 
-                if (currentSection === 'hero' || currentSection === 'about' || currentSection === 'contact') {
+                if (currentSection === 'hero' || currentSection === 'about' || currentSection === 'gallery' || currentSection === 'contact') {
                     updateActiveLink(currentSection);
                 }
             });

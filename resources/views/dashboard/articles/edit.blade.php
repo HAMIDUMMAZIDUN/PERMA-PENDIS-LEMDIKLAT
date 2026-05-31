@@ -78,19 +78,18 @@
 
             <div class="flex items-center gap-3">
                 <button type="submit" class="btn-primary">
-                    
                     Perbarui Artikel
                 </button>
                 <a href="{{ route('dashboard.articles') }}" class="btn-secondary">Batal</a>
-                <form action="{{ route('dashboard.articles.destroy', $article->id) }}" method="POST"
-                      class="ml-auto" onsubmit="return confirm('Hapus artikel ini?')">
-                    @csrf @method('DELETE')
-                    <button type="submit" class="btn-danger">
-                        
-                        Hapus
-                    </button>
-                </form>
+                <button type="button" class="btn-danger ml-auto" onclick="if(confirm('Hapus artikel ini?')) document.getElementById('delete-article-form').submit();">
+                    Hapus
+                </button>
             </div>
+        </form>
+
+        <form id="delete-article-form" action="{{ route('dashboard.articles.destroy', $article->id) }}" method="POST" class="hidden">
+            @csrf
+            @method('DELETE')
         </form>
     </div>
 </div>

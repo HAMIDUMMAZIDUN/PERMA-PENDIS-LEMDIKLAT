@@ -70,7 +70,6 @@
 
     <div class="mt-8">
         <a href="{{ route('articles') }}" class="btn-secondary">
-            
             Kembali ke Artikel
         </a>
     </div>

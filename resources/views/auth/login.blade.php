@@ -104,14 +104,11 @@
                 </div>
 
                 {{-- Options row --}}
-                <div class="flex items-center justify-between text-xs pt-1">
+                <div class="flex items-center text-xs pt-1">
                     <label class="flex items-center gap-2 cursor-pointer select-none">
                         <input id="remember" name="remember" type="checkbox" class="h-4 w-4 bg-white/10 text-emerald-600 rounded border-white/20 focus:ring-0">
                         <span class="text-emerald-100 font-medium">Ingat saya</span>
                     </label>
-                    <a href="{{ route('register') }}" class="text-emerald-200 hover:text-white font-bold transition-all underline underline-offset-2">
-                        Daftar Akun Baru
-                    </a>
                 </div>
 
                 {{-- Sign In Button --}}
