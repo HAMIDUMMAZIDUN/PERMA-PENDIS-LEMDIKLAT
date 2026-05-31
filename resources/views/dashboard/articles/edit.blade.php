@@ -59,7 +59,7 @@
 
             <div>
                 <label for="content" class="form-label">Isi Artikel <span class="text-red-500">*</span></label>
-                <textarea id="content" name="content" rows="14" required
+                <textarea id="content" name="content" rows="14"
                           class="form-input font-mono text-sm">{{ old('content', $article->content) }}</textarea>
             </div>
 
@@ -95,16 +95,24 @@
     </div>
 </div>
 
+<script src="https://cdn.ckeditor.com/4.22.1/full/ckeditor.js"></script>
 <script>
-function previewThumb(input) {
-    if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = e => {
-            document.getElementById('thumb-img').src = e.target.result;
-            document.getElementById('thumb-preview').classList.remove('hidden');
-        };
-        reader.readAsDataURL(input.files[0]);
+    // Initialize CKEditor
+    CKEDITOR.replace('content', {
+        height: 400,
+        removeButtons: 'PasteFromWord,Image', // remove buttons that might not be fully configured/needed
+        language: 'id',
+    });
+
+    function previewThumb(input) {
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = e => {
+                document.getElementById('thumb-img').src = e.target.result;
+                document.getElementById('thumb-preview').classList.remove('hidden');
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
     }
-}
 </script>
 @endsection

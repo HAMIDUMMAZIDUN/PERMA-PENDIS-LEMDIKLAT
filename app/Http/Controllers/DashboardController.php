@@ -20,6 +20,10 @@ class DashboardController extends Controller
         $settings = [
             'home_welcome_title' => \App\Models\Setting::get('home_welcome_title', 'Selamat Datang di Lemdiklat Permapendis'),
             'home_welcome_desc' => \App\Models\Setting::get('home_welcome_desc', 'Lembaga Pendidikan dan Pelatihan Permapendis adalah pusat pelatihan yang berdedikasi untuk meningkatkan kompetensi tenaga pendidik dan kependidikan di Indonesia.'),
+            'home_bg_type' => \App\Models\Setting::get('home_bg_type', 'color'),
+            'home_bg_color' => \App\Models\Setting::get('home_bg_color', '#e8f4fd'),
+            'home_bg_color_dark' => \App\Models\Setting::get('home_bg_color_dark', '#070e17'),
+            'home_bg_image' => \App\Models\Setting::get('home_bg_image', ''),
             'home_img_1' => \App\Models\Setting::get('home_img_1', 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=300&h=200&fit=crop'),
             'home_img_2' => \App\Models\Setting::get('home_img_2', 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=200&h=130&fit=crop'),
             'home_img_3' => \App\Models\Setting::get('home_img_3', 'https://images.unsplash.com/photo-1606761568499-6d2451b23c66?w=200&h=130&fit=crop'),
@@ -38,6 +42,11 @@ class DashboardController extends Controller
         $request->validate([
             'home_welcome_title' => 'required|string|max:255',
             'home_welcome_desc' => 'required|string',
+            'home_bg_type' => 'required|in:color,image',
+            'home_bg_color' => 'nullable|string|max:20',
+            'home_bg_color_dark' => 'nullable|string|max:20',
+            'home_bg_image_url' => 'nullable|url',
+            'home_bg_image_file' => 'nullable|image|max:512000',
             'home_img_url_1' => 'nullable|url',
             'home_img_url_2' => 'nullable|url',
             'home_img_url_3' => 'nullable|url',
@@ -58,6 +67,18 @@ class DashboardController extends Controller
 
         \App\Models\Setting::set('home_welcome_title', $request->home_welcome_title);
         \App\Models\Setting::set('home_welcome_desc', $request->home_welcome_desc);
+        \App\Models\Setting::set('home_bg_type', $request->home_bg_type);
+        \App\Models\Setting::set('home_bg_color', $request->home_bg_color ?? '#e8f4fd');
+        \App\Models\Setting::set('home_bg_color_dark', $request->home_bg_color_dark ?? '#070e17');
+
+        if ($request->hasFile('home_bg_image_file')) {
+            $file = $request->file('home_bg_image_file');
+            $filename = "home_bg_" . time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploads/settings'), $filename);
+            \App\Models\Setting::set('home_bg_image', asset('uploads/settings/' . $filename));
+        } elseif ($request->filled('home_bg_image_url')) {
+            \App\Models\Setting::set('home_bg_image', $request->home_bg_image_url);
+        }
 
         // Process each image setting
         for ($i = 1; $i <= 5; $i++) {

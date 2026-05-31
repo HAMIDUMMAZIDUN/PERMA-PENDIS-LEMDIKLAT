@@ -8,6 +8,36 @@
     <meta name="description" content="@yield('description', 'Lembaga Pendidikan dan Pelatihan Permapendis - Pusat pelatihan yang berdedikasi untuk meningkatkan kompetensi tenaga pendidik dan kependidikan di Indonesia.')">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="icon" href="{{ asset('img/logo.png') }}" type="image/png">
+    <style>
+        /* White navbar theme classes */
+        #main-header.is-transparent-white .nav-link {
+            color: rgba(255, 255, 255, 0.85) !important;
+            background-color: transparent !important;
+            border-color: transparent !important;
+        }
+        #main-header.is-transparent-white .nav-link:hover {
+            color: #ffffff !important;
+            background-color: rgba(255, 255, 255, 0.1) !important;
+        }
+        #main-header.is-transparent-white .nav-link-active {
+            color: #ffffff !important;
+            background-color: rgba(255, 255, 255, 0.15) !important;
+            border: 1px solid rgba(255, 255, 255, 0.25) !important;
+        }
+        #main-header.is-transparent-white .navbar-logo {
+            color: #ffffff !important;
+        }
+        #main-header.is-transparent-white button {
+            color: rgba(255, 255, 255, 0.85) !important;
+        }
+        #main-header.is-transparent-white button:hover {
+            color: #ffffff !important;
+            background-color: rgba(255, 255, 255, 0.1) !important;
+        }
+        #main-header.is-transparent-white #mobile-menu-btn {
+            color: #ffffff !important;
+        }
+    </style>
     <script>
         if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark')
@@ -19,31 +49,27 @@
 <body class="bg-gray-50 text-gray-900 antialiased dark:bg-gray-950 dark:text-gray-100 dark:bg-gray-800 dark:text-white">
 
 {{-- Navbar --}}
-<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm dark:border-gray-800">
+<header id="main-header" class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm dark:border-gray-800 transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
             {{-- Logo --}}
-            <a href="{{ route('home') }}" class="flex items-center gap-2.5 font-bold text-primary-900 hover:opacity-90 transition-opacity">
+            <a href="{{ route('home') }}" class="navbar-logo flex items-center gap-2.5 font-bold text-primary-900 hover:opacity-90 transition-opacity">
                 <img src="{{ asset('img/logo.png') }}" alt="Logo Lemdiklat" class="h-10 w-10 object-contain" onerror="this.style.display='none'">
                 <span class="text-sm sm:text-base leading-tight">Lemdiklat<br><span class="text-secondary-600 font-normal">Permapendis</span></span>
             </a>
 
             {{-- Desktop Nav --}}
-            <nav class="hidden md:flex items-center gap-1">
-                <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'nav-link-active' : 'nav-link' }}">
-                    
+            <nav class="hidden md:flex items-center gap-1" id="main-nav">
+                <a href="{{ request()->routeIs('home') ? '#hero' : route('home') . '#hero' }}" class="{{ request()->routeIs('home') ? 'nav-link-active' : 'nav-link' }}" data-section="hero">
                     Beranda
                 </a>
                 <a href="{{ route('articles') }}" class="{{ request()->routeIs('articles*') ? 'nav-link-active' : 'nav-link' }}">
-                    
                     Artikel
                 </a>
-                <a href="{{ route('about') }}" class="{{ request()->routeIs('about') ? 'nav-link-active' : 'nav-link' }}">
-                    
+                <a href="{{ request()->routeIs('home') ? '#about' : route('home') . '#about' }}" class="{{ request()->routeIs('about') ? 'nav-link-active' : 'nav-link' }}" data-section="about">
                     Tentang
                 </a>
-                <a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'nav-link-active' : 'nav-link' }}">
-                    
+                <a href="{{ request()->routeIs('home') ? '#contact' : route('home') . '#contact' }}" class="{{ request()->routeIs('contact') ? 'nav-link-active' : 'nav-link' }}" data-section="contact">
                     Kontak
                 </a>
             </nav>
@@ -85,11 +111,11 @@
 
     {{-- Mobile Menu --}}
     <div id="mobile-menu" class="hidden md:hidden border-t border-gray-200 bg-white dark:bg-gray-900 dark:border-gray-800">
-        <nav class="px-4 py-3 space-y-1">
-            <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'sidebar-link-active' : 'sidebar-link' }}">Beranda</a>
+        <nav class="px-4 py-3 space-y-1" id="mobile-nav">
+            <a href="{{ request()->routeIs('home') ? '#hero' : route('home') . '#hero' }}" class="{{ request()->routeIs('home') ? 'sidebar-link-active' : 'sidebar-link' }}" data-section="hero">Beranda</a>
             <a href="{{ route('articles') }}" class="{{ request()->routeIs('articles*') ? 'sidebar-link-active' : 'sidebar-link' }}">Artikel</a>
-            <a href="{{ route('about') }}" class="{{ request()->routeIs('about') ? 'sidebar-link-active' : 'sidebar-link' }}">Tentang</a>
-            <a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'sidebar-link-active' : 'sidebar-link' }}">Kontak</a>
+            <a href="{{ request()->routeIs('home') ? '#about' : route('home') . '#about' }}" class="{{ request()->routeIs('about') ? 'sidebar-link-active' : 'sidebar-link' }}" data-section="about">Tentang</a>
+            <a href="{{ request()->routeIs('home') ? '#contact' : route('home') . '#contact' }}" class="{{ request()->routeIs('contact') ? 'sidebar-link-active' : 'sidebar-link' }}" data-section="contact">Kontak</a>
             <div class="pt-2 border-t border-gray-200 flex gap-2 dark:border-gray-800">
                 @auth
                     <a href="{{ route('dashboard') }}" class="btn-primary py-2 px-4 text-sm w-full justify-center">Dashboard</a>
@@ -180,6 +206,114 @@
         document.getElementById('flash-msg')?.remove();
         document.getElementById('flash-msg-err')?.remove();
     }, 5000);
+
+    // Smooth scrolling and scroll spy for single-page app behavior on homepage
+    document.addEventListener('DOMContentLoaded', function() {
+        const header = document.getElementById('main-header');
+        const isHome = window.location.pathname === '/' || window.location.pathname === '/index.php' || window.location.pathname === '';
+
+        if (isHome && header) {
+            function handleScroll() {
+                if (window.scrollY > 50) {
+                    header.classList.remove('absolute', 'w-full', 'bg-transparent', 'border-transparent', 'shadow-none', 'dark:border-transparent', 'is-transparent-white');
+                    header.classList.add('sticky', 'bg-white/90', 'backdrop-blur-md', 'border-b', 'border-gray-200', 'shadow-sm', 'dark:bg-gray-950/90', 'dark:border-gray-800');
+                } else {
+                    header.classList.remove('sticky', 'bg-white/90', 'backdrop-blur-md', 'border-b', 'border-gray-200', 'shadow-sm', 'dark:bg-gray-950/90', 'dark:border-gray-800');
+                    header.classList.add('absolute', 'w-full', 'bg-transparent', 'border-transparent', 'shadow-none', 'dark:border-transparent', 'is-transparent-white');
+                }
+            }
+            handleScroll();
+            window.addEventListener('scroll', handleScroll);
+        }
+
+        const desktopLinks = document.querySelectorAll('#main-nav a[data-section]');
+        const mobileLinks = document.querySelectorAll('#mobile-nav a[data-section]');
+        const sections = document.querySelectorAll('section[id]');
+
+        // Update active class helper
+        function updateActiveLink(sectionId) {
+            desktopLinks.forEach(link => {
+                if (link.getAttribute('data-section') === sectionId) {
+                    link.classList.add('nav-link-active');
+                    link.classList.remove('nav-link');
+                } else {
+                    link.classList.remove('nav-link-active');
+                    link.classList.add('nav-link');
+                }
+            });
+
+            mobileLinks.forEach(link => {
+                if (link.getAttribute('data-section') === sectionId) {
+                    link.classList.add('sidebar-link-active');
+                    link.classList.remove('sidebar-link');
+                } else {
+                    link.classList.remove('sidebar-link-active');
+                    link.classList.add('sidebar-link');
+                }
+            });
+        }
+
+        // Only run Scroll Spy on home page
+        if (window.location.pathname === '/' || window.location.pathname === '/index.php') {
+            // Scroll spy
+            window.addEventListener('scroll', function() {
+                let currentSection = 'hero';
+                const scrollPosition = window.scrollY + 200;
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+
+                    if (scrollPosition >= sectionTop && scrollPosition < (sectionTop + sectionHeight)) {
+                        currentSection = section.getAttribute('id');
+                    }
+                });
+
+                if (currentSection === 'hero' || currentSection === 'about' || currentSection === 'contact') {
+                    updateActiveLink(currentSection);
+                }
+            });
+
+            // Smooth scroll click handler
+            const allLinks = [...desktopLinks, ...mobileLinks];
+            allLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    const hashIndex = href.indexOf('#');
+                    if (hashIndex !== -1) {
+                        const targetId = href.substring(hashIndex + 1);
+                        const targetSection = document.getElementById(targetId);
+                        if (targetSection) {
+                            e.preventDefault();
+                            // Close mobile menu if open
+                            document.getElementById('mobile-menu')?.classList.add('hidden');
+                            
+                            window.scrollTo({
+                                top: targetSection.offsetTop - 70, // navbar height offset
+                                behavior: 'smooth'
+                            });
+                            // Update hash in URL
+                            window.history.pushState(null, null, '#' + targetId);
+                        }
+                    }
+                });
+            });
+
+            // Handle initial hash on page load
+            if (window.location.hash) {
+                const targetId = window.location.hash.substring(1);
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    setTimeout(() => {
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 70,
+                            behavior: 'smooth'
+                        });
+                    }, 300);
+                }
+            }
+        }
+    });
 </script>
 </body>
 </html>

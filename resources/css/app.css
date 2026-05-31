@@ -185,3 +185,10 @@
 .dashboard-stat-card {
   @apply relative overflow-hidden rounded-3xl border border-gray-100 bg-white p-6 shadow-sm hover:shadow-md transition-all duration-300 dark:bg-[#0b120f] dark:border-emerald-950/30;
 }
+
+/* Default justified paragraph alignment for articles */
+.prose p {
+  text-align: justify;
+  text-justify: inter-word;
+}
+

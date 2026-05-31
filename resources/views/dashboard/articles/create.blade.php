@@ -56,10 +56,10 @@
 
             <div>
                 <label for="content" class="form-label">Isi Artikel <span class="text-red-500">*</span></label>
-                <textarea id="content" name="content" rows="14" required
+                <textarea id="content" name="content" rows="14"
                           class="form-input font-mono text-sm"
                           placeholder="Tulis konten artikel di sini...">{{ old('content') }}</textarea>
-                <p class="text-xs text-gray-400 mt-1">Mendukung HTML sederhana untuk formatting.</p>
+                <p class="text-xs text-gray-400 mt-1">Mendukung HTML dan formatting kaya.</p>
             </div>
 
             <div class="flex items-center gap-3 py-4 border-t border-gray-100 dark:border-gray-800">
@@ -86,16 +86,24 @@
     </div>
 </div>
 
+<script src="https://cdn.ckeditor.com/4.22.1/full/ckeditor.js"></script>
 <script>
-function previewThumb(input) {
-    if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = e => {
-            document.getElementById('thumb-img').src = e.target.result;
-            document.getElementById('thumb-preview').classList.remove('hidden');
-        };
-        reader.readAsDataURL(input.files[0]);
+    // Initialize CKEditor
+    CKEDITOR.replace('content', {
+        height: 400,
+        removeButtons: 'PasteFromWord,Image', // remove buttons that might not be fully configured/needed
+        language: 'id',
+    });
+
+    function previewThumb(input) {
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = e => {
+                document.getElementById('thumb-img').src = e.target.result;
+                document.getElementById('thumb-preview').classList.remove('hidden');
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
     }
-}
 </script>
 @endsection
