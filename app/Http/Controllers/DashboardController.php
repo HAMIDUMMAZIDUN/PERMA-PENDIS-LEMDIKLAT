@@ -10,7 +10,28 @@ class DashboardController extends Controller
     public function index()
     {
         $user = Auth::user()->load('profile', 'role');
-        return view('dashboard.index', compact('user'));
+        
+        // Fetch real metrics from DB
+        $totalArticles = \App\Models\Article::count();
+        $totalBoardMembers = \App\Models\BoardMember::count();
+        $pendingApprovals = \App\Models\User::where('is_activated', false)->count();
+        $activeUsers = \App\Models\User::where('is_activated', true)->count();
+        
+        // Fetch recent records
+        $recentArticles = \App\Models\Article::with('category')->latest()->take(3)->get();
+        $recentBoardMembers = \App\Models\BoardMember::latest()->take(3)->get();
+        $recentPendingUsers = \App\Models\User::where('is_activated', false)->with('profile', 'role')->latest()->take(3)->get();
+        
+        return view('dashboard.index', compact(
+            'user', 
+            'totalArticles', 
+            'totalBoardMembers', 
+            'pendingApprovals', 
+            'activeUsers',
+            'recentArticles',
+            'recentBoardMembers',
+            'recentPendingUsers'
+        ));
     }
 
     public function settings()
