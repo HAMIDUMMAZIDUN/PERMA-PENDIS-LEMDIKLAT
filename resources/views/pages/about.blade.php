@@ -214,7 +214,7 @@
             <h3 class="text-3xl font-extrabold leading-tight">Ada Pertanyaan Mengenai Program Kami?</h3>
             <p class="text-emerald-100/80 text-sm font-medium leading-relaxed">Hubungi pusat informasi kami untuk mendapatkan detail kurikulum pelatihan atau konsultasi korporasi sekolah.</p>
             <div class="pt-4">
-                <a href="{{ route('contact') }}" class="btn-primary bg-white text-primary-950 hover:bg-emerald-50 px-8 py-3.5 border-0 shadow-lg dark:bg-white dark:text-primary-950 dark:hover:bg-emerald-50">Hubungi Kami Sekarang</a>
+                <a href="{{ route('contact') }}" class="btn-primary px-8 py-3.5">Hubungi Kami Sekarang</a>
             </div>
         </div>
     </div>

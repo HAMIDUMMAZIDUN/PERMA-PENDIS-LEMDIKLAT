@@ -53,12 +53,12 @@
                 </p>
                 
                 <div class="flex flex-wrap gap-4 pt-4">
-                    <a href="{{ route('about') }}" class="btn-primary py-3.5 px-8 shadow-blue-900/10 bg-white text-gray-950 hover:bg-neutral-100">
+                    <a href="{{ route('about') }}" class="btn-primary py-3.5 px-8">
                         Tentang Kami
                         <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                     </a>
-                    <a href="{{ route('articles') }}" class="btn-secondary py-3.5 px-8 bg-white/15 border-white/20 text-white hover:bg-white/25 backdrop-blur-sm">
-                        Lihat Artikel
+                    <a href="{{ route('articles') }}" class="btn-secondary py-3.5 px-8">
+                        Berita & Kegiatan
                     </a>
                 </div>
 
@@ -520,10 +520,10 @@
             <h2 class="text-3xl md:text-5xl font-black tracking-tight leading-tight">Siap Untuk Meningkatkan Kualitas Sekolah Anda?</h2>
             <p class="text-emerald-100/80 text-base md:text-lg font-medium leading-relaxed">Daftarkan diri Anda sekarang sebagai peserta pelatihan profesional dan kembangkan kompetensi kepemimpinan institusi pendidikan.</p>
             <div class="flex flex-wrap justify-center gap-4 pt-4">
-                <a href="{{ route('register') }}" class="btn-primary bg-white text-primary-950 hover:bg-emerald-50 px-8 py-3.5 shadow-xl shadow-black/20 dark:bg-white dark:text-primary-950 dark:hover:bg-emerald-50 border-0">
-                    Daftar Sekarang
+                <a href="{{ route('register') }}" class="btn-primary px-8 py-3.5">
+                    Daftar Sekarang Juga
                 </a>
-                <a href="{{ route('contact') }}" class="btn-secondary bg-transparent border-white text-white hover:bg-white/10 px-8 py-3.5 dark:bg-transparent dark:border-white dark:text-white dark:hover:bg-white/10">
+                <a href="{{ route('contact') }}" class="btn-secondary px-8 py-3.5">
                     Hubungi Kami
                 </a>
             </div>

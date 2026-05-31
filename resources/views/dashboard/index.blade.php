@@ -160,11 +160,11 @@
                 <div class="flex items-center gap-2 sm:self-center">
                     <form action="{{ route('dashboard.approvals.approve', $pendingUser->id) }}" method="POST" class="inline">
                         @csrf
-                        <button type="submit" class="btn-primary text-xs px-4 py-2 border-0 shadow-none">Setujui</button>
+                        <button type="submit" class="btn-success text-xs px-4 py-2">Setujui</button>
                     </form>
                     <form action="{{ route('dashboard.approvals.reject', $pendingUser->id) }}" method="POST" class="inline">
                         @csrf
-                        <button type="submit" class="btn-danger text-xs px-4 py-2 border-0 shadow-none">Tolak</button>
+                        <button type="submit" class="btn-danger text-xs px-4 py-2">Tolak</button>
                     </form>
                 </div>
             </div>

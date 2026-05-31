@@ -84,7 +84,7 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn-primary w-full justify-center py-3.5 text-base shadow-lg hover:shadow-emerald-500/25">
+                <button type="submit" class="btn-primary w-full justify-center py-3.5 text-base">
                     Kirim Pendaftaran
                 </button>
             </form>

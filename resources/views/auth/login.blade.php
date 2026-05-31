@@ -115,8 +115,8 @@
                 </div>
 
                 {{-- Sign In Button --}}
-                <button type="submit" class="w-full py-3.5 bg-emerald-500 hover:bg-emerald-400 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform active:scale-98 tracking-wider text-sm mt-2">
-                    MASUK
+                <button type="submit" class="btn-primary w-full py-3.5 mt-2">
+                    Masuk Sekarang
                 </button>
 
                 {{-- OR divider --}}

@@ -66,20 +66,21 @@
                             {{ $pending->created_at->format('d M Y, H:i') }}
                         </td>
                         <td class="py-4 px-4 text-right">
-                            <div class="flex items-center justify-end gap-2">
-                                <form action="{{ route('dashboard.approvals.approve', $pending->id) }}" method="POST">
-                                    @csrf
-                                    <button type="submit" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition shadow-sm">
-                                        Setujui
-                                    </button>
-                                </form>
-                                <form action="{{ route('dashboard.approvals.reject', $pending->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menolak pendaftaran ini? Data pendaftar akan dihapus.');">
-                                    @csrf
-                                    <button type="submit" class="px-3 py-1.5 bg-red-50 text-red-600 hover:bg-red-100 rounded-lg text-xs font-bold transition">
-                                        Tolak
-                                    </button>
-                                </form>
-                            </div>
+                                <div class="flex items-center gap-2">
+                                    <form action="{{ route('dashboard.approvals.approve', $pending->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn-success text-xs px-3 py-1.5 shadow-sm">
+                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Setujui
+                                        </button>
+                                    </form>
+
+                                    <form action="{{ route('dashboard.approvals.reject', $pending->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menolak dan menghapus pendaftaran akun ini?');">
+                                        @csrf
+                                        <button type="submit" class="btn-danger text-xs px-3 py-1.5 shadow-sm">
+                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg> Tolak
+                                        </button>
+                                    </form>
+                                </div>
                         </td>
                     </tr>
                     @endforeach
