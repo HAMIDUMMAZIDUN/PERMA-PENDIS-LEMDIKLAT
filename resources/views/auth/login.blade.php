@@ -27,7 +27,7 @@
             <a href="{{ route('home') }}" class="group flex flex-col items-center gap-5 transition-transform hover:scale-102 duration-300">
                 {{-- Beautiful Glassmorphic Logo Ring --}}
                 <div class="w-24 h-24 rounded-full bg-emerald-50 dark:bg-emerald-950/40 flex items-center justify-center shadow-inner p-4 border border-emerald-100/50 dark:border-emerald-900/30">
-                    <img src="{{ asset('img/logo.png') }}" alt="Logo" class="w-full h-full object-contain" onerror="this.style.display='none'">
+                    <img src="{{ \App\Models\Setting::get('app_logo', asset('img/logo.png')) }}" alt="Logo" class="w-full h-full object-contain" onerror="this.style.display='none'">
                 </div>
                 <div>
                     <h1 class="text-2xl md:text-3xl font-black tracking-wider text-slate-800 dark:text-white uppercase leading-tight">

@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Dashboard') - Lemdiklat Permapendis</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="icon" href="{{ asset('img/logo.png') }}" type="image/png">
+    <link rel="icon" href="{{ \App\Models\Setting::get('app_logo', asset('img/logo.png')) }}" type="image/png">
     <script>
         if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark')
@@ -24,7 +24,7 @@
         {{-- Brand --}}
         <div class="p-5 border-b border-gray-100 dark:border-gray-800">
             <a href="{{ route('home') }}" class="flex items-center gap-2.5">
-                <img src="{{ asset('img/logo.png') }}" alt="Logo" class="h-10 w-10 object-contain" onerror="this.style.display='none'">
+                <img src="{{ \App\Models\Setting::get('app_logo', asset('img/logo.png')) }}" alt="Logo" class="h-10 w-10 object-contain" onerror="this.style.display='none'">
                 <div>
                     <p class="font-bold text-primary-900 text-sm leading-tight dark:text-white">Lemdiklat</p>
                     <p class="text-secondary-600 text-xs font-medium dark:text-secondary-400">Permapendis</p>

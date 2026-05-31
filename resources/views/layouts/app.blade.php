@@ -7,7 +7,7 @@
     <title>@yield('title', 'Lemdiklat Permapendis') - Lembaga Pendidikan dan Pelatihan</title>
     <meta name="description" content="@yield('description', 'Lembaga Pendidikan dan Pelatihan Permapendis - Pusat pelatihan yang berdedikasi untuk meningkatkan kompetensi tenaga pendidik dan kependidikan di Indonesia.')">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="icon" href="{{ asset('img/logo.png') }}" type="image/png">
+    <link rel="icon" href="{{ \App\Models\Setting::get('app_logo', asset('img/logo.png')) }}" type="image/png">
     <style>
         /* White navbar theme classes */
         #main-header.is-transparent-white .nav-link {
@@ -54,7 +54,7 @@
         <div class="flex items-center justify-between h-16">
             {{-- Logo --}}
             <a href="{{ route('home') }}" class="navbar-logo flex items-center gap-2.5 font-bold text-primary-900 hover:opacity-90 transition-opacity">
-                <img src="{{ asset('img/logo.png') }}" alt="Logo Lemdiklat" class="h-10 w-10 object-contain" onerror="this.style.display='none'">
+                <img src="{{ \App\Models\Setting::get('app_logo', asset('img/logo.png')) }}" alt="Logo Lemdiklat" class="h-10 w-10 object-contain" onerror="this.style.display='none'">
                 <span class="text-sm sm:text-base leading-tight">Lemdiklat<br><span class="text-secondary-600 font-normal">Permapendis</span></span>
             </a>
 

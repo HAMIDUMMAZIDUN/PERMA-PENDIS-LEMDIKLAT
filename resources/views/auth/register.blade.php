@@ -19,7 +19,7 @@
         {{-- Header --}}
         <div class="bg-gradient-to-r from-primary-900 to-primary-700 px-8 py-7 text-center text-white">
             <a href="{{ route('home') }}" class="flex items-center justify-center gap-2 mb-3">
-                <img src="{{ asset('img/logo.png') }}" alt="Logo" class="h-12 w-12 object-contain" onerror="this.style.display='none'">
+                <img src="{{ \App\Models\Setting::get('app_logo', asset('img/logo.png')) }}" alt="Logo" class="h-12 w-12 object-contain" onerror="this.style.display='none'">
             </a>
             <h1 class="text-2xl font-bold">Buat Akun Baru</h1>
             <p class="text-emerald-200 text-sm mt-1 font-medium">Bergabung dengan Lemdiklat Permapendis</p>

@@ -91,6 +91,35 @@
                     </div>
                 </div>
 
+                {{-- App Logo Options (File / URL) --}}
+                <div class="border-t border-gray-50 pt-6 dark:border-emerald-950/20 space-y-4">
+                    <span class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Konfigurasi Logo Aplikasi</span>
+                    
+                    <div id="preview-logo-container" class="w-24 h-24 rounded-xl overflow-hidden border border-gray-200 relative mb-4 dark:border-emerald-950/20 shadow-sm bg-white {{ empty($settings['app_logo']) ? 'hidden' : '' }}">
+                        <img id="preview-logo" src="{{ $settings['app_logo'] ?? '' }}" alt="Current Logo" class="w-full h-full object-contain p-2">
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-450 mb-1.5 dark:text-gray-500 uppercase tracking-wide">Unggah Logo Aplikasi Baru</label>
+                            <input type="file" name="app_logo_file" accept="image/*" onchange="previewSettingsImage(this, 'preview-logo')"
+                                   class="block w-full text-xs text-gray-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-primary-50 file:text-primary-750 hover:file:bg-primary-100 dark:file:bg-emerald-950/40 dark:file:text-emerald-300 dark:hover:file:bg-emerald-900/30 transition">
+                            @error("app_logo_file")
+                                <p class="text-red-500 text-[10px] mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-455 mb-1.5 dark:text-gray-500 uppercase tracking-wide">Atau Gunakan URL Logo</label>
+                            <input type="url" name="app_logo_url" placeholder="https://example.com/logo.png"
+                                   class="form-input py-2 text-xs">
+                            @error("app_logo_url")
+                                <p class="text-red-500 text-[10px] mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+
                 {{-- Image Options (File / URL) --}}
                 <div class="border-t border-gray-50 pt-6 dark:border-emerald-950/20 space-y-4">
                     <span class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Konfigurasi Gambar Latar</span>
@@ -234,6 +263,9 @@
                 document.getElementById(previewId).src = e.target.result;
                 if (previewId === 'preview-bg') {
                     document.getElementById('preview-bg-container').classList.remove('hidden');
+                }
+                if (previewId === 'preview-logo') {
+                    document.getElementById('preview-logo-container').classList.remove('hidden');
                 }
             };
             reader.readAsDataURL(input.files[0]);

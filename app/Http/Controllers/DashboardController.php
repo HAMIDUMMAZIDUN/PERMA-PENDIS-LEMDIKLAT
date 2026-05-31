@@ -39,6 +39,7 @@ class DashboardController extends Controller
         $user = Auth::user()->load('profile', 'role');
         
         $settings = [
+            'app_logo' => \App\Models\Setting::get('app_logo', asset('img/logo.png')),
             'home_welcome_title' => \App\Models\Setting::get('home_welcome_title', 'Selamat Datang di Lemdiklat Permapendis'),
             'home_welcome_desc' => \App\Models\Setting::get('home_welcome_desc', 'Lembaga Pendidikan dan Pelatihan Permapendis adalah pusat pelatihan yang berdedikasi untuk meningkatkan kompetensi tenaga pendidik dan kependidikan di Indonesia.'),
             'home_bg_type' => \App\Models\Setting::get('home_bg_type', 'color'),
@@ -61,6 +62,8 @@ class DashboardController extends Controller
     public function updateSettings(Request $request)
     {
         $request->validate([
+            'app_logo_url' => 'nullable|url',
+            'app_logo_file' => 'nullable|image|max:512000',
             'home_welcome_title' => 'required|string|max:255',
             'home_welcome_desc' => 'required|string',
             'home_bg_type' => 'required|in:color,image',
@@ -85,6 +88,15 @@ class DashboardController extends Controller
             'home_program_img_file_2' => 'nullable|image|max:512000',
             'home_program_img_file_3' => 'nullable|image|max:512000',
         ]);
+
+        if ($request->hasFile('app_logo_file')) {
+            $file = $request->file('app_logo_file');
+            $filename = "app_logo_" . time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploads/settings'), $filename);
+            \App\Models\Setting::set('app_logo', asset('uploads/settings/' . $filename));
+        } elseif ($request->filled('app_logo_url')) {
+            \App\Models\Setting::set('app_logo', $request->app_logo_url);
+        }
 
         \App\Models\Setting::set('home_welcome_title', $request->home_welcome_title);
         \App\Models\Setting::set('home_welcome_desc', $request->home_welcome_desc);
