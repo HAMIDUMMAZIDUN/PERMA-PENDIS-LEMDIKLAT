@@ -19,8 +19,8 @@
                 </div>
             @endif
             <div class="text-center md:text-left space-y-1.5">
-                <h2 class="text-2xl md:text-3xl font-black tracking-tight">Selamat Datang, {{ auth()->user()->display_name }}!</h2>
-                <p class="text-emerald-200/90 text-sm font-semibold tracking-wide">Pusat tata kelola pembelajaran dan penguatan kompetensi digital Anda.</p>
+                <h2 class="text-xl md:text-2xl font-bold tracking-tight">Selamat Datang, {{ auth()->user()->display_name }}!</h2>
+                <p class="text-emerald-200/90 text-sm font-medium tracking-wide">Pusat tata kelola pembelajaran dan penguatan kompetensi digital Anda.</p>
             </div>
         </div>
     </div>
@@ -55,14 +55,14 @@
         ] as $stat)
         <div class="dashboard-stat-card group hover:-translate-y-1 hover:shadow-md transition-all duration-300">
             <div class="flex items-center justify-between mb-4">
-                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">{{ $stat['label'] }}</p>
+                <p class="text-xs font-medium text-gray-400 uppercase tracking-wider">{{ $stat['label'] }}</p>
                 <div class="w-10 h-10 rounded-xl flex items-center justify-center {{ $stat['color'] }}">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         {!! $stat['icon'] !!}
                     </svg>
                 </div>
             </div>
-            <p class="text-3xl font-black text-gray-900 dark:text-white tracking-tight">{{ $stat['value'] }}</p>
+            <p class="text-2xl font-medium text-gray-900 dark:text-white tracking-tight">{{ $stat['value'] }}</p>
         </div>
         @endforeach
     </div>
@@ -73,8 +73,8 @@
         {{-- Recent Articles --}}
         <div class="card p-0 overflow-hidden">
             <div class="px-6 py-5 border-b border-gray-100 dark:border-emerald-950/20 flex items-center justify-between">
-                <h3 class="font-extrabold text-gray-900 text-lg dark:text-white">Artikel Terbaru</h3>
-                <a href="{{ route('dashboard.articles') }}" class="text-primary-750 text-sm font-bold hover:text-primary-900 transition-colors">Lihat Semua</a>
+                <h3 class="font-bold text-gray-900 text-base dark:text-white">Artikel Terbaru</h3>
+                <a href="{{ route('dashboard.articles') }}" class="text-primary-750 text-sm font-medium hover:text-primary-900 transition-colors">Lihat Semua</a>
             </div>
             <div class="divide-y divide-gray-100/70 dark:divide-emerald-950/10">
                 @forelse($recentArticles as $art)
@@ -85,8 +85,8 @@
                         </svg>
                     </div>
                     <div class="flex-1 min-w-0">
-                        <p class="font-bold text-gray-900 text-sm truncate dark:text-white">{{ $art->title }}</p>
-                        <p class="text-xs text-gray-400 font-semibold mt-0.5">{{ $art->category?->name ?? 'Kategori Umum' }} • {{ $art->created_at->format('d M Y') }}</p>
+                        <p class="font-medium text-gray-900 text-sm truncate dark:text-white">{{ $art->title }}</p>
+                        <p class="text-xs text-gray-400 font-normal mt-0.5">{{ $art->category?->name ?? 'Kategori Umum' }} • {{ $art->created_at->format('d M Y') }}</p>
                     </div>
                     @if($art->is_published)
                         <span class="badge-success">Published</span>
@@ -105,8 +105,8 @@
         {{-- Registered Board Members --}}
         <div class="card p-0 overflow-hidden">
             <div class="px-6 py-5 border-b border-gray-100 dark:border-emerald-950/20 flex items-center justify-between">
-                <h3 class="font-extrabold text-gray-900 text-lg dark:text-white">Pengurus Baru</h3>
-                <a href="{{ route('dashboard.board-members') }}" class="text-primary-750 text-sm font-bold hover:text-primary-900 transition-colors">Lihat Semua</a>
+                <h3 class="font-bold text-gray-900 text-base dark:text-white">Pengurus Baru</h3>
+                <a href="{{ route('dashboard.board-members') }}" class="text-primary-750 text-sm font-medium hover:text-primary-900 transition-colors">Lihat Semua</a>
             </div>
             <div class="divide-y divide-gray-100/70 dark:divide-emerald-950/10">
                 @forelse($recentBoardMembers as $member)
@@ -121,8 +121,8 @@
                         </div>
                     @endif
                     <div class="flex-1 min-w-0">
-                        <p class="font-bold text-gray-900 text-sm truncate dark:text-white">{{ $member->name }}</p>
-                        <p class="text-xs text-gray-400 font-semibold mt-0.5">{{ $member->category ?? 'Pengurus Lemdiklat' }}</p>
+                        <p class="font-medium text-gray-900 text-sm truncate dark:text-white">{{ $member->name }}</p>
+                        <p class="text-xs text-gray-400 font-normal mt-0.5">{{ $member->category ?? 'Pengurus Lemdiklat' }}</p>
                     </div>
                     <span class="badge-primary">{{ $member->role }}</span>
                 </div>
@@ -138,8 +138,8 @@
     {{-- Pending User Registrations --}}
     <div class="card p-0 overflow-hidden">
         <div class="px-6 py-5 border-b border-gray-100 dark:border-emerald-950/20 flex items-center justify-between">
-            <h3 class="font-extrabold text-gray-900 text-lg dark:text-white">Persetujuan Akun Tertunda</h3>
-            <a href="{{ route('dashboard.approvals') }}" class="text-primary-750 text-sm font-bold hover:text-primary-900 transition-colors">Lihat Semua Persetujuan</a>
+            <h3 class="font-bold text-gray-900 text-base dark:text-white">Persetujuan Akun Tertunda</h3>
+            <a href="{{ route('dashboard.approvals') }}" class="text-primary-750 text-sm font-medium hover:text-primary-900 transition-colors">Lihat Semua Persetujuan</a>
         </div>
         <div class="p-6">
             @forelse($recentPendingUsers as $pendingUser)
@@ -148,13 +148,13 @@
                     @if($pendingUser->profile?->profile_picture)
                         <img src="{{ asset('uploads/profile-photos/' . $pendingUser->profile->profile_picture) }}" class="w-12 h-12 rounded-full object-cover" alt="Foto">
                     @else
-                        <div class="w-12 h-12 rounded-full bg-primary-900 flex items-center justify-center text-white text-sm font-bold dark:bg-primary-750">
+                        <div class="w-12 h-12 rounded-full bg-primary-900 flex items-center justify-center text-white text-sm font-medium dark:bg-primary-750">
                             {{ $pendingUser->initials }}
                         </div>
                     @endif
                     <div>
-                        <h4 class="font-extrabold text-gray-900 text-base dark:text-white leading-tight">{{ $pendingUser->display_name }}</h4>
-                        <p class="text-xs text-gray-450 dark:text-gray-400 font-semibold mt-1">{{ $pendingUser->email }} • Role: {{ $pendingUser->role?->name ?? 'User' }}</p>
+                        <h4 class="font-bold text-gray-900 text-sm dark:text-white leading-tight">{{ $pendingUser->display_name }}</h4>
+                        <p class="text-xs text-gray-450 dark:text-gray-400 font-normal mt-1">{{ $pendingUser->email }} • Role: {{ $pendingUser->role?->name ?? 'User' }}</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-2 sm:self-center">
@@ -175,7 +175,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                 </div>
-                <h4 class="font-extrabold text-gray-900 dark:text-white text-base">Semua Akun Telah Diproses</h4>
+                <h4 class="font-bold text-gray-900 dark:text-white text-sm">Semua Akun Telah Diproses</h4>
                 <p class="text-xs text-gray-400 mt-1">Tidak ada pendaftaran akun yang tertunda untuk persetujuan saat ini.</p>
             </div>
             @endforelse
@@ -184,7 +184,7 @@
 
     {{-- Quick Actions --}}
     <div class="card p-8">
-        <h3 class="font-extrabold text-gray-900 text-lg mb-6 dark:text-white">Aksi Cepat</h3>
+        <h3 class="font-bold text-gray-900 text-base mb-6 dark:text-white">Aksi Cepat</h3>
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
             @foreach([
                 [
@@ -212,7 +212,7 @@
                     'style' => 'bg-white dark:bg-[#111e19]/60 border border-gray-150 dark:border-emerald-900/30 text-gray-700 dark:text-primary-300 hover:bg-gray-50 dark:hover:bg-primary-950/40'
                 ],
             ] as $action)
-            <a href="{{ $action['href'] }}" class="flex flex-col items-center justify-center gap-2.5 h-24 rounded-2xl font-bold text-sm transition-all duration-350 active:scale-95 text-center p-3 {{ $action['style'] }}">
+            <a href="{{ $action['href'] }}" class="flex flex-col items-center justify-center gap-2.5 h-24 rounded-2xl font-medium text-sm transition-all duration-350 active:scale-95 text-center p-3 {{ $action['style'] }}">
                 <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $action['icon'] }}" />
                 </svg>

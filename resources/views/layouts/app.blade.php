@@ -165,7 +165,7 @@
                 <p class="text-sm leading-relaxed text-gray-400">Lembaga Pendidikan dan Pelatihan yang berdedikasi untuk meningkatkan kompetensi tenaga pendidik dan kependidikan di Indonesia.</p>
             </div>
             <div>
-                <h4 class="text-white font-semibold mb-3">Navigasi</h4>
+                <h4 class="text-white font-bold mb-3">Navigasi</h4>
                 <ul class="space-y-2 text-sm">
                     <li><a href="{{ route('home') }}" class="hover:text-white transition-colors">Beranda</a></li>
                     <li><a href="{{ route('articles') }}" class="hover:text-white transition-colors">Artikel</a></li>
@@ -174,7 +174,7 @@
                 </ul>
             </div>
             <div>
-                <h4 class="text-white font-semibold mb-3">Kontak</h4>
+                <h4 class="text-white font-bold mb-3">Kontak</h4>
                 <address class="text-sm not-italic text-gray-400 space-y-2">
                     <p>Jl. Gedebage Selatan No.137, Kel. Cisaranteun Kidul, Kec. Gedebage, Kota Bandung 40295</p>
                     <p><a href="mailto:info@lemdiklat-permapendis.com" class="hover:text-white transition-colors">info@lemdiklat-permapendis.com</a></p>

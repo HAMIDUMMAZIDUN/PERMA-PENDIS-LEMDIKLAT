@@ -45,7 +45,7 @@
                     </div>
                 @endif
                 <div class="min-w-0">
-                    <p class="font-semibold text-gray-900 text-sm truncate dark:text-white">{{ $user->display_name }}</p>
+                    <p class="font-medium text-gray-900 text-sm truncate dark:text-white">{{ $user->display_name }}</p>
                     <p class="text-xs text-gray-500 truncate dark:text-gray-400">{{ $user->role?->name ?? 'User' }}</p>
                 </div>
             </div>
@@ -53,7 +53,7 @@
 
         {{-- Navigation --}}
         <nav class="flex-1 overflow-y-auto p-3 space-y-1">
-            <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider px-3 py-2">Menu Utama</p>
+            <p class="text-xs font-medium text-gray-400 uppercase tracking-wider px-3 py-2">Menu Utama</p>
 
             <a href="{{ route('dashboard') }}"
                class="{{ request()->routeIs('dashboard') && !request()->routeIs('dashboard.*') ? 'sidebar-link-active' : 'sidebar-link' }}">
@@ -73,7 +73,7 @@
 
             @if(auth()->user()->isAdmin())
             <div class="pt-2">
-                <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider px-3 py-2">Admin</p>
+                <p class="text-xs font-medium text-gray-400 uppercase tracking-wider px-3 py-2">Admin</p>
                 <a href="{{ route('dashboard.articles') }}"
                    class="{{ request()->routeIs('dashboard.articles*') ? 'sidebar-link-active' : 'sidebar-link' }}">
                     <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
@@ -108,7 +108,7 @@
                         <span>Persetujuan Akun</span>
                     </div>
                     @if($pendingCount > 0)
-                        <span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-amber-500 text-white dark:bg-amber-600">
+                        <span class="px-2 py-0.5 text-[10px] font-medium rounded-full bg-amber-500 text-white dark:bg-amber-600">
                             {{ $pendingCount }}
                         </span>
                     @endif

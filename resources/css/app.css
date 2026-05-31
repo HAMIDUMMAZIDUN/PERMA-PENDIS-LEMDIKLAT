@@ -31,19 +31,19 @@
 
   /* Stunning Modern Buttons with iOS-inspired Liquid Glass Aesthetics & Spring Physics */
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-gradient-to-b from-primary-600/90 to-primary-800/95 backdrop-blur-md text-white font-extrabold rounded-2xl border border-white/20 shadow-[0_10px_25px_-5px_rgba(32,132,87,0.35),inset_0_1.5px_0_0_rgba(255,255,255,0.35),inset_0_-1px_0_0_rgba(0,0,0,0.2)] hover:from-primary-500/95 hover:to-primary-700/95 hover:scale-[1.03] active:scale-[0.97] focus:outline-none focus:ring-4 focus:ring-primary-500/20 transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] tracking-wide text-sm dark:from-primary-600/80 dark:to-primary-700/90 dark:hover:from-primary-500/90 dark:hover:to-primary-600/95;
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-gradient-to-b from-primary-600/90 to-primary-800/95 backdrop-blur-md text-white font-medium rounded-2xl border border-white/20 shadow-[0_10px_25px_-5px_rgba(32,132,87,0.35),inset_0_1.5px_0_0_rgba(255,255,255,0.35),inset_0_-1px_0_0_rgba(0,0,0,0.2)] hover:from-primary-500/95 hover:to-primary-700/95 hover:scale-[1.03] active:scale-[0.97] focus:outline-none focus:ring-4 focus:ring-primary-500/20 transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] tracking-wide text-sm dark:from-primary-600/80 dark:to-primary-700/90 dark:hover:from-primary-500/90 dark:hover:to-primary-600/95;
   }
   
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-gradient-to-b from-white/70 to-white/40 backdrop-blur-xl border border-white/60 text-primary-950 font-extrabold rounded-2xl shadow-[0_8px_20px_-6px_rgba(0,0,0,0.06),inset_0_1.5px_0_0_rgba(255,255,255,0.6),inset_0_-1px_0_0_rgba(0,0,0,0.05)] hover:from-white/95 hover:to-white/65 hover:text-primary-900 hover:scale-[1.03] active:scale-[0.97] focus:outline-none focus:ring-4 focus:ring-primary-500/10 transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] tracking-wide text-sm dark:from-emerald-950/40 dark:to-emerald-950/20 dark:border-emerald-900/40 dark:text-primary-300 dark:hover:from-emerald-900/50 dark:hover:to-emerald-900/30;
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-gradient-to-b from-white/70 to-white/40 backdrop-blur-xl border border-white/60 text-primary-950 font-medium rounded-2xl shadow-[0_8px_20px_-6px_rgba(0,0,0,0.06),inset_0_1.5px_0_0_rgba(255,255,255,0.6),inset_0_-1px_0_0_rgba(0,0,0,0.05)] hover:from-white/95 hover:to-white/65 hover:text-primary-900 hover:scale-[1.03] active:scale-[0.97] focus:outline-none focus:ring-4 focus:ring-primary-500/10 transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] tracking-wide text-sm dark:from-emerald-950/40 dark:to-emerald-950/20 dark:border-emerald-900/40 dark:text-primary-300 dark:hover:from-emerald-900/50 dark:hover:to-emerald-900/30;
   }
   
   .btn-danger {
-    @apply inline-flex items-center justify-center gap-2 px-5 py-3 bg-gradient-to-b from-red-500/90 to-red-700/95 backdrop-blur-md text-white font-extrabold rounded-2xl border border-white/20 shadow-[0_10px_25px_-5px_rgba(220,38,38,0.35),inset_0_1.5px_0_0_rgba(255,255,255,0.35),inset_0_-1px_0_0_rgba(0,0,0,0.2)] hover:from-red-400/95 hover:to-red-600/95 hover:scale-[1.03] active:scale-[0.97] focus:outline-none transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] tracking-wide text-sm;
+    @apply inline-flex items-center justify-center gap-2 px-5 py-3 bg-gradient-to-b from-red-500/90 to-red-700/95 backdrop-blur-md text-white font-medium rounded-2xl border border-white/20 shadow-[0_10px_25px_-5px_rgba(220,38,38,0.35),inset_0_1.5px_0_0_rgba(255,255,255,0.35),inset_0_-1px_0_0_rgba(0,0,0,0.2)] hover:from-red-400/95 hover:to-red-600/95 hover:scale-[1.03] active:scale-[0.97] focus:outline-none transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] tracking-wide text-sm;
   }
   
   .btn-success {
-    @apply inline-flex items-center justify-center gap-2 px-5 py-3 bg-gradient-to-b from-teal-500/90 to-teal-700/95 backdrop-blur-md text-white font-extrabold rounded-2xl border border-white/20 shadow-[0_10px_25px_-5px_rgba(13,148,136,0.35),inset_0_1.5px_0_0_rgba(255,255,255,0.35),inset_0_-1px_0_0_rgba(0,0,0,0.2)] hover:from-teal-400/95 hover:to-teal-600/95 hover:scale-[1.03] active:scale-[0.97] focus:outline-none transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] tracking-wide text-sm;
+    @apply inline-flex items-center justify-center gap-2 px-5 py-3 bg-gradient-to-b from-teal-500/90 to-teal-700/95 backdrop-blur-md text-white font-medium rounded-2xl border border-white/20 shadow-[0_10px_25px_-5px_rgba(13,148,136,0.35),inset_0_1.5px_0_0_rgba(255,255,255,0.35),inset_0_-1px_0_0_rgba(0,0,0,0.2)] hover:from-teal-400/95 hover:to-teal-600/95 hover:scale-[1.03] active:scale-[0.97] focus:outline-none transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] tracking-wide text-sm;
   }
 
   /* Modern Card System */
@@ -61,7 +61,7 @@
   }
   
   .form-label {
-    @apply block text-sm font-semibold text-gray-700 mb-2 dark:text-gray-300 tracking-wide;
+    @apply block text-sm font-medium text-gray-700 mb-2 dark:text-gray-300 tracking-wide;
   }
 
   /* Elite Nav Links */
@@ -70,7 +70,7 @@
   }
   
   .nav-link-active {
-    @apply flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary-50/90 text-primary-900 font-bold dark:bg-primary-950/40 dark:text-primary-300 border border-primary-100/20;
+    @apply flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary-50/90 text-primary-900 font-medium dark:bg-primary-950/40 dark:text-primary-300 border border-primary-100/20;
   }
 
   /* Dashboard Elite Sidebar */
@@ -79,12 +79,12 @@
   }
   
   .sidebar-link-active {
-    @apply flex items-center gap-3 px-4 py-3 rounded-2xl bg-gradient-to-r from-primary-900 to-primary-800 text-white font-bold text-sm shadow-md shadow-primary-900/10 dark:from-primary-800 dark:to-primary-700;
+    @apply flex items-center gap-3 px-4 py-3 rounded-2xl bg-gradient-to-r from-primary-900 to-primary-800 text-white font-medium text-sm shadow-md shadow-primary-900/10 dark:from-primary-800 dark:to-primary-700;
   }
 
   /* Exquisite Badges */
   .badge {
-    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold tracking-wide;
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium tracking-wide;
   }
   
   .badge-primary {
@@ -118,7 +118,7 @@
 
   /* Elite Tables */
   .table-head {
-    @apply bg-gray-50/80 text-left text-xs font-bold text-gray-500 uppercase tracking-wider px-6 py-4 dark:bg-[#0c1410] dark:text-gray-400 border-b border-gray-100 dark:border-emerald-950/20;
+    @apply bg-gray-50/80 text-left text-xs font-medium text-gray-500 uppercase tracking-wider px-6 py-4 dark:bg-[#0c1410] dark:text-gray-400 border-b border-gray-100 dark:border-emerald-950/20;
   }
   
   .table-cell {

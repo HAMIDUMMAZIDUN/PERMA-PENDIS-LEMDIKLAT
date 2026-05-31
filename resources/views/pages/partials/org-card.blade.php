@@ -6,13 +6,13 @@
         @if(isset($photo) && $photo)
             <img src="{{ $photo }}" alt="{{ $name }}" class="relative w-16 h-16 rounded-none object-cover shadow-md border-2 border-white dark:border-gray-900">
         @else
-            <div class="relative w-16 h-16 rounded-none flex items-center justify-center text-white font-extrabold text-lg shadow-md border-2 border-white dark:border-gray-900 transition-transform duration-500 group-hover:scale-105"
+            <div class="relative w-16 h-16 rounded-none flex items-center justify-center text-white font-bold text-lg shadow-md border-2 border-white dark:border-gray-900 transition-transform duration-500 group-hover:scale-105"
                  style="background-color: #{{ $color ?? '208457' }};">
                 {{ collect(explode(' ', $name))->map(fn($w) => strtoupper(substr($w, 0, 1)))->take(2)->join('') }}
             </div>
         @endif
     </div>
     
-    <p class="font-extrabold text-gray-900 text-sm leading-snug group-hover:text-primary-800 transition dark:text-white dark:group-hover:text-primary-300">{{ $name }}</p>
-    <p class="text-xs font-bold text-gray-400 mt-1 dark:text-gray-500 uppercase tracking-widest">{{ $role }}</p>
+    <p class="font-medium text-gray-900 text-sm leading-snug group-hover:text-primary-800 transition dark:text-white dark:group-hover:text-primary-300">{{ $name }}</p>
+    <p class="text-xs font-medium text-gray-400 mt-1 dark:text-gray-500 uppercase tracking-widest">{{ $role }}</p>
 </div>

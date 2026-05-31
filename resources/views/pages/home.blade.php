@@ -39,12 +39,12 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
             {{-- Left Column (Hero Content) --}}
             <div class="animate-slide-in lg:col-span-7 space-y-8">
-                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/25 text-white text-sm font-semibold tracking-wide backdrop-blur-md">
+                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/25 text-white text-sm font-medium tracking-wide backdrop-blur-md">
                     <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
                     Pusat Pelatihan & Sertifikasi Profesional
                 </span>
                 
-                <h1 class="text-4xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tight text-white">
+                <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight text-white">
                     {!! nl2br(e(\App\Models\Setting::get('home_welcome_title', "Selamat Datang di\nLemdiklat\nPermapendis"))) !!}
                 </h1>
                 
@@ -71,8 +71,8 @@
                         ['number' => '10+', 'label' => 'Tahun Pelayanan'],
                     ] as $stat)
                     <div>
-                        <p class="text-3xl font-black text-white tracking-tight">{{ $stat['number'] }}</p>
-                        <p class="text-[11px] font-bold text-white/80 uppercase tracking-wider mt-1">{{ $stat['label'] }}</p>
+                        <p class="text-2xl font-bold text-white tracking-tight">{{ $stat['number'] }}</p>
+                        <p class="text-[11px] font-medium text-white/80 uppercase tracking-wider mt-1">{{ $stat['label'] }}</p>
                     </div>
                     @endforeach
                 </div>
@@ -87,7 +87,7 @@
 {{-- Mengapa Memilih Kami? (High-end Feature Grid) --}}
 <section class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-16 space-y-4 animate-slide-up">
-        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary-950 dark:text-white">Mengapa Memilih Kami?</h2>
+        <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-primary-950 dark:text-white">Mengapa Memilih Kami?</h2>
         <div class="w-20 h-1.5 bg-gradient-to-r from-primary-600 to-secondary-500 mx-auto rounded-full"></div>
         <p class="text-gray-500 max-w-2xl mx-auto text-lg dark:text-gray-400 font-medium">Komitmen kami adalah meningkatkan kualitas SDM pendidikan nasional melalui program terakreditasi dan profesional.</p>
     </div>
@@ -120,7 +120,7 @@
             ]
         ] as $feature)
         <div class="card-hover group flex flex-col items-center text-center p-8 space-y-5">
-            <h3 class="font-extrabold text-gray-900 text-xl dark:text-white">{{ $feature['title'] }}</h3>
+            <h3 class="font-bold text-gray-900 text-lg dark:text-white">{{ $feature['title'] }}</h3>
             <p class="text-gray-500 text-sm leading-relaxed dark:text-gray-400 font-medium">{{ $feature['desc'] }}</p>
         </div>
         @endforeach
@@ -131,7 +131,7 @@
 <section class="bg-gradient-to-b from-[#f2f7f4] to-[#f8faf9] py-24 dark:from-[#09110d] dark:to-[#070c0a] border-y border-emerald-950/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16 space-y-4">
-            <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary-950 dark:text-white">Skema Pendidikan & Pelatihan</h2>
+            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-primary-950 dark:text-white">Skema Pendidikan & Pelatihan</h2>
             <div class="w-20 h-1.5 bg-gradient-to-r from-primary-600 to-secondary-500 mx-auto rounded-full"></div>
             <p class="text-gray-500 max-w-2xl mx-auto text-lg dark:text-gray-400 font-medium">Beberapa program pelatihan berjenjang yang kami tawarkan untuk kepala sekolah di seluruh tingkat satuan pendidikan.</p>
         </div>
@@ -163,15 +163,15 @@
             <div class="bg-white rounded-3xl shadow-[0_10px_35px_rgba(0,0,0,0.01)] hover:shadow-[0_25px_50px_rgba(0,0,0,0.04)] border border-gray-100 dark:border-emerald-950/30 overflow-hidden group hover:-translate-y-1.5 transition-all duration-300 dark:bg-[#0b120f]">
                 <div class="relative overflow-hidden h-60">
                     <img src="{{ $program['img'] }}" alt="{{ $program['title'] }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                    <span class="absolute top-4 right-4 px-3 py-1.5 rounded-xl text-xs font-bold border {{ $program['tag_color'] }} backdrop-blur-md">
+                    <span class="absolute top-4 right-4 px-3 py-1.5 rounded-xl text-xs font-medium border {{ $program['tag_color'] }} backdrop-blur-md">
                         {{ $program['badge'] }}
                     </span>
                 </div>
                 <div class="p-8 space-y-4">
-                    <h3 class="font-extrabold text-gray-900 text-xl leading-snug dark:text-white group-hover:text-primary-600 transition-colors duration-200">{{ $program['title'] }}</h3>
+                    <h3 class="font-bold text-gray-900 text-lg leading-snug dark:text-white group-hover:text-primary-600 transition-colors duration-200">{{ $program['title'] }}</h3>
                     <p class="text-gray-500 text-sm leading-relaxed dark:text-gray-400 font-medium">{{ $program['desc'] }}</p>
                     <div class="pt-4 border-t border-gray-50 dark:border-emerald-950/20 flex items-center">
-                        <a href="{{ route('register') }}" class="inline-flex items-center gap-2 text-primary-700 font-bold text-sm hover:text-primary-900 transition-all group-hover:gap-3">
+                        <a href="{{ route('register') }}" class="inline-flex items-center gap-2 text-primary-700 font-medium text-sm hover:text-primary-900 transition-all group-hover:gap-3">
                             Daftar Pelatihan
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </a>
@@ -186,10 +186,10 @@
 {{-- Tentang Section --}}
 <section id="about" class="py-24 border-t border-gray-150 dark:border-emerald-950/20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
     <div class="text-center space-y-4">
-        <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold tracking-wide backdrop-blur-md">
+        <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-medium tracking-wide backdrop-blur-md">
             Mengenal Lembaga Kami
         </span>
-        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary-950 dark:text-white">Tentang Lemdiklat Permapendis</h2>
+        <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-primary-950 dark:text-white">Tentang Lemdiklat Permapendis</h2>
         <div class="w-16 h-1 bg-gradient-to-r from-primary-600 to-secondary-500 mx-auto rounded-full"></div>
         <p class="text-lg md:text-xl text-gray-500 max-w-3xl mx-auto leading-relaxed font-medium dark:text-gray-400">
             Lembaga Pendidikan dan Pelatihan berkomitmen tinggi meningkatkan kompetensi melalui program pelatihan terstruktur, kurikulum mutakhir, instruktur berpengalaman, serta pendekatan modern yang berorientasi hasil nyata.
@@ -199,12 +199,12 @@
     {{-- Visi & Misi --}}
     <div class="grid md:grid-cols-2 gap-8">
         <div class="card border-l-4 border-primary-600 space-y-4 bg-white dark:bg-[#0b120f] p-8 rounded-3xl border border-gray-100 dark:border-emerald-950/30">
-            <h2 class="text-2xl font-extrabold text-gray-900 dark:text-white">Visi Kami</h2>
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white">Visi Kami</h2>
             <p class="text-gray-500 leading-relaxed dark:text-gray-400 font-medium text-base">Menjadi pusat keunggulan (center of excellence) pengembangan kompetensi pendidik dan kependidikan yang berdaya saing tinggi, relevan dengan kemajuan digital, serta mendorong terciptanya budaya belajar sepanjang hayat di Indonesia.</p>
         </div>
         
         <div class="card border-l-4 border-secondary-600 space-y-4 bg-white dark:bg-[#0b120f] p-8 rounded-3xl border border-gray-100 dark:border-emerald-950/30">
-            <h2 class="text-2xl font-extrabold text-gray-900 dark:text-white">Misi Kami</h2>
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white">Misi Kami</h2>
             <ul class="space-y-3 font-medium text-gray-500 dark:text-gray-400">
                 <li class="flex items-start gap-3">
                     <span class="w-1.5 h-1.5 bg-emerald-500 shrink-0 mt-2"></span> 
@@ -242,7 +242,7 @@
             ],
         ] as $val)
         <div class="rounded-3xl p-8 space-y-4 {{ $val['color'] }}">
-            <h3 class="font-extrabold text-xl dark:text-white">{{ $val['title'] }}</h3>
+            <h3 class="font-bold text-lg dark:text-white">{{ $val['title'] }}</h3>
             <p class="text-sm leading-relaxed opacity-85 font-medium">{{ $val['desc'] }}</p>
         </div>
         @endforeach
@@ -251,7 +251,7 @@
     {{-- Susunan Pengurus --}}
     <div class="space-y-12">
         <div class="text-center space-y-4">
-            <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary-950 dark:text-white">Susunan Organisasi</h2>
+            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-primary-950 dark:text-white">Susunan Organisasi</h2>
             <div class="w-16 h-1 bg-gradient-to-r from-primary-600 to-secondary-500 mx-auto rounded-full"></div>
             <p class="text-gray-500 dark:text-gray-400 font-medium max-w-xl mx-auto">Struktur kepengurusan profesional yang mendampingi dan mengarahkan kemajuan Lemdiklat Permapendis.</p>
         </div>
@@ -259,7 +259,7 @@
         {{-- Dewan Pembina --}}
         @if($pembinaLeader || $pembinaMembers->count() > 0)
         <div class="space-y-8 p-8 bg-gray-50/50 dark:bg-[#09100d]/50 rounded-3xl border border-gray-100/50 dark:border-emerald-950/20">
-            <h3 class="text-2xl font-extrabold text-primary-950 dark:text-white border-b border-gray-200/50 dark:border-emerald-950/30 pb-4 flex items-center gap-3">
+            <h3 class="text-lg md:text-xl font-bold text-primary-950 dark:text-white border-b border-gray-200/50 dark:border-emerald-950/30 pb-4 flex items-center gap-3">
                 <span class="w-2.5 h-6 bg-gradient-to-b from-primary-600 to-primary-800 rounded-full"></span>
                 Dewan Pembina
             </h3>
@@ -274,7 +274,7 @@
             
             @if($pembinaMembers->count() > 0)
             <div class="space-y-4">
-                <h4 class="text-xs font-bold text-gray-450 uppercase tracking-widest dark:text-gray-500">Anggota Dewan Pembina</h4>
+                <h4 class="text-xs font-medium text-gray-450 uppercase tracking-widest dark:text-gray-500">Anggota Dewan Pembina</h4>
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     @foreach($pembinaMembers as $member)
                     @include('pages.partials.org-card', ['name' => $member->name, 'role' => $member->role, 'color' => $member->color, 'photo' => $member->photo])
@@ -288,7 +288,7 @@
         {{-- Dewan Pengarah --}}
         @if($pengarahLeader || $pengarahMembers->count() > 0)
         <div class="space-y-8 p-8 bg-gray-50/50 dark:bg-[#09100d]/50 rounded-3xl border border-gray-100/50 dark:border-emerald-950/20">
-            <h3 class="text-2xl font-extrabold text-primary-950 dark:text-white border-b border-gray-200/50 dark:border-emerald-950/30 pb-4 flex items-center gap-3">
+            <h3 class="text-lg md:text-xl font-bold text-primary-950 dark:text-white border-b border-gray-200/50 dark:border-emerald-950/30 pb-4 flex items-center gap-3">
                 <span class="w-2.5 h-6 bg-gradient-to-b from-secondary-500 to-secondary-600 rounded-full"></span>
                 Dewan Pengarah
             </h3>
@@ -303,7 +303,7 @@
             
             @if($pengarahMembers->count() > 0)
             <div class="space-y-4">
-                <h4 class="text-xs font-bold text-gray-450 uppercase tracking-widest dark:text-gray-500">Anggota Dewan Pengarah</h4>
+                <h4 class="text-xs font-medium text-gray-455 uppercase tracking-widest dark:text-gray-500">Anggota Dewan Pengarah</h4>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
                     @foreach($pengarahMembers as $member)
                     @include('pages.partials.org-card', ['name' => $member->name, 'role' => $member->role, 'color' => $member->color, 'photo' => $member->photo])
@@ -317,7 +317,7 @@
         {{-- Jajaran Direksi / Pelaksana Harian --}}
         @if($direktur || $wakilDirekturs->count() > 0)
         <div class="space-y-8 p-8 bg-gray-50/50 dark:bg-[#09100d]/50 rounded-3xl border border-gray-100/50 dark:border-emerald-950/20">
-            <h3 class="text-2xl font-extrabold text-primary-950 dark:text-white border-b border-gray-200/50 dark:border-emerald-950/30 pb-4 flex items-center gap-3">
+            <h3 class="text-lg md:text-xl font-bold text-primary-950 dark:text-white border-b border-gray-200/50 dark:border-emerald-950/30 pb-4 flex items-center gap-3">
                 <span class="w-2.5 h-6 bg-gradient-to-b from-emerald-500 to-emerald-700 rounded-full"></span>
                 Badan Pelaksana Pelatihan
             </h3>
@@ -325,7 +325,7 @@
             <div class="flex flex-col gap-8">
                 @if($direktur)
                 <div class="flex flex-col items-center">
-                    <h4 class="text-xs font-bold text-gray-455 uppercase tracking-widest mb-4 dark:text-gray-500">Direktur Utama</h4>
+                    <h4 class="text-xs font-medium text-gray-455 uppercase tracking-widest mb-4 dark:text-gray-500">Direktur Utama</h4>
                     <div class="max-w-xs w-full">
                         @include('pages.partials.org-card', ['name' => $direktur->name, 'role' => $direktur->role, 'color' => $direktur->color, 'photo' => $direktur->photo])
                     </div>
@@ -334,7 +334,7 @@
                 
                 @if($wakilDirekturs->count() > 0)
                 <div class="space-y-4">
-                    <h4 class="text-xs font-bold text-gray-455 uppercase tracking-widest dark:text-gray-500 text-center md:text-left">Wakil Direktur</h4>
+                    <h4 class="text-xs font-medium text-gray-455 uppercase tracking-widest dark:text-gray-500 text-center md:text-left">Wakil Direktur</h4>
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
                         @foreach($wakilDirekturs as $member)
                         @include('pages.partials.org-card', ['name' => $member->name, 'role' => $member->role, 'color' => $member->color, 'photo' => $member->photo])
@@ -349,7 +349,7 @@
         {{-- Sekretaris & Bendahara --}}
         @if($sekretarisBendaharas->count() > 0)
         <div class="space-y-8 p-8 bg-gray-50/50 dark:bg-[#09100d]/50 rounded-3xl border border-gray-100/50 dark:border-emerald-950/20 animate-slide-up">
-            <h3 class="text-2xl font-extrabold text-primary-950 dark:text-white border-b border-gray-200/50 dark:border-emerald-950/30 pb-4 flex items-center gap-3">
+            <h3 class="text-lg md:text-xl font-bold text-primary-950 dark:text-white border-b border-gray-200/50 dark:border-emerald-950/30 pb-4 flex items-center gap-3">
                 <span class="w-2.5 h-6 bg-gradient-to-b from-amber-500 to-amber-700 rounded-full"></span>
                 Sekretaris & Bendahara
             </h3>
@@ -365,7 +365,7 @@
         {{-- Kepala Bagian dan Unit --}}
         @if($kabags->count() > 0)
         <div class="space-y-8 p-8 bg-gray-50/50 dark:bg-[#09100d]/50 rounded-3xl border border-gray-100/50 dark:border-emerald-950/20 animate-slide-up">
-            <h3 class="text-2xl font-extrabold text-primary-950 dark:text-white border-b border-gray-200/50 dark:border-emerald-950/30 pb-4 flex items-center gap-3">
+            <h3 class="text-lg md:text-xl font-bold text-primary-950 dark:text-white border-b border-gray-200/50 dark:border-emerald-950/30 pb-4 flex items-center gap-3">
                 <span class="w-2.5 h-6 bg-gradient-to-b from-indigo-500 to-indigo-700 rounded-full"></span>
                 Kepala Bagian dan Unit
             </h3>
@@ -384,7 +384,7 @@
 <section class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
         <div class="space-y-4">
-            <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary-950 dark:text-white">Kabar & Artikel Terbaru</h2>
+            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-primary-950 dark:text-white">Kabar & Artikel Terbaru</h2>
             <div class="w-20 h-1.5 bg-gradient-to-r from-primary-600 to-secondary-500 rounded-full"></div>
             <p class="text-gray-500 dark:text-gray-400 font-medium">Ikuti berita terhangat, wawasan digitalisasi sekolah, serta panduan kurikulum dari ahli Lemdiklat.</p>
         </div>
@@ -398,13 +398,13 @@
             <div class="relative overflow-hidden h-52">
                 <img src="{{ $article->thumbnail_url }}" alt="{{ $article->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                 @if($article->category)
-                    <span class="absolute top-4 left-4 badge-primary text-xs font-semibold px-3 py-1 bg-white/95 border-0 shadow-sm dark:bg-[#0c1410]/95">{{ $article->category->name }}</span>
+                    <span class="absolute top-4 left-4 badge-primary text-xs font-medium px-3 py-1 bg-white/95 border-0 shadow-sm dark:bg-[#0c1410]/95">{{ $article->category->name }}</span>
                 @endif
             </div>
             <div class="p-6 flex flex-col flex-1 space-y-3">
-                <h3 class="font-extrabold text-gray-900 text-lg leading-snug group-hover:text-primary-700 transition leading-snug line-clamp-2 dark:text-white">{{ $article->title }}</h3>
+                <h3 class="font-bold text-gray-900 text-base leading-snug group-hover:text-primary-700 transition line-clamp-2 dark:text-white">{{ $article->title }}</h3>
                 <p class="text-gray-500 text-sm flex-1 line-clamp-3 dark:text-gray-400 font-medium">{{ $article->excerpt }}</p>
-                <div class="pt-4 border-t border-gray-50 dark:border-emerald-950/20 flex items-center justify-between text-xs text-gray-400 font-semibold dark:text-gray-500">
+                <div class="pt-4 border-t border-gray-50 dark:border-emerald-950/20 flex items-center justify-between text-xs text-gray-400 font-medium dark:text-gray-500">
                     <span class="flex items-center gap-1">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
                         {{ $article->author }}
@@ -425,10 +425,10 @@
 {{-- Kontak Section --}}
 <section id="contact" class="py-24 border-t border-gray-150 dark:border-emerald-950/20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
     <div class="text-center space-y-4">
-        <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold tracking-wide backdrop-blur-md">
+        <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-medium tracking-wide backdrop-blur-md">
             Hubungi Tim Lemdiklat
         </span>
-        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-primary-950 dark:text-white">Hubungi Kami</h2>
+        <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-primary-950 dark:text-white">Hubungi Kami</h2>
         <div class="w-16 h-1 bg-gradient-to-r from-primary-600 to-secondary-500 mx-auto rounded-full"></div>
         <p class="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed font-medium dark:text-gray-400">
             Kami siap melayani kebutuhan informasi program pelatihan, sertifikasi pengajar, serta kerja sama kelembagaan.
@@ -439,7 +439,7 @@
         {{-- Contact Form --}}
         <div class="card lg:col-span-7 p-8 md:p-10 space-y-6 bg-white dark:bg-[#0b120f] rounded-3xl border border-gray-100 dark:border-emerald-950/30">
             <div class="space-y-2">
-                <h2 class="text-2xl font-extrabold text-gray-900 dark:text-white">Kirim Pesan Langsung</h2>
+                <h2 class="text-xl font-bold text-gray-900 dark:text-white">Kirim Pesan Langsung</h2>
                 <p class="text-gray-400 text-sm font-medium">Lengkapi formulir di bawah ini dan perwakilan kami akan membalas pesan Anda dalam 24 jam.</p>
             </div>
 
@@ -480,19 +480,19 @@
         {{-- Contact Info + Map --}}
         <div class="lg:col-span-5 space-y-8">
             <div class="card p-8 space-y-6 bg-white dark:bg-[#0b120f] rounded-3xl border border-gray-100 dark:border-emerald-950/30">
-                <h2 class="text-xl font-extrabold text-gray-900 dark:text-white border-b border-gray-100 dark:border-emerald-950/20 pb-4">Informasi Kontak Resmi</h2>
+                <h2 class="text-lg font-bold text-gray-900 dark:text-white border-b border-gray-100 dark:border-emerald-950/20 pb-4">Informasi Kontak Resmi</h2>
                 <div class="space-y-6">
                     <div class="flex items-start gap-4">
                         <div>
-                            <p class="font-bold text-gray-900 text-sm dark:text-white">Alamat Kampus Utama</p>
+                            <p class="font-medium text-gray-900 text-sm dark:text-white">Alamat Kampus Utama</p>
                             <p class="text-gray-500 text-sm leading-relaxed dark:text-gray-400 mt-1 font-medium">Jl. Gedebage Selatan No.137 Kel. Cisaranteun Kidul, Kec. Gedebage, Kota Bandung, Jawa Barat 40295</p>
                         </div>
                     </div>
                     
                     <div class="flex items-start gap-4">
                         <div>
-                            <p class="font-bold text-gray-900 text-sm dark:text-white">Surel Layanan Pelanggan</p>
-                            <a href="mailto:info@lemdiklat-permapendis.com" class="text-primary-700 hover:text-primary-900 text-sm font-semibold dark:text-primary-400 dark:hover:text-primary-300 mt-1 block">info@lemdiklat-permapendis.com</a>
+                            <p class="font-medium text-gray-900 text-sm dark:text-white">Surel Layanan Pelanggan</p>
+                            <a href="mailto:info@lemdiklat-permapendis.com" class="text-primary-700 hover:text-primary-900 text-sm font-medium dark:text-primary-400 dark:hover:text-primary-300 mt-1 block">info@lemdiklat-permapendis.com</a>
                         </div>
                     </div>
                 </div>
@@ -517,7 +517,7 @@
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(5,150,105,0.2),transparent_40%)]"></div>
         
         <div class="relative max-w-2xl mx-auto space-y-6">
-            <h2 class="text-3xl md:text-5xl font-black tracking-tight leading-tight">Siap Untuk Meningkatkan Kualitas Sekolah Anda?</h2>
+            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight leading-tight">Siap Untuk Meningkatkan Kualitas Sekolah Anda?</h2>
             <p class="text-emerald-100/80 text-base md:text-lg font-medium leading-relaxed">Daftarkan diri Anda sekarang sebagai peserta pelatihan profesional dan kembangkan kompetensi kepemimpinan institusi pendidikan.</p>
             <div class="flex flex-wrap justify-center gap-4 pt-4">
                 <a href="{{ route('register') }}" class="btn-primary px-8 py-3.5">
