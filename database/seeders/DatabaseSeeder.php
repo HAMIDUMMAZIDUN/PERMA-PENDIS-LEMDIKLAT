@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
         // Admin user
         $profile = UserProfile::create([
             'name'  => 'Administrator',
-            'email' => 'admin@lemdiklat.id',
+            'email' => 'admin@permapendis.id',
         ]);
 
         User::create([

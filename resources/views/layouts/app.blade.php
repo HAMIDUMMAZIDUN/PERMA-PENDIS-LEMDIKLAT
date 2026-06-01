@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Lemdiklat Permapendis') - Lembaga Pendidikan dan Pelatihan</title>
-    <meta name="description" content="@yield('description', 'Lembaga Pendidikan dan Pelatihan Permapendis - Pusat pelatihan yang berdedikasi untuk meningkatkan kompetensi tenaga pendidik dan kependidikan di Indonesia.')">
+    <title>@yield('title', 'PERMA PENDIS') - Perkumpulan Manajer Pendidikan Islam Indonesia</title>
+    <meta name="description" content="@yield('description', 'Perkumpulan Manajer Pendidikan Islam Indonesia - Wadah berdedikasi untuk meningkatkan kompetensi manajer dan tenaga pendidik Islam di Indonesia.')">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="icon" href="{{ \App\Models\Setting::get('app_logo', asset('img/logo.png')) }}" type="image/png">
     <style>
@@ -25,6 +25,9 @@
             border: 1px solid rgba(255, 255, 255, 0.25) !important;
         }
         #main-header.is-transparent-white .navbar-logo {
+            color: #ffffff !important;
+        }
+        #main-header.is-transparent-white .navbar-logo span {
             color: #ffffff !important;
         }
         #main-header.is-transparent-white button {
@@ -54,8 +57,12 @@
         <div class="flex items-center justify-between h-16">
             {{-- Logo --}}
             <a href="{{ route('home') }}" class="navbar-logo flex items-center gap-2.5 font-bold text-primary-900 hover:opacity-90 transition-opacity">
-                <img src="{{ \App\Models\Setting::get('app_logo', asset('img/logo.png')) }}" alt="Logo Lemdiklat" class="h-10 w-10 object-contain" onerror="this.style.display='none'">
-                <span class="text-sm sm:text-base leading-tight">Lemdiklat<br><span class="text-secondary-600 font-normal">Permapendis</span></span>
+                <img src="{{ \App\Models\Setting::get('app_logo', asset('img/logo.png')) }}" alt="Logo PERMA PENDIS" class="h-10 w-10 object-contain" onerror="this.style.display='none'">
+                <div class="flex flex-col text-left">
+                    <span class="text-xs sm:text-sm font-bold text-emerald-600 dark:text-emerald-400 leading-tight uppercase tracking-wide">PERMA PENDIS</span>
+                    <span class="text-[9px] text-gray-500 font-medium leading-none tracking-tight dark:text-gray-400">Perkumpulan Manajer Pendidikan Islam</span>
+                    <span class="text-[8px] text-gray-400 font-bold leading-none tracking-wider dark:text-gray-500 uppercase">Indonesia</span>
+                </div>
             </a>
 
             {{-- Desktop Nav --}}
@@ -165,7 +172,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
             <div>
-                <h3 class="text-white font-bold text-lg mb-3">Lemdiklat Permapendis</h3>
+                <h3 class="text-white font-bold text-lg mb-3">PERMA PENDIS</h3>
                 <p class="text-sm leading-relaxed text-gray-400">Lembaga Pendidikan dan Pelatihan yang berdedikasi untuk meningkatkan kompetensi tenaga pendidik dan kependidikan di Indonesia.</p>
             </div>
             <div>
@@ -181,12 +188,12 @@
                 <h4 class="text-white font-bold mb-3">Kontak</h4>
                 <address class="text-sm not-italic text-gray-400 space-y-2">
                     <p>Jl. Gedebage Selatan No.137, Kel. Cisaranteun Kidul, Kec. Gedebage, Kota Bandung 40295</p>
-                    <p><a href="mailto:info@lemdiklat-permapendis.com" class="hover:text-white transition-colors">info@lemdiklat-permapendis.com</a></p>
+                    <p><a href="mailto:info@permapendis.com" class="hover:text-white transition-colors">info@permapendis.com</a></p>
                 </address>
             </div>
         </div>
         <div class="border-t border-gray-800 mt-10 pt-6 text-center text-xs text-gray-500 dark:text-gray-400">
-            <p>&copy; {{ date('Y') }} Lemdiklat Permapendis. Semua hak cipta dilindungi.</p>
+            <p>&copy; {{ date('Y') }} PERMA PENDIS. Semua hak cipta dilindungi.</p>
         </div>
     </div>
 </footer>

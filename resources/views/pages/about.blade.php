@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Tentang Kami')
-@section('description', 'Tentang Lemdiklat Permapendis - Lembaga Pendidikan dan Pelatihan yang berdedikasi meningkatkan kompetensi tenaga pendidik Indonesia')
+@section('description', 'Tentang PERMA PENDIS - Perkumpulan Manajer Pendidikan Islam Indonesia yang berdedikasi meningkatkan kompetensi manajer dan tenaga pendidik Islam')
 
 @section('content')
 
@@ -10,7 +10,7 @@
         <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-medium tracking-wide backdrop-blur-md">
             {{ \App\Models\Setting::get('about_badge', 'Mengenal Lembaga Kami') }}
         </span>
-        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">{{ \App\Models\Setting::get('about_title', 'Tentang Lemdiklat Permapendis') }}</h1>
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">{{ \App\Models\Setting::get('about_title', 'Tentang PERMA PENDIS') }}</h1>
         <div class="w-16 h-1 bg-gradient-to-r from-primary-600 to-secondary-500 mx-auto rounded-full"></div>
         <p class="text-lg md:text-xl text-emerald-100/80 max-w-3xl mx-auto leading-relaxed font-medium">
             {{ \App\Models\Setting::get('about_desc', 'Lembaga Pendidikan dan Pelatihan berkomitmen tinggi meningkatkan kompetensi melalui program pelatihan terstruktur, kurikulum mutakhir, instruktur berpengalaman, serta pendekatan modern yang berorientasi hasil nyata.') }}
@@ -81,7 +81,7 @@
         <div class="text-center space-y-4">
             <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-primary-950 dark:text-white">Susunan Organisasi</h2>
             <div class="w-16 h-1 bg-gradient-to-r from-primary-600 to-secondary-500 mx-auto rounded-full"></div>
-            <p class="text-gray-500 dark:text-gray-400 font-medium max-w-xl mx-auto">Struktur kepengurusan profesional yang mendampingi dan mengarahkan kemajuan Lemdiklat Permapendis.</p>
+            <p class="text-gray-500 dark:text-gray-400 font-medium max-w-xl mx-auto">Struktur kepengurusan profesional yang mendampingi dan mengarahkan kemajuan PERMA PENDIS.</p>
         </div>
 
         {{-- Dewan Pembina --}}

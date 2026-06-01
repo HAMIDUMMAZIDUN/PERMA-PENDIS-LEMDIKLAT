@@ -122,7 +122,7 @@
                     @endif
                     <div class="flex-1 min-w-0">
                         <p class="font-medium text-gray-900 text-sm truncate dark:text-white">{{ $member->name }}</p>
-                        <p class="text-xs text-gray-400 font-normal mt-0.5">{{ $member->category ?? 'Pengurus Lemdiklat' }}</p>
+                        <p class="text-xs text-gray-400 font-normal mt-0.5">{{ $member->category ?? 'Pengurus PERMA PENDIS' }}</p>
                     </div>
                     <span class="badge-primary">{{ $member->role }}</span>
                 </div>

@@ -6,7 +6,7 @@
 <section class="bg-gradient-to-br from-primary-900 to-primary-700 text-white py-16 text-center">
     <div class="max-w-3xl mx-auto px-4">
         <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Artikel & Berita</h1>
-        <p class="text-xl text-emerald-100">Temukan informasi terbaru, kegiatan, dan pengumuman dari Lemdiklat Permapendis.</p>
+        <p class="text-xl text-emerald-100">Temukan informasi terbaru, kegiatan, dan pengumuman dari PERMA PENDIS.</p>
     </div>
 </section>
 

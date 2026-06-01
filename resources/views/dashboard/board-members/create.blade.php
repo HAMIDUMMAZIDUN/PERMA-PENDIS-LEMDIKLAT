@@ -93,7 +93,7 @@
                     <p class="text-red-500 text-xs mt-1.5 font-semibold">{{ $message }}</p>
                 @enderror
                 <div id="thumb-preview" class="hidden mt-4">
-                    <img id="thumb-img" src="" alt="Preview" class="w-16 h-16 rounded-none object-cover shadow-md border-2 border-white dark:border-[#0c1410]">
+                    <img id="thumb-img" src="" alt="Preview" class="w-16 h-16 object-cover shadow-md border-2 border-white dark:border-[#0c1410]" style="border-radius: 9999px !important;">
                 </div>
             </div>
         </div>

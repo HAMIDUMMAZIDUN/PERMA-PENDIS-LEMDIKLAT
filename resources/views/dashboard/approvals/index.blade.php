@@ -5,7 +5,7 @@
 <div class="space-y-6">
     <div class="border-b border-gray-100 pb-4 dark:border-gray-800">
         <h1 class="text-3xl font-extrabold text-primary-900 dark:text-white">Persetujuan Pendaftaran</h1>
-        <p class="text-gray-500 text-sm mt-1 dark:text-gray-400">Tinjau dan setujui pendaftaran akun baru Lemdiklat Permapendis.</p>
+        <p class="text-gray-500 text-sm mt-1 dark:text-gray-400">Tinjau dan setujui pendaftaran akun baru PERMA PENDIS.</p>
     </div>
 
     @if(session('success'))

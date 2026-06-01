@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Kontak Kami')
-@section('description', 'Hubungi Lemdiklat Permapendis - Silakan kirimkan pesan, pertanyaan, atau konsultasi program kemitraan bersama kami.')
+@section('description', 'Hubungi PERMA PENDIS - Silakan kirimkan pesan, pertanyaan, atau konsultasi program kemitraan bersama kami.')
 
 @section('content')
 
@@ -15,7 +15,7 @@
     
     <div class="relative max-w-4xl mx-auto px-4 space-y-6 animate-slide-up">
         <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-medium tracking-wide backdrop-blur-md">
-            Hubungi Tim Lemdiklat
+            Hubungi Tim PERMA PENDIS
         </span>
         <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">{{ \App\Models\Setting::get('contact_page_title', 'Hubungi Kami') }}</h1>
         <div class="w-16 h-1 bg-gradient-to-r from-primary-600 to-secondary-500 mx-auto rounded-full"></div>

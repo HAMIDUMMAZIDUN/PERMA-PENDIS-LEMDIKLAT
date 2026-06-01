@@ -38,7 +38,7 @@
                         <input id="home_welcome_title" name="home_welcome_title" type="text" 
                                value="{{ old('home_welcome_title', $settings['home_welcome_title']) }}" required
                                class="form-input @error('home_welcome_title') border-red-400 @enderror"
-                               placeholder="Contoh: Selamat Datang di Lemdiklat Permapendis">
+                               placeholder="Contoh: Selamat Datang di PERMA PENDIS">
                         @error('home_welcome_title')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Masuk - Lemdiklat Permapendis</title>
+    <title>Masuk - PERMA PENDIS</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     
     {{-- Theme detection to prevent flash of unstyled content --}}
@@ -31,11 +31,11 @@
                 </div>
                 <div>
                     <h1 class="text-2xl md:text-3xl font-black tracking-wider text-slate-800 dark:text-white uppercase leading-tight">
-                        LEMDIKLAT<br>
+                        PERMA PENDIS<br>
                         <span class="text-emerald-600 dark:text-emerald-400 font-extrabold text-lg md:text-xl">DASHBOARD</span>
                     </h1>
                     <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 font-medium max-w-[280px]">
-                        Lembaga Pendidikan & Pelatihan Permapendis
+                        Perkumpulan Manajer Pendidikan Islam Indonesia
                     </p>
                 </div>
             </a>
@@ -43,7 +43,7 @@
         
         {{-- Footer branding --}}
         <div class="text-center text-[10px] text-slate-400 dark:text-slate-500 hidden md:block">
-            &copy; {{ date('Y') }} Lemdiklat Permapendis. Hak Cipta Dilindungi.
+            &copy; {{ date('Y') }} PERMA PENDIS. Hak Cipta Dilindungi.
         </div>
     </div>
 
@@ -158,7 +158,7 @@
                 <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
             </svg>
             <h4 class="font-bold text-gray-800 text-base">Masuk dengan Google</h4>
-            <p class="text-xs text-gray-400 mt-0.5">Pilih akun untuk masuk ke Lemdiklat</p>
+            <p class="text-xs text-gray-400 mt-0.5">Pilih akun untuk melanjutkan</p>
         </div>
 
         {{-- Loading Overlay --}}
@@ -176,11 +176,11 @@
                     <p class="text-[10px] text-gray-400">hamidun.dev@gmail.com</p>
                 </div>
             </button>
-            <button onclick="selectGoogleLogin('permapendis.lemdiklat@gmail.com')" class="w-full flex items-center gap-3 p-3 hover:bg-slate-50 rounded-xl transition text-left">
+            <button onclick="selectGoogleLogin('permapendis@gmail.com')" class="w-full flex items-center gap-3 p-3 hover:bg-slate-50 rounded-xl transition text-left">
                 <div class="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-sm">L</div>
                 <div>
-                    <p class="text-xs font-bold text-gray-800">Lemdiklat Permapendis</p>
-                    <p class="text-[10px] text-gray-400">permapendis.lemdiklat@gmail.com</p>
+                    <p class="text-xs font-bold text-gray-800">PERMA PENDIS</p>
+                    <p class="text-[10px] text-gray-400">permapendis@gmail.com</p>
                 </div>
             </button>
             <button onclick="selectGoogleLogin('ahmad.fauzi@gmail.com')" class="w-full flex items-center gap-3 p-3 hover:bg-slate-50 rounded-xl transition text-left">

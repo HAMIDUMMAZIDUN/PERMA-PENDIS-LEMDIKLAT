@@ -6,79 +6,114 @@
 <div class="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300">
 
 {{-- Hero Section --}}
-<section id="hero" class="relative overflow-hidden py-24 md:py-32 transition-all duration-300"
+@php
+    $isImageBg = \App\Models\Setting::get('home_bg_type', 'color') === 'image' && \App\Models\Setting::get('home_bg_image');
+    
+    $badgeClass = $isImageBg 
+        ? 'bg-white/10 border border-white/20 text-white backdrop-blur-md' 
+        : 'bg-primary-500/10 border border-primary-500/20 text-primary-700 dark:bg-primary-950/20 dark:border-primary-900/30 dark:text-primary-300';
+        
+    $titleClass = $isImageBg 
+        ? 'text-white' 
+        : 'text-primary-950 dark:text-white';
+        
+    $descClass = $isImageBg 
+        ? 'text-white/90' 
+        : 'text-gray-650 dark:text-gray-300';
+        
+    $statNumberClass = $isImageBg 
+        ? 'text-white' 
+        : 'text-primary-900 dark:text-primary-400';
+        
+    $statLabelClass = $isImageBg 
+        ? 'text-white/80' 
+        : 'text-gray-500 dark:text-gray-400';
+        
+    $borderClass = $isImageBg 
+        ? 'border-white/25' 
+        : 'border-gray-200/60 dark:border-emerald-950/30';
+@endphp
+
+<section id="hero" class="relative overflow-hidden min-h-[600px] md:min-h-[750px] lg:min-h-[850px] flex flex-col justify-between pt-20 md:pt-24 pb-16 transition-all duration-300"
          style="
          --hero-bg-light: {{ \App\Models\Setting::get('home_bg_color', '#e8f4fd') }};
          --hero-bg-dark: {{ \App\Models\Setting::get('home_bg_color_dark', '#070e17') }};
-         @if(\App\Models\Setting::get('home_bg_type', 'color') === 'image' && \App\Models\Setting::get('home_bg_image'))
+         @if($isImageBg)
              background-image: url('{{ \App\Models\Setting::get('home_bg_image') }}'); background-size: cover; background-position: center;
          @endif
          ">
+    <style>
+        #hero {
+            background-color: var(--hero-bg-light);
+        }
+        .dark #hero {
+            background-color: var(--hero-bg-dark);
+        }
+    </style>
 
-<style>
-    #hero {
-        background-color: var(--hero-bg-light);
-    }
-    .dark #hero {
-        background-color: var(--hero-bg-dark);
-    }
-</style>
-    {{-- High-end background decorations --}}
-    <div class="absolute inset-0 opacity-20 pointer-events-none">
-        <svg class="absolute top-0 right-0 w-[800px] h-[800px] text-blue-500/20 transform translate-x-1/3 -translate-y-1/3" fill="none" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="0.5" stroke-dasharray="2 2" />
-            <circle cx="50" cy="50" r="30" stroke="currentColor" stroke-width="0.2" />
-        </svg>
-        <div class="absolute -bottom-10 left-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
-        <div class="absolute top-20 right-20 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl"></div>
+    @if($isImageBg)
+        {{-- High-end vignette shadows (Darkens TOP and BOTTOM edges for supreme text legibility and image depth) --}}
+        {{-- 1. Top Shadow (Darkens navigation bar area) --}}
+        <div class="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-black/80 via-black/20 to-transparent pointer-events-none"></div>
+        
+        {{-- 2. Bottom Shadow (Darkens lower section) --}}
+        <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/85 via-black/30 to-transparent pointer-events-none"></div>
+    @else
+        {{-- High-end background decorations for solid color mode --}}
+        <div class="absolute inset-0 opacity-15 pointer-events-none">
+            <svg class="absolute top-0 right-0 w-[600px] h-[600px] text-blue-500/10 transform translate-x-1/4 -translate-y-1/4" fill="none" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="0.5" stroke-dasharray="2 2" />
+                <circle cx="50" cy="50" r="30" stroke="currentColor" stroke-width="0.2" />
+            </svg>
+            <div class="absolute -bottom-10 left-10 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl"></div>
+            <div class="absolute top-20 right-20 w-70 h-70 bg-indigo-500/5 rounded-full blur-3xl"></div>
+        </div>
+    @endif
+
+    {{-- 1. TOP CONTAINER (Sticking to the top area of the image background) --}}
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-left z-10 w-full pt-2 animate-fade-in">
+        <h1 class="text-xl md:text-2xl lg:text-3xl font-extrabold tracking-tight text-left leading-tight {{ $titleClass }}">
+            Selamat Datang di PERMA PENDIS Perkumpulan Manajer Pendidikan Islam Indonesia
+        </h1>
     </div>
-    {{-- Subtle dark overlay gradient for high readability over images/colors --}}
-    <div class="absolute inset-0 bg-gradient-to-r from-black/50 via-black/25 to-transparent pointer-events-none"></div>
 
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-left z-10">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-            <div class="animate-slide-in lg:col-span-7 space-y-8">
-                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/25 text-white text-sm font-medium tracking-wide backdrop-blur-md">
-                    <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
-                    Pusat Pelatihan & Sertifikasi Profesional
-                </span>
-                
-                <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight text-white">
-                    {!! nl2br(e(\App\Models\Setting::get('home_welcome_title', "Selamat Datang di\nLemdiklat\nPermapendis"))) !!}
-                </h1>
-                
-                <p class="text-lg text-white/90 leading-relaxed max-w-xl font-medium">
-                    {!! nl2br(e(\App\Models\Setting::get('home_welcome_desc', 'Lembaga Pendidikan dan Pelatihan Permapendis adalah pusat pelatihan yang berdedikasi untuk meningkatkan kompetensi tenaga pendidik dan kependidikan di Indonesia.'))) !!}
+    {{-- 2. BOTTOM CONTAINER (Description at the top, and Buttons + Stats aligned horizontally on 1 line below it) --}}
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-left z-10 w-full mt-auto pt-16 pb-6 animate-fade-in">
+        <div class="border-t {{ $borderClass }} pt-8 w-full space-y-6">
+            {{-- Description (Stored above the buttons and stats) --}}
+            <div class="max-w-5xl">
+                <p class="text-xl md:text-2xl lg:text-3xl font-bold tracking-tight text-left leading-snug {{ $descClass }}">
+                    Perkumpulan Manajer Pendidikan Islam Indonesia adalah wadah berdedikasi untuk meningkatkan kompetensi manajer dan tenaga pendidik Islam di Indonesia.
                 </p>
-                
-                <div class="flex flex-wrap gap-4 pt-4">
-                    <a href="{{ route('about') }}" class="btn-primary py-3.5 px-8">
+            </div>
+            
+            {{-- Buttons and Stats (aligned horizontally on a single line on desktop) --}}
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 w-full">
+                {{-- Left Side: Buttons --}}
+                <div class="flex flex-row gap-3 shrink-0">
+                    <a href="{{ route('about') }}" class="btn-primary py-2.5 px-6 text-sm whitespace-nowrap">
                         Tentang Kami
-                        <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                     </a>
-                    <a href="{{ route('articles') }}" class="btn-secondary py-3.5 px-8">
+                    <a href="{{ route('articles') }}" class="btn-secondary py-2.5 px-6 text-sm whitespace-nowrap">
                         Berita & Kegiatan
                     </a>
                 </div>
 
-                {{-- Integrated Stats (La Maison Style, Left-Aligned White) --}}
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-10 border-t border-white/20">
+                {{-- Right Side: Stats --}}
+                <div class="flex flex-row gap-6 md:gap-8 divide-x {{ $borderClass }} overflow-x-auto pb-2 lg:pb-0 shrink-0">
                     @foreach([
                         ['number' => \App\Models\Setting::get('stat_alumni', '500+'), 'label' => 'Alumni Tersertifikasi'],
                         ['number' => \App\Models\Setting::get('stat_instruktur', '20+'), 'label' => 'Instruktur BNSP'],
                         ['number' => \App\Models\Setting::get('stat_program', '3'), 'label' => 'Program Unggulan'],
                         ['number' => \App\Models\Setting::get('stat_tahun', '10+'), 'label' => 'Tahun Pelayanan'],
-                    ] as $stat)
-                    <div>
-                        <p class="text-2xl font-bold text-white tracking-tight">{{ $stat['number'] }}</p>
-                        <p class="text-[11px] font-medium text-white/80 uppercase tracking-wider mt-1">{{ $stat['label'] }}</p>
+                    ] as $index => $stat)
+                    <div class="{{ $index > 0 ? 'pl-6 md:pl-8' : '' }} shrink-0">
+                        <p class="text-xl md:text-2xl font-extrabold {{ $statNumberClass }} tracking-tight leading-none">{{ $stat['number'] }}</p>
+                        <p class="text-[9px] font-bold {{ $statLabelClass }} uppercase tracking-wider mt-1.5 leading-none">{{ $stat['label'] }}</p>
                     </div>
                     @endforeach
                 </div>
             </div>
-
-            {{-- Right Column (Empty to let background shine) --}}
-            <div class="lg:col-span-5 hidden lg:block"></div>
         </div>
     </div>
 </section>
@@ -140,31 +175,30 @@
                 [
                     'title' => \App\Models\Setting::get('scheme_title_1', 'Pelatihan Kepala Sekolah SD / MI'), 
                     'desc' => \App\Models\Setting::get('scheme_desc_1', 'Membekali kepala sekolah dasar dalam merancang strategi pembelajaran inovatif, pengelolaan tim pendidik dasar, serta komunikasi kemitraan dengan wali murid.'), 
-                    'img' => \App\Models\Setting::get('home_program_img_1', 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&h=250&fit=crop'), 
-                    'badge' => 'Jenjang SD/MI',
+                    'img' => \App\Models\Setting::get('home_program_img_1', 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&h=250&fit=crop'),                
                     'tag_color' => 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 dark:bg-emerald-950/30 border-emerald-500/20'
                 ],
                 [
                     'title' => \App\Models\Setting::get('scheme_title_2', 'Pelatihan Kepala Sekolah SMP / MTs'), 
                     'desc' => \App\Models\Setting::get('scheme_desc_2', 'Program penguatan manajemen kesiswaan remaja, tata laksana manajemen sekolah menengah pertama, serta kepemimpinan transformatif era global.'), 
                     'img' => \App\Models\Setting::get('home_program_img_2', 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=400&h=250&fit=crop'), 
-                    'badge' => 'Jenjang SMP/MTs',
                     'tag_color' => 'bg-secondary-500/10 text-secondary-700 dark:text-secondary-400 dark:bg-secondary-950/30 border-secondary-500/20'
                 ],
                 [
                     'title' => \App\Models\Setting::get('scheme_title_3', 'Pelatihan Kepala Sekolah SMA / SMK / MA'), 
                     'desc' => \App\Models\Setting::get('scheme_desc_3', 'Fokus pada kurikulum kesiapan karir, kerja sama industri modern (link and match), tata kelola sekolah tingkat menengah atas, dan kepemimpinan visioner digital.'), 
                     'img' => \App\Models\Setting::get('home_program_img_3', 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=400&h=250&fit=crop'), 
-                    'badge' => 'Jenjang SMA/SMK',
                     'tag_color' => 'bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 dark:bg-indigo-950/30 border-indigo-500/20'
                 ],
             ] as $program)
             <div class="bg-white rounded-3xl shadow-[0_10px_35px_rgba(0,0,0,0.01)] hover:shadow-[0_25px_50px_rgba(0,0,0,0.04)] border border-gray-100 dark:border-emerald-950/30 overflow-hidden group hover:-translate-y-1.5 transition-all duration-300 dark:bg-[#0b120f]">
                 <div class="relative overflow-hidden h-60">
                     <img src="{{ $program['img'] }}" alt="{{ $program['title'] }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    @if(isset($program['badge']))
                     <span class="absolute top-4 right-4 px-3 py-1.5 rounded-xl text-xs font-medium border {{ $program['tag_color'] }} backdrop-blur-md">
                         {{ $program['badge'] }}
                     </span>
+                    @endif
                 </div>
                 <div class="p-8 space-y-4">
                     <h3 class="font-bold text-gray-900 text-lg leading-snug dark:text-white group-hover:text-primary-600 transition-colors duration-200">{{ $program['title'] }}</h3>
@@ -188,7 +222,7 @@
         <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-medium tracking-wide backdrop-blur-md">
             {{ \App\Models\Setting::get('about_badge', 'Mengenal Lembaga Kami') }}
         </span>
-        <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-primary-950 dark:text-white">{{ \App\Models\Setting::get('about_title', 'Tentang Lemdiklat Permapendis') }}</h2>
+        <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-primary-950 dark:text-white">{{ \App\Models\Setting::get('about_title', 'Tentang PERMA PENDIS') }}</h2>
         <div class="w-16 h-1 bg-gradient-to-r from-primary-600 to-secondary-500 mx-auto rounded-full"></div>
         <p class="text-lg md:text-xl text-gray-500 max-w-3xl mx-auto leading-relaxed font-medium dark:text-gray-400">
             {{ \App\Models\Setting::get('about_desc', 'Lembaga Pendidikan dan Pelatihan berkomitmen tinggi meningkatkan kompetensi melalui program pelatihan terstruktur, kurikulum mutakhir, instruktur berpengalaman, serta pendekatan modern yang berorientasi hasil nyata.') }}
@@ -252,7 +286,7 @@
         <div class="text-center space-y-4">
             <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-primary-950 dark:text-white">Susunan Organisasi</h2>
             <div class="w-16 h-1 bg-gradient-to-r from-primary-600 to-secondary-500 mx-auto rounded-full"></div>
-            <p class="text-gray-500 dark:text-gray-400 font-medium max-w-xl mx-auto">Struktur kepengurusan profesional yang mendampingi dan mengarahkan kemajuan Lemdiklat Permapendis.</p>
+            <p class="text-gray-500 dark:text-gray-400 font-medium max-w-xl mx-auto">Struktur kepengurusan profesional yang mendampingi dan mengarahkan kemajuan PERMA PENDIS.</p>
         </div>
 
         {{-- Dewan Pembina --}}
@@ -385,7 +419,7 @@
         <div class="space-y-4">
             <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-primary-950 dark:text-white">Kabar & Artikel Terbaru</h2>
             <div class="w-20 h-1.5 bg-gradient-to-r from-primary-600 to-secondary-500 rounded-full"></div>
-            <p class="text-gray-500 dark:text-gray-400 font-medium">Ikuti berita terhangat, wawasan digitalisasi sekolah, serta panduan kurikulum dari ahli Lemdiklat.</p>
+            <p class="text-gray-500 dark:text-gray-400 font-medium">Ikuti berita terhangat, wawasan digitalisasi sekolah, serta panduan kurikulum dari ahli PERMA PENDIS.</p>
         </div>
         <div class="flex items-center gap-3 shrink-0 self-start md:self-auto">
             <a href="{{ route('articles') }}" class="btn-secondary py-3 px-6">Lihat Semua Artikel</a>
@@ -434,7 +468,7 @@
         <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-primary-950 dark:text-white">{{ \App\Models\Setting::get('gallery_title', 'Arsip Dokumentasi') }}</h2>
         <div class="w-16 h-1 bg-gradient-to-r from-primary-600 to-secondary-500 mx-auto rounded-full"></div>
         <p class="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed font-medium dark:text-gray-400">
-            {{ \App\Models\Setting::get('gallery_desc', 'Galeri momentum kegiatan pelatihan, sertifikasi, dan kemitraan strategis Lemdiklat Permapendis.') }}
+            {{ \App\Models\Setting::get('gallery_desc', 'Galeri momentum kegiatan pelatihan, sertifikasi, dan kemitraan strategis PERMA PENDIS.') }}
         </p>
     </div>
 
@@ -461,7 +495,7 @@
 <section id="contact" class="py-24 border-t border-gray-150 dark:border-emerald-950/20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
     <div class="text-center space-y-4">
         <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-medium tracking-wide backdrop-blur-md">
-            Hubungi Tim Lemdiklat
+            Hubungi Tim PERMA PENDIS
         </span>
         <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-primary-950 dark:text-white">{{ \App\Models\Setting::get('contact_page_title', 'Hubungi Kami') }}</h2>
         <div class="w-16 h-1 bg-gradient-to-r from-primary-600 to-secondary-500 mx-auto rounded-full"></div>

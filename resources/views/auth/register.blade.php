@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Akun - Lemdiklat Permapendis</title>
+    <title>Daftar Akun - PERMA PENDIS</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         .method-tab-active {
@@ -22,7 +22,7 @@
                 <img src="{{ \App\Models\Setting::get('app_logo', asset('img/logo.png')) }}" alt="Logo" class="h-12 w-12 object-contain" onerror="this.style.display='none'">
             </a>
             <h1 class="text-2xl font-bold">Buat Akun Baru</h1>
-            <p class="text-emerald-200 text-sm mt-1 font-medium">Bergabung dengan Lemdiklat Permapendis</p>
+            <p class="text-emerald-200 text-sm mt-1 font-medium">Bergabung dengan PERMA PENDIS</p>
         </div>
 
         <div class="px-8 py-8">
@@ -125,7 +125,7 @@
         <div class="flex flex-col items-center text-center pb-4 border-b border-gray-100">
             <svg class="w-8 h-8 text-blue-500 mb-2" viewBox="0 0 24 24"><path fill="currentColor" d="M12.24 10.285V14.4h6.887c-.648 2.41-2.519 4.114-5.136 4.114A5.89 5.89 0 0 1 8 12.629a5.89 5.89 0 0 1 5.99-5.89c1.62 0 3.085.57 4.24 1.62l3.19-3.19C19.497 3.38 16.943 2 13.99 2C8.473 2 4 6.473 4 12c0 5.527 4.473 10 9.99 10c5.753 0 10.01-4.045 10.01-10c0-.685-.06-1.343-.162-1.715H12.24z"/></svg>
             <h4 class="font-bold text-gray-800 text-base">Masuk dengan Google</h4>
-            <p class="text-xs text-gray-400 mt-0.5">Pilih akun untuk melanjutkan ke Lemdiklat</p>
+            <p class="text-xs text-gray-400 mt-0.5">Pilih akun untuk melanjutkan</p>
         </div>
 
         {{-- Loading Overlay --}}
@@ -143,11 +143,11 @@
                     <p class="text-[10px] text-gray-400">hamidun.dev@gmail.com</p>
                 </div>
             </button>
-            <button onclick="selectGoogleAccount('Lemdiklat Permapendis', 'permapendis.lemdiklat@gmail.com')" class="w-full flex items-center gap-3 p-3 hover:bg-slate-50 rounded-xl transition text-left">
+            <button onclick="selectGoogleAccount('PERMA PENDIS', 'permapendis@gmail.com')" class="w-full flex items-center gap-3 p-3 hover:bg-slate-50 rounded-xl transition text-left">
                 <div class="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-sm">L</div>
                 <div>
-                    <p class="text-xs font-bold text-gray-800">Lemdiklat Permapendis</p>
-                    <p class="text-[10px] text-gray-400">permapendis.lemdiklat@gmail.com</p>
+                    <p class="text-xs font-bold text-gray-800">PERMA PENDIS</p>
+                    <p class="text-[10px] text-gray-400">permapendis@gmail.com</p>
                 </div>
             </button>
             <button onclick="selectGoogleAccount('Ahmad Fauzi', 'ahmad.fauzi@gmail.com')" class="w-full flex items-center gap-3 p-3 hover:bg-slate-50 rounded-xl transition text-left">

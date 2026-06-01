@@ -1,13 +1,13 @@
 <div class="group flex flex-col items-center bg-white/70 backdrop-blur rounded-none p-6 shadow-[0_8px_30px_rgb(0,0,0,0.015)] border border-gray-100/80 hover:shadow-[0_20px_40px_rgb(0,0,0,0.03)] hover:-translate-y-1 hover:border-primary-100 transition-all duration-300 text-center dark:bg-[#0b120f]/80 dark:border-emerald-950/20 dark:hover:border-primary-900/30 w-full">
     <div class="relative mb-4">
         {{-- Avatar Outer Gradient Ring --}}
-        <div class="absolute -inset-1 bg-gradient-to-tr from-primary-600 to-secondary-400 rounded-none opacity-60 blur-sm group-hover:opacity-100 transition duration-500"></div>
+        <div class="absolute -inset-1 bg-gradient-to-tr from-primary-600 to-secondary-400 opacity-60 blur-sm group-hover:opacity-100 transition duration-500" style="border-radius: 9999px !important;"></div>
         
         @if(isset($photo) && $photo)
-            <img src="{{ $photo }}" alt="{{ $name }}" class="relative w-16 h-16 rounded-none object-cover shadow-md border-2 border-white dark:border-gray-900">
+            <img src="{{ $photo }}" alt="{{ $name }}" class="relative w-16 h-16 object-cover shadow-md border-2 border-white dark:border-gray-900" style="border-radius: 9999px !important;">
         @else
-            <div class="relative w-16 h-16 rounded-none flex items-center justify-center text-white font-bold text-lg shadow-md border-2 border-white dark:border-gray-900 transition-transform duration-500 group-hover:scale-105"
-                 style="background-color: #{{ $color ?? '208457' }};">
+            <div class="relative w-16 h-16 flex items-center justify-center text-white font-bold text-lg shadow-md border-2 border-white dark:border-gray-900 transition-transform duration-500 group-hover:scale-105"
+                 style="background-color: #{{ $color ?? '208457' }}; border-radius: 9999px !important;">
                 {{ collect(explode(' ', $name))->map(fn($w) => strtoupper(substr($w, 0, 1)))->take(2)->join('') }}
             </div>
         @endif

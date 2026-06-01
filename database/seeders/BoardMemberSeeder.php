@@ -187,7 +187,7 @@ class BoardMemberSeeder extends Seeder
             // Direktur
             [
                 'name' => 'Dr. H. Dadan F Ramdhan',
-                'role' => 'Direktur Lemdiklat PERMA Pendis Indonesia',
+                'role' => 'Direktur PERMA Pendis Indonesia',
                 'category' => 'Direktur',
                 'color' => 'dc2626',
                 'is_leader' => true,

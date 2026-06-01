@@ -19,10 +19,10 @@
             {{-- Image / Profile Preview --}}
             <div class="flex items-center gap-4 p-5 rounded-2xl border border-gray-100 bg-gray-50/50 dark:border-emerald-950/20 dark:bg-[#080d0b]/40">
                 @if($member->photo)
-                    <img src="{{ $member->photo }}" alt="{{ $member->name }}" class="w-16 h-16 rounded-none object-cover shadow-md border-2 border-white dark:border-[#0c1410]">
+                    <img src="{{ $member->photo }}" alt="{{ $member->name }}" class="w-16 h-16 object-cover shadow-md border-2 border-white dark:border-[#0c1410]" style="border-radius: 9999px !important;">
                 @else
-                    <div class="w-16 h-16 rounded-none flex items-center justify-center text-white font-bold text-lg border-2 border-white dark:border-[#0c1410]"
-                         style="background-color: #{{ $member->color }};">
+                    <div class="w-16 h-16 flex items-center justify-center text-white font-bold text-lg border-2 border-white dark:border-[#0c1410]"
+                         style="background-color: #{{ $member->color }}; border-radius: 9999px !important;">
                         {{ collect(explode(' ', $member->name))->map(fn($w) => strtoupper(substr($w, 0, 1)))->take(2)->join('') }}
                     </div>
                 @endif
@@ -110,7 +110,7 @@
                     <p class="text-red-500 text-xs mt-1.5 font-semibold">{{ $message }}</p>
                 @enderror
                 <div id="thumb-preview" class="hidden mt-4">
-                    <img id="thumb-img" src="" alt="Preview" class="w-16 h-16 rounded-none object-cover shadow-md border-2 border-white dark:border-[#0c1410]">
+                    <img id="thumb-img" src="" alt="Preview" class="w-16 h-16 object-cover shadow-md border-2 border-white dark:border-[#0c1410]" style="border-radius: 9999px !important;">
                 </div>
             </div>
         </div>

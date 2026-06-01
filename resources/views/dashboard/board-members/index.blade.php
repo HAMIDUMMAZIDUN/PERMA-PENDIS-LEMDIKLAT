@@ -54,10 +54,10 @@
                     <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-900/30 transition">
                         <td class="py-4 px-4">
                             @if($member->photo)
-                                <img src="{{ $member->photo }}" alt="{{ $member->name }}" class="w-12 h-12 rounded-none object-cover shadow-sm border border-gray-100 dark:border-gray-850">
+                                <img src="{{ $member->photo }}" alt="{{ $member->name }}" class="w-12 h-12 object-cover shadow-sm border border-gray-100 dark:border-gray-850" style="border-radius: 9999px !important;">
                             @else
-                                <div class="w-12 h-12 rounded-none flex items-center justify-center text-white font-bold text-sm"
-                                     style="background-color: #{{ $member->color }};">
+                                <div class="w-12 h-12 flex items-center justify-center text-white font-bold text-sm"
+                                     style="background-color: #{{ $member->color }}; border-radius: 9999px !important;">
                                     {{ collect(explode(' ', $member->name))->map(fn($w) => strtoupper(substr($w, 0, 1)))->take(2)->join('') }}
                                 </div>
                             @endif

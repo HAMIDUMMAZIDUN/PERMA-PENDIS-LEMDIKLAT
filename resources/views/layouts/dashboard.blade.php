@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Dashboard') - Lemdiklat Permapendis</title>
+    <title>@yield('title', 'Dashboard') - PERMA PENDIS</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="icon" href="{{ \App\Models\Setting::get('app_logo', asset('img/logo.png')) }}" type="image/png">
     <script>
@@ -26,8 +26,8 @@
             <a href="{{ route('home') }}" class="flex items-center gap-2.5">
                 <img src="{{ \App\Models\Setting::get('app_logo', asset('img/logo.png')) }}" alt="Logo" class="h-10 w-10 object-contain" onerror="this.style.display='none'">
                 <div>
-                    <p class="font-bold text-primary-900 text-sm leading-tight dark:text-white">Lemdiklat</p>
-                    <p class="text-secondary-600 text-xs font-medium dark:text-secondary-400">Permapendis</p>
+                    <p class="font-bold text-primary-900 text-sm leading-tight dark:text-white">PERMA PENDIS</p>
+                    <p class="text-secondary-600 text-xs font-medium dark:text-secondary-400">Dashboard</p>
                 </div>
             </a>
         </div>
