@@ -71,7 +71,12 @@ class PageController extends Controller
             'message' => 'required|string|max:2000',
         ]);
 
-        // TODO: Send email or save to DB
+        \App\Models\ContactMessage::create([
+            'name'    => $request->name,
+            'email'   => $request->email,
+            'message' => $request->message,
+        ]);
+
         return back()->with('success', 'Terima kasih! Pesan Anda telah dikirim.');
     }
 }

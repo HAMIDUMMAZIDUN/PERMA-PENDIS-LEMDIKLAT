@@ -83,7 +83,7 @@
             {{-- Description (Stored above the buttons and stats) --}}
             <div class="max-w-5xl">
                 <p class="text-xl md:text-2xl lg:text-3xl font-bold tracking-tight text-left leading-snug {{ $descClass }}">
-                    Perkumpulan Manajer Pendidikan Islam Indonesia adalah wadah berdedikasi untuk meningkatkan kompetensi manajer dan tenaga pendidik Islam di Indonesia.
+                   Perkumpulan Manajer Pendidikan Islam Indonesia adalah wadah bagi para manajer pendidikan untuk berperan, berkolaborasi, dan bersinergi dalam meningkatkan mutu dan daya saing lembaga pendidikan Islam
                 </p>
             </div>
             

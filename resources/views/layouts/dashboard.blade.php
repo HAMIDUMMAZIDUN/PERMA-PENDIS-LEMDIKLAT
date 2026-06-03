@@ -90,6 +90,7 @@
                 </a>
                 @php
                     $pendingCount = \App\Models\User::where('is_activated', false)->count();
+                    $unreadMessagesCount = \App\Models\ContactMessage::where('is_read', false)->count();
                 @endphp
                 <a href="{{ route('dashboard.approvals') }}"
                    class="flex items-center justify-between {{ request()->routeIs('dashboard.approvals*') ? 'sidebar-link-active' : 'sidebar-link' }}">
@@ -102,6 +103,20 @@
                     @if($pendingCount > 0)
                         <span class="px-2 py-0.5 text-[10px] font-medium rounded-full bg-amber-500 text-white dark:bg-amber-600">
                             {{ $pendingCount }}
+                        </span>
+                    @endif
+                </a>
+                <a href="{{ route('dashboard.messages') }}"
+                   class="flex items-center justify-between {{ request()->routeIs('dashboard.messages*') ? 'sidebar-link-active' : 'sidebar-link' }}">
+                    <div class="flex items-center gap-3">
+                        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                        <span>Pesan Masuk</span>
+                    </div>
+                    @if($unreadMessagesCount > 0)
+                        <span class="px-2 py-0.5 text-[10px] font-medium rounded-full bg-emerald-500 text-white dark:bg-emerald-600 animate-pulse">
+                            {{ $unreadMessagesCount }}
                         </span>
                     @endif
                 </a>

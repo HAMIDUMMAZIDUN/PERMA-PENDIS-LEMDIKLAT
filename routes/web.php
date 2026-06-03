@@ -62,5 +62,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard/approvals', [\App\Http\Controllers\DashboardController::class, 'approvals'])->name('dashboard.approvals');
         Route::post('/dashboard/approvals/{id}/approve', [\App\Http\Controllers\DashboardController::class, 'approveUser'])->name('dashboard.approvals.approve');
         Route::post('/dashboard/approvals/{id}/reject', [\App\Http\Controllers\DashboardController::class, 'rejectUser'])->name('dashboard.approvals.reject');
+
+        // ─── Contact Message Routes ───────────────────────────────────────────
+        Route::get('/dashboard/messages', [\App\Http\Controllers\DashboardController::class, 'messages'])->name('dashboard.messages');
+        Route::post('/dashboard/messages/{id}/toggle-read', [\App\Http\Controllers\DashboardController::class, 'toggleReadMessage'])->name('dashboard.messages.toggle-read');
+        Route::delete('/dashboard/messages/{id}', [\App\Http\Controllers\DashboardController::class, 'destroyMessage'])->name('dashboard.messages.destroy');
     });
 });

@@ -16,11 +16,13 @@ class DashboardController extends Controller
         $totalBoardMembers = \App\Models\BoardMember::count();
         $pendingApprovals = \App\Models\User::where('is_activated', false)->count();
         $activeUsers = \App\Models\User::where('is_activated', true)->count();
+        $unreadMessages = \App\Models\ContactMessage::where('is_read', false)->count();
         
         // Fetch recent records
         $recentArticles = \App\Models\Article::with('category')->latest()->take(3)->get();
         $recentBoardMembers = \App\Models\BoardMember::latest()->take(3)->get();
         $recentPendingUsers = \App\Models\User::where('is_activated', false)->with('profile', 'role')->latest()->take(3)->get();
+        $recentMessages = \App\Models\ContactMessage::latest()->take(3)->get();
         
         return view('dashboard.index', compact(
             'user', 
@@ -28,9 +30,11 @@ class DashboardController extends Controller
             'totalBoardMembers', 
             'pendingApprovals', 
             'activeUsers',
+            'unreadMessages',
             'recentArticles',
             'recentBoardMembers',
-            'recentPendingUsers'
+            'recentPendingUsers',
+            'recentMessages'
         ));
     }
 
@@ -381,5 +385,32 @@ class DashboardController extends Controller
         }
 
         return redirect()->route('dashboard.approvals')->with('success', 'Pendaftaran akun telah ditolak dan dihapus.');
+    }
+
+    public function messages()
+    {
+        $user = Auth::user()->load('profile', 'role');
+        $messages = \App\Models\ContactMessage::latest()->get();
+
+        return view('dashboard.messages.index', compact('user', 'messages'));
+    }
+
+    public function toggleReadMessage($id)
+    {
+        $message = \App\Models\ContactMessage::findOrFail($id);
+        $message->is_read = !$message->is_read;
+        $message->save();
+
+        $status = $message->is_read ? 'dibaca' : 'belum dibaca';
+        return back()->with('success', "Status pesan dari {$message->name} berhasil diubah menjadi {$status}.");
+    }
+
+    public function destroyMessage($id)
+    {
+        $message = \App\Models\ContactMessage::findOrFail($id);
+        $name = $message->name;
+        $message->delete();
+
+        return back()->with('success', "Pesan dari {$name} telah dihapus.");
     }
 }
