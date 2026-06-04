@@ -63,10 +63,11 @@
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
-                        <label class="form-label">Username</label>
-                        <input type="text" value="{{ $user->username }}" disabled
-                               class="form-input bg-gray-100 text-gray-500 cursor-not-allowed dark:bg-[#070c0a] dark:border-emerald-950/20 dark:text-gray-500">
-                        <p class="text-xs text-gray-400 mt-1.5 font-medium">Username unik ini permanen & tidak dapat diubah</p>
+                        <label for="username" class="form-label font-bold text-sm">Username <span class="text-red-500">*</span></label>
+                        <input id="username" name="username" type="text" value="{{ old('username', $user->username) }}" required
+                               class="form-input @error('username') border-red-400 @enderror">
+                        @error('username')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                        <p class="text-xs text-gray-400 mt-1.5 font-medium">Username unik ini digunakan untuk masuk/login.</p>
                     </div>
                     <div>
                         <label for="name" class="form-label">Nama Lengkap <span class="text-red-500">*</span></label>
@@ -95,6 +96,26 @@
                         <textarea id="address" name="address" rows="3"
                                   class="form-input"
                                   placeholder="Masukkan alamat domisili lengkap Anda">{{ old('address', $user->profile?->address) }}</textarea>
+                    </div>
+                    
+                    {{-- Optional Password Fields --}}
+                    <div class="sm:col-span-2 pt-4 border-t border-gray-150/40 dark:border-emerald-950/20">
+                        <h4 class="font-extrabold text-gray-900 text-sm mb-2 dark:text-white">Ubah Password Akun (Opsional)</h4>
+                        <p class="text-xs text-gray-400 font-medium mb-4">Kosongkan jika Anda tidak ingin mengubah password.</p>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label for="password" class="form-label font-bold text-sm">Password Baru</label>
+                                <input id="password" name="password" type="password" placeholder="••••••••"
+                                       class="form-input @error('password') border-red-400 @enderror">
+                                @error('password')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                            </div>
+                            <div>
+                                <label for="password_confirmation" class="form-label font-bold text-sm">Konfirmasi Password Baru</label>
+                                <input id="password_confirmation" name="password_confirmation" type="password" placeholder="••••••••"
+                                       class="form-input">
+                            </div>
+                        </div>
                     </div>
                 </div>
 

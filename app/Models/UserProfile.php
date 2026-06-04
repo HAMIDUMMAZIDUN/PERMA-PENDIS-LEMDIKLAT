@@ -11,7 +11,14 @@ class UserProfile extends Model
     public $incrementing = false;
 
     protected $fillable = [
-        'name', 'email', 'phone', 'address', 'city', 'profile_picture'
+        'name', 'email', 'phone', 'address', 'city', 'profile_picture',
+        'member_number', 'wilayah', 'province', 'institution',
+        'study_program', 'nim', 'membership_status', 'kta_issued_at', 'kta_expired_at',
+    ];
+
+    protected $casts = [
+        'kta_issued_at'  => 'date',
+        'kta_expired_at' => 'date',
     ];
 
     protected static function boot()

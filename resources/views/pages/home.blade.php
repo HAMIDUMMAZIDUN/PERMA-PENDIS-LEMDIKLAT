@@ -161,61 +161,6 @@
     </div>
 </section>
 
-{{-- Training Programs with interactive showcase --}}
-<section class="bg-gradient-to-b from-[#f2f7f4] to-[#f8faf9] py-24 dark:from-[#09110d] dark:to-[#070c0a] border-y border-emerald-950/10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16 space-y-4">
-            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-primary-950 dark:text-white">{{ \App\Models\Setting::get('scheme_title', 'Skema Pendidikan & Pelatihan') }}</h2>
-            <div class="w-20 h-1.5 bg-gradient-to-r from-primary-600 to-secondary-500 mx-auto rounded-full"></div>
-            <p class="text-gray-500 max-w-2xl mx-auto text-lg dark:text-gray-400 font-medium">{{ \App\Models\Setting::get('scheme_desc', 'Beberapa program pelatihan berjenjang yang kami tawarkan untuk kepala sekolah di seluruh tingkat satuan pendidikan.') }}</p>
-        </div>
-        
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            @foreach([
-                [
-                    'title' => \App\Models\Setting::get('scheme_title_1', 'Pelatihan Kepala Sekolah SD / MI'), 
-                    'desc' => \App\Models\Setting::get('scheme_desc_1', 'Membekali kepala sekolah dasar dalam merancang strategi pembelajaran inovatif, pengelolaan tim pendidik dasar, serta komunikasi kemitraan dengan wali murid.'), 
-                    'img' => \App\Models\Setting::get('home_program_img_1', 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&h=250&fit=crop'),                
-                    'tag_color' => 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 dark:bg-emerald-950/30 border-emerald-500/20'
-                ],
-                [
-                    'title' => \App\Models\Setting::get('scheme_title_2', 'Pelatihan Kepala Sekolah SMP / MTs'), 
-                    'desc' => \App\Models\Setting::get('scheme_desc_2', 'Program penguatan manajemen kesiswaan remaja, tata laksana manajemen sekolah menengah pertama, serta kepemimpinan transformatif era global.'), 
-                    'img' => \App\Models\Setting::get('home_program_img_2', 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=400&h=250&fit=crop'), 
-                    'tag_color' => 'bg-secondary-500/10 text-secondary-700 dark:text-secondary-400 dark:bg-secondary-950/30 border-secondary-500/20'
-                ],
-                [
-                    'title' => \App\Models\Setting::get('scheme_title_3', 'Pelatihan Kepala Sekolah SMA / SMK / MA'), 
-                    'desc' => \App\Models\Setting::get('scheme_desc_3', 'Fokus pada kurikulum kesiapan karir, kerja sama industri modern (link and match), tata kelola sekolah tingkat menengah atas, dan kepemimpinan visioner digital.'), 
-                    'img' => \App\Models\Setting::get('home_program_img_3', 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=400&h=250&fit=crop'), 
-                    'tag_color' => 'bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 dark:bg-indigo-950/30 border-indigo-500/20'
-                ],
-            ] as $program)
-            <div class="bg-white rounded-3xl shadow-[0_10px_35px_rgba(0,0,0,0.01)] hover:shadow-[0_25px_50px_rgba(0,0,0,0.04)] border border-gray-100 dark:border-emerald-950/30 overflow-hidden group hover:-translate-y-1.5 transition-all duration-300 dark:bg-[#0b120f]">
-                <div class="relative overflow-hidden h-60">
-                    <img src="{{ $program['img'] }}" alt="{{ $program['title'] }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                    @if(isset($program['badge']))
-                    <span class="absolute top-4 right-4 px-3 py-1.5 rounded-xl text-xs font-medium border {{ $program['tag_color'] }} backdrop-blur-md">
-                        {{ $program['badge'] }}
-                    </span>
-                    @endif
-                </div>
-                <div class="p-8 space-y-4">
-                    <h3 class="font-bold text-gray-900 text-lg leading-snug dark:text-white group-hover:text-primary-600 transition-colors duration-200">{{ $program['title'] }}</h3>
-                    <p class="text-gray-500 text-sm leading-relaxed dark:text-gray-400 font-medium">{{ $program['desc'] }}</p>
-                    <div class="pt-4 border-t border-gray-50 dark:border-emerald-950/20 flex items-center">
-                        <a href="{{ route('register') }}" class="inline-flex items-center gap-2 text-primary-700 font-medium text-sm hover:text-primary-900 transition-all group-hover:gap-3">
-                            Daftar Pelatihan
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            @endforeach
-        </div>
-    </div>
-</section>
-
 {{-- Tentang Section --}}
 <section id="about" class="py-24 border-t border-gray-150 dark:border-emerald-950/20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
     <div class="text-center space-y-4">
@@ -413,8 +358,73 @@
     </div>
 </section>
 
+{{-- Agenda/Events Section --}}
+<section id="events" class="py-24 border-t border-gray-150 dark:border-emerald-950/20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div class="space-y-4">
+            <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-300 text-xs font-medium tracking-wide backdrop-blur-md">
+                Agenda & Kalender Kegiatan
+            </span>
+            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-primary-950 dark:text-white">Agenda & Event Mendatang</h2>
+            <div class="w-16 h-1 bg-gradient-to-r from-primary-600 to-secondary-500 rounded-full"></div>
+            <p class="text-gray-500 dark:text-gray-400 font-medium max-w-xl">Ikuti berbagai kegiatan pelatihan, seminar, rapat kerja, dan diskusi panel yang diselenggarakan oleh PERMA PENDIS.</p>
+        </div>
+        <a href="{{ route('events') }}" class="btn-secondary py-3 px-6 shrink-0 self-start md:self-auto">
+            Lihat Kalender Agenda
+        </a>
+    </div>
+
+    @if($events->count() > 0)
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        @foreach($events as $event)
+        <div class="relative group bg-white rounded-3xl border border-gray-100 hover:border-primary-100 hover:shadow-[0_20px_50px_rgba(0,0,0,0.03)] transition-all duration-300 overflow-hidden flex flex-col dark:bg-[#0b120f] dark:border-emerald-950/20 dark:hover:border-primary-900/40">
+            <a href="{{ route('events.show', $event->slug) }}" class="flex flex-col flex-1">
+                <div class="relative overflow-hidden h-48">
+                    @if($event->cover_image)
+                        <img src="{{ asset($event->cover_image) }}" alt="{{ $event->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    @else
+                        <div class="w-full h-full bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/20 dark:to-teal-950/10 flex items-center justify-center text-emerald-600/30 text-5xl">
+                            📅
+                        </div>
+                    @endif
+                    <span class="absolute top-4 left-4 inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold {{ $event->type_color }} bg-white/95 shadow-sm dark:bg-[#0c1410]/95">
+                        {{ ucfirst($event->type) }}
+                    </span>
+                </div>
+                <div class="p-6 flex flex-col flex-1 space-y-4">
+                    <div class="flex items-center gap-2 text-xs text-emerald-600 dark:text-emerald-450 font-bold">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                        {{ $event->start_date->translatedFormat('d M Y • H:i') }} WIB
+                    </div>
+                    <h3 class="font-bold text-gray-900 text-base leading-snug group-hover:text-primary-700 transition line-clamp-2 dark:text-white">{{ $event->title }}</h3>
+                    <div class="text-xs text-gray-400 dark:text-gray-500 font-medium space-y-1">
+                        @if($event->location)
+                        <p class="flex items-center gap-1.5 truncate">
+                            📍 {{ $event->location }}
+                        </p>
+                        @endif
+                        @if($event->contact_person)
+                        <p class="flex items-center gap-1.5 truncate">
+                            📞 {{ $event->contact_person }}
+                        </p>
+                        @endif
+                    </div>
+                </div>
+            </a>
+        </div>
+        @endforeach
+    </div>
+    @else
+    <div class="text-center py-16 border border-dashed border-gray-200 dark:border-emerald-950/30 rounded-3xl text-gray-400">
+        <p class="font-medium text-lg">Belum ada agenda terdekat.</p>
+    </div>
+    @endif
+</section>
+
 {{-- Latest News --}}
-<section class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section id="articles" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
         <div class="space-y-4">
             <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-primary-950 dark:text-white">Kabar & Artikel Terbaru</h2>
@@ -472,23 +482,114 @@
         </p>
     </div>
 
+    @if($galleries->count() > 0)
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        @for($i = 1; $i <= 6; $i++)
-            @if($image = \App\Models\Setting::get("gallery_img_{$i}"))
-            <div class="group relative rounded-3xl overflow-hidden shadow-md border border-gray-100 dark:border-emerald-950/20 aspect-[4/3] bg-gray-100 dark:bg-[#0b120f] hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+        @foreach($galleries as $gallery)
+            @php
+                $coverUrl = $gallery->cover_image ? asset($gallery->cover_image) : ($gallery->items->first() ? asset($gallery->items->first()->file_path) : '');
+                $allImages = [];
+                if ($gallery->cover_image) {
+                    $allImages[] = asset($gallery->cover_image);
+                }
+                foreach ($gallery->items as $item) {
+                    $allImages[] = asset($item->file_path);
+                }
+                $allImages = array_values(array_unique($allImages));
+                if (empty($allImages) && $coverUrl) {
+                    $allImages[] = $coverUrl;
+                }
+                $allImagesJson = json_encode($allImages);
+            @endphp
+            @if($coverUrl)
+            <div onclick="openGalleryLightbox({{ $allImagesJson }}, '{{ addslashes($gallery->title) }}')" class="group cursor-pointer relative rounded-3xl overflow-hidden shadow-md border border-gray-100 dark:border-emerald-950/20 aspect-[4/3] bg-gray-100 dark:bg-[#0b120f] hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                 {{-- Image --}}
-                <img src="{{ $image }}" alt="{{ \App\Models\Setting::get("gallery_caption_{$i}", 'Dokumentasi ' . $i) }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <img src="{{ $coverUrl }}" alt="{{ $gallery->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                 
                 {{-- Dark Gradient Overlay --}}
                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
                     <p class="text-white font-bold text-base leading-snug transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        {{ \App\Models\Setting::get("gallery_caption_{$i}") ?: 'Momentum Dokumentasi' }}
+                        {{ $gallery->title }}
                     </p>
+                    @if($gallery->category)
+                        <span class="text-emerald-400 text-xs font-semibold mt-1.5 flex items-center gap-1 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">
+                            📂 {{ $gallery->category->name }}
+                        </span>
+                    @endif
+                    @if(count($allImages) > 1)
+                        <span class="text-emerald-400 text-xs font-semibold mt-1 flex items-center gap-1 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100">
+                            📸 {{ count($allImages) }} Foto
+                        </span>
+                    @endif
                 </div>
             </div>
             @endif
-        @endfor
+        @endforeach
     </div>
+    @else
+    <div class="text-center py-16 border border-dashed border-gray-200 dark:border-emerald-950/30 rounded-3xl text-gray-400">
+        <p class="font-medium text-lg">Belum ada galeri kegiatan terbit.</p>
+    </div>
+    @endif
+</section>
+
+{{-- Downloads Section --}}
+<section id="downloads" class="py-24 border-t border-gray-150 dark:border-emerald-950/20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div class="space-y-4">
+            <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-300 text-xs font-medium tracking-wide backdrop-blur-md">
+                Download Center / Dokumen Publik
+            </span>
+            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-primary-950 dark:text-white">Dokumen & Formulir Resmi</h2>
+            <div class="w-16 h-1 bg-gradient-to-r from-primary-600 to-secondary-500 rounded-full"></div>
+            <p class="text-gray-500 dark:text-gray-400 font-medium max-w-xl">Unduh berbagai formulir pendaftaran, brosur program, surat keputusan, dan file administrasi resmi lainnya secara langsung.</p>
+        </div>
+        <a href="{{ route('downloads') }}" class="btn-secondary py-3 px-6 shrink-0 self-start md:self-auto">
+            Kunjungi Download Center
+        </a>
+    </div>
+
+    @if($downloads->count() > 0)
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        @foreach($downloads as $download)
+        <div class="bg-white dark:bg-[#0b120f] border border-gray-100 dark:border-emerald-950/20 rounded-3xl p-6 hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between space-y-6">
+            <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded dark:bg-emerald-950/30 dark:text-emerald-400">
+                        {{ strtoupper($download->file_type) }}
+                    </span>
+                    <span class="text-[10px] text-gray-400 dark:text-gray-500 font-semibold">
+                        {{ $download->file_size }}
+                    </span>
+                </div>
+                <h3 class="font-bold text-gray-900 text-sm leading-snug line-clamp-2 dark:text-white" title="{{ $download->title }}">
+                    {{ $download->title }}
+                </h3>
+                @if($download->category)
+                    <p class="text-[11px] font-semibold text-gray-450 dark:text-gray-500">
+                        📂 {{ $download->category->name }}
+                    </p>
+                @endif
+                @if($download->description)
+                    <p class="text-xs text-gray-500 dark:text-gray-400 line-clamp-2 leading-relaxed">
+                        {{ $download->description }}
+                    </p>
+                @endif
+            </div>
+            
+            <a href="{{ route('downloads.file', $download) }}" class="btn-primary w-full py-2 text-xs flex items-center justify-center gap-1.5">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                </svg>
+                Unduh Berkas
+            </a>
+        </div>
+        @endforeach
+    </div>
+    @else
+    <div class="text-center py-16 border border-dashed border-gray-200 dark:border-emerald-950/30 rounded-3xl text-gray-400">
+        <p class="font-medium text-lg">Belum ada dokumen publik yang diunggah.</p>
+    </div>
+    @endif
 </section>
 
 {{-- Kontak Section --}}
@@ -614,6 +715,138 @@
         </div>
     </div>
 </section>
+
+{{-- Gallery Lightbox Modal --}}
+<div id="gallery-lightbox-modal" class="fixed inset-0 z-50 hidden bg-black/95 backdrop-blur-md flex items-center justify-center p-4 transition-all duration-300 opacity-0">
+    {{-- Close Button --}}
+    <button onclick="closeGalleryLightbox()" class="absolute top-6 right-6 text-white/80 hover:text-white hover:scale-110 transition p-2 bg-white/10 hover:bg-white/20 rounded-full z-50">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+    </button>
+
+    {{-- Navigation: Prev Arrow --}}
+    <button id="lightbox-prev-btn" onclick="prevLightboxImage()" class="absolute left-6 text-white/80 hover:text-white hover:scale-110 transition p-3 bg-white/10 hover:bg-white/20 rounded-full z-50 hidden select-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
+        </svg>
+    </button>
+
+    {{-- Navigation: Next Arrow --}}
+    <button id="lightbox-next-btn" onclick="nextLightboxImage()" class="absolute right-6 text-white/80 hover:text-white hover:scale-110 transition p-3 bg-white/10 hover:bg-white/20 rounded-full z-50 hidden select-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+        </svg>
+    </button>
+
+    {{-- Content Container --}}
+    <div class="max-w-5xl w-full flex flex-col items-center gap-4 relative">
+        <div class="w-full relative overflow-hidden rounded-2xl border border-white/10 bg-black/40 flex items-center justify-center aspect-[16/10] md:aspect-[16/9]">
+            <img id="lightbox-image" src="" alt="Lightbox View" class="max-w-full max-h-[80vh] object-contain transition-all duration-300">
+        </div>
+        
+        {{-- Caption and Info --}}
+        <div class="text-center w-full px-6 py-2">
+            <p id="lightbox-caption" class="text-white text-lg font-bold tracking-wide"></p>
+            <p id="lightbox-counter" class="text-gray-400 text-xs font-semibold mt-1"></p>
+        </div>
+    </div>
+</div>
+
+<script>
+    let lightboxImages = [];
+    let currentLightboxIndex = 0;
+
+    function openGalleryLightbox(images, caption) {
+        if (!images || images.length === 0) return;
+        lightboxImages = images;
+        currentLightboxIndex = 0;
+        
+        document.getElementById('lightbox-caption').textContent = caption;
+        updateLightboxView();
+        
+        const modal = document.getElementById('gallery-lightbox-modal');
+        modal.classList.remove('hidden');
+        modal.offsetHeight; // force reflow
+        modal.classList.remove('opacity-0');
+        modal.classList.add('opacity-100');
+        
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeGalleryLightbox() {
+        const modal = document.getElementById('gallery-lightbox-modal');
+        modal.classList.add('opacity-0');
+        modal.classList.remove('opacity-100');
+        setTimeout(() => {
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }, 300);
+    }
+
+    function updateLightboxView() {
+        const imgEl = document.getElementById('lightbox-image');
+        if (imgEl) {
+            imgEl.style.opacity = '0.3';
+            imgEl.style.transform = 'scale(0.98)';
+            setTimeout(() => {
+                imgEl.src = lightboxImages[currentLightboxIndex];
+                imgEl.onload = () => {
+                    imgEl.style.opacity = '1';
+                    imgEl.style.transform = 'scale(1)';
+                };
+            }, 100);
+        }
+        
+        const counterEl = document.getElementById('lightbox-counter');
+        if (counterEl) {
+            counterEl.textContent = `Foto ${currentLightboxIndex + 1} dari ${lightboxImages.length}`;
+        }
+        
+        const prevBtn = document.getElementById('lightbox-prev-btn');
+        const nextBtn = document.getElementById('lightbox-next-btn');
+        if (lightboxImages.length > 1) {
+            if (prevBtn) prevBtn.classList.remove('hidden');
+            if (nextBtn) nextBtn.classList.remove('hidden');
+        } else {
+            if (prevBtn) prevBtn.classList.add('hidden');
+            if (nextBtn) nextBtn.classList.add('hidden');
+        }
+    }
+
+    function prevLightboxImage() {
+        if (lightboxImages.length <= 1) return;
+        currentLightboxIndex = (currentLightboxIndex - 1 + lightboxImages.length) % lightboxImages.length;
+        updateLightboxView();
+    }
+
+    function nextLightboxImage() {
+        if (lightboxImages.length <= 1) return;
+        currentLightboxIndex = (currentLightboxIndex + 1) % lightboxImages.length;
+        updateLightboxView();
+    }
+
+    // Close on background click
+    document.getElementById('gallery-lightbox-modal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeGalleryLightbox();
+        }
+    });
+
+    // Keyboard Navigation
+    document.addEventListener('keydown', function(e) {
+        const modal = document.getElementById('gallery-lightbox-modal');
+        if (modal && !modal.classList.contains('hidden')) {
+            if (e.key === 'Escape') {
+                closeGalleryLightbox();
+            } else if (e.key === 'ArrowLeft') {
+                prevLightboxImage();
+            } else if (e.key === 'ArrowRight') {
+                nextLightboxImage();
+            }
+        }
+    });
+</script>
 
 </div>
 @endsection

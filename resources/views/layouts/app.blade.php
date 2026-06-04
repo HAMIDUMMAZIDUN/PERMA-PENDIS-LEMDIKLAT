@@ -67,21 +67,13 @@
 
             {{-- Desktop Nav --}}
             <nav class="hidden md:flex items-center gap-1" id="main-nav">
-                <a href="{{ request()->routeIs('home') ? '#hero' : route('home') . '#hero' }}" class="{{ request()->routeIs('home') ? 'nav-link-active' : 'nav-link' }}" data-section="hero">
-                    Beranda
-                </a>
-                <a href="{{ route('articles') }}" class="{{ request()->routeIs('articles*') ? 'nav-link-active' : 'nav-link' }}">
-                    Artikel
-                </a>
-                <a href="{{ request()->routeIs('home') ? '#about' : route('home') . '#about' }}" class="{{ request()->routeIs('about') ? 'nav-link-active' : 'nav-link' }}" data-section="about">
-                    Tentang
-                </a>
-                <a href="{{ request()->routeIs('home') ? '#gallery' : route('home') . '#gallery' }}" class="nav-link" data-section="gallery">
-                    Dokumentasi
-                </a>
-                <a href="{{ request()->routeIs('home') ? '#contact' : route('home') . '#contact' }}" class="{{ request()->routeIs('contact') ? 'nav-link-active' : 'nav-link' }}" data-section="contact">
-                    Kontak
-                </a>
+                <a href="{{ request()->routeIs('home') ? '#hero' : route('home') . '#hero' }}" class="{{ request()->routeIs('home') ? 'nav-link-active' : 'nav-link' }}" data-section="hero">Beranda</a>
+                <a href="{{ request()->routeIs('home') ? '#articles' : route('articles') }}" class="{{ request()->routeIs('articles*') ? 'nav-link-active' : 'nav-link' }}" data-section="articles">Artikel</a>
+                <a href="{{ request()->routeIs('home') ? '#gallery' : route('gallery') }}" class="{{ request()->routeIs('gallery*') ? 'nav-link-active' : 'nav-link' }}" data-section="gallery">Galeri</a>
+                <a href="{{ request()->routeIs('home') ? '#events' : route('events') }}" class="{{ request()->routeIs('events*') ? 'nav-link-active' : 'nav-link' }}" data-section="events">Agenda</a>
+                <a href="{{ request()->routeIs('home') ? '#downloads' : route('downloads') }}" class="{{ request()->routeIs('downloads*') ? 'nav-link-active' : 'nav-link' }}" data-section="downloads">Download</a>
+                <a href="{{ request()->routeIs('home') ? '#about' : route('about') }}" class="{{ request()->routeIs('about') ? 'nav-link-active' : 'nav-link' }}" data-section="about">Tentang</a>
+                <a href="{{ request()->routeIs('home') ? '#contact' : route('contact') }}" class="{{ request()->routeIs('contact') ? 'nav-link-active' : 'nav-link' }}" data-section="contact">Kontak</a>
             </nav>
 
             {{-- Auth Buttons & Theme Toggle --}}
@@ -125,10 +117,12 @@
     <div id="mobile-menu" class="hidden md:hidden border-t border-gray-200 bg-white dark:bg-gray-900 dark:border-gray-800">
         <nav class="px-4 py-3 space-y-1" id="mobile-nav">
             <a href="{{ request()->routeIs('home') ? '#hero' : route('home') . '#hero' }}" class="{{ request()->routeIs('home') ? 'sidebar-link-active' : 'sidebar-link' }}" data-section="hero">Beranda</a>
-            <a href="{{ route('articles') }}" class="{{ request()->routeIs('articles*') ? 'sidebar-link-active' : 'sidebar-link' }}">Artikel</a>
-            <a href="{{ request()->routeIs('home') ? '#about' : route('home') . '#about' }}" class="{{ request()->routeIs('about') ? 'sidebar-link-active' : 'sidebar-link' }}" data-section="about">Tentang</a>
-            <a href="{{ request()->routeIs('home') ? '#gallery' : route('home') . '#gallery' }}" class="sidebar-link" data-section="gallery">Dokumentasi</a>
-            <a href="{{ request()->routeIs('home') ? '#contact' : route('home') . '#contact' }}" class="{{ request()->routeIs('contact') ? 'sidebar-link-active' : 'sidebar-link' }}" data-section="contact">Kontak</a>
+            <a href="{{ request()->routeIs('home') ? '#articles' : route('articles') }}" class="{{ request()->routeIs('articles*') ? 'sidebar-link-active' : 'sidebar-link' }}" data-section="articles">Artikel</a>
+            <a href="{{ request()->routeIs('home') ? '#gallery' : route('gallery') }}" class="{{ request()->routeIs('gallery*') ? 'sidebar-link-active' : 'sidebar-link' }}" data-section="gallery">Galeri</a>
+            <a href="{{ request()->routeIs('home') ? '#events' : route('events') }}" class="{{ request()->routeIs('events*') ? 'sidebar-link-active' : 'sidebar-link' }}" data-section="events">Agenda</a>
+            <a href="{{ request()->routeIs('home') ? '#downloads' : route('downloads') }}" class="{{ request()->routeIs('downloads*') ? 'sidebar-link-active' : 'sidebar-link' }}" data-section="downloads">Download</a>
+            <a href="{{ request()->routeIs('home') ? '#about' : route('about') }}" class="{{ request()->routeIs('about') ? 'sidebar-link-active' : 'sidebar-link' }}" data-section="about">Tentang</a>
+            <a href="{{ request()->routeIs('home') ? '#contact' : route('contact') }}" class="{{ request()->routeIs('contact') ? 'sidebar-link-active' : 'sidebar-link' }}" data-section="contact">Kontak</a>
             <div class="pt-2 border-t border-gray-200 flex gap-2 dark:border-gray-800">
                 @auth
                     <a href="{{ route('dashboard') }}" class="btn-primary py-2 px-4 text-sm w-full justify-center">Dashboard</a>
@@ -179,8 +173,12 @@
                 <h4 class="text-white font-bold mb-3">Navigasi</h4>
                 <ul class="space-y-2 text-sm">
                     <li><a href="{{ route('home') }}" class="hover:text-white transition-colors">Beranda</a></li>
-                    <li><a href="{{ route('articles') }}" class="hover:text-white transition-colors">Artikel</a></li>
+                    <li><a href="{{ route('articles') }}" class="hover:text-white transition-colors">Artikel & Berita</a></li>
+                    <li><a href="{{ route('gallery') }}" class="hover:text-white transition-colors">Galeri Kegiatan</a></li>
+                    <li><a href="{{ route('events') }}" class="hover:text-white transition-colors">Agenda & Kalender</a></li>
+                    <li><a href="{{ route('downloads') }}" class="hover:text-white transition-colors">Download Center</a></li>
                     <li><a href="{{ route('about') }}" class="hover:text-white transition-colors">Tentang Kami</a></li>
+                    <li><a href="{{ route('faq') }}" class="hover:text-white transition-colors">FAQ</a></li>
                     <li><a href="{{ route('contact') }}" class="hover:text-white transition-colors">Kontak</a></li>
                 </ul>
             </div>
@@ -197,6 +195,23 @@
         </div>
     </div>
 </footer>
+
+{{-- WhatsApp Floating Helpdesk Button --}}
+@php
+    $waPhone = \App\Models\Setting::get('contact_phone', '6281234567890');
+    $waPhone = preg_replace('/[^0-9]/', '', $waPhone);
+    if (str_starts_with($waPhone, '0')) $waPhone = '62' . substr($waPhone, 1);
+@endphp
+<a href="https://wa.me/{{ $waPhone }}?text=Halo+PERMA+PENDIS,+saya+ingin+bertanya..."
+   target="_blank" rel="noopener"
+   id="wa-float"
+   class="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group"
+   aria-label="Chat WhatsApp">
+    <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+    <span class="text-sm font-semibold max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 whitespace-nowrap">Hubungi Kami</span>
+</a>
 
 <script>
     // Theme toggle function
@@ -282,7 +297,7 @@
                     }
                 });
 
-                if (currentSection === 'hero' || currentSection === 'about' || currentSection === 'gallery' || currentSection === 'contact') {
+                if (['hero', 'about', 'articles', 'gallery', 'events', 'downloads', 'contact'].includes(currentSection)) {
                     updateActiveLink(currentSection);
                 }
             });

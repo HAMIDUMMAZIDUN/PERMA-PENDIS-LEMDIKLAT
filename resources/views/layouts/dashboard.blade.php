@@ -120,6 +120,39 @@
                         </span>
                     @endif
                 </a>
+
+                {{-- Konten Modul Baru --}}
+                <div class="pt-1 mt-1 border-t border-gray-100 dark:border-gray-800">
+                    <p class="text-xs font-medium text-gray-400 uppercase tracking-wider px-3 py-2">Konten & Media</p>
+                    <a href="{{ route('dashboard.gallery') }}"
+                       class="{{ request()->routeIs('dashboard.gallery*') ? 'sidebar-link-active' : 'sidebar-link' }}">
+                        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                        Galeri Kegiatan
+                    </a>
+                    <a href="{{ route('dashboard.events') }}"
+                       class="{{ request()->routeIs('dashboard.events*') ? 'sidebar-link-active' : 'sidebar-link' }}">
+                        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                        Agenda & Event
+                    </a>
+                    <a href="{{ route('dashboard.downloads') }}"
+                       class="{{ request()->routeIs('dashboard.downloads*') ? 'sidebar-link-active' : 'sidebar-link' }}">
+                        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                        </svg>
+                        Download Center
+                    </a>
+                    <a href="{{ route('dashboard.faqs') }}"
+                       class="{{ request()->routeIs('dashboard.faqs*') ? 'sidebar-link-active' : 'sidebar-link' }}">
+                        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        Kelola FAQ
+                    </a>
+                </div>
             </div>
 
             <div class="pt-2">

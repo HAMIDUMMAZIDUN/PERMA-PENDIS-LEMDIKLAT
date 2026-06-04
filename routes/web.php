@@ -6,6 +6,10 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\DownloadController;
+use App\Http\Controllers\FaqController;
 use App\Http\Middleware\AdminMiddleware;
 
 // ─── Public Routes ────────────────────────────────────────────────────────────
@@ -17,6 +21,22 @@ Route::post('/contact', [PageController::class, 'sendContact'])->name('contact.s
 // ─── Articles (Public) ───────────────────────────────────────────────────────
 Route::get('/articles', [ArticleController::class, 'index'])->name('articles');
 Route::get('/articles/{slug}', [ArticleController::class, 'show'])->name('articles.show');
+
+// ─── Gallery (Public) ────────────────────────────────────────────────────────
+Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
+Route::get('/gallery/{gallery}', [GalleryController::class, 'show'])->name('gallery.show');
+
+// ─── Events / Agenda (Public) ────────────────────────────────────────────────
+Route::get('/agenda', [EventController::class, 'index'])->name('events');
+Route::get('/agenda/{event}', [EventController::class, 'show'])->name('events.show');
+Route::get('/agenda/calendar/data', [EventController::class, 'calendarData'])->name('events.calendar');
+
+// ─── Downloads (Public) ──────────────────────────────────────────────────────
+Route::get('/downloads', [DownloadController::class, 'index'])->name('downloads');
+Route::get('/downloads/{download}/file', [DownloadController::class, 'download'])->name('downloads.file');
+
+// ─── FAQ (Public) ────────────────────────────────────────────────────────────
+Route::get('/faq', [FaqController::class, 'index'])->name('faq');
 
 // ─── Auth Routes ─────────────────────────────────────────────────────────────
 Route::middleware('guest')->group(function () {
@@ -67,5 +87,39 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard/messages', [\App\Http\Controllers\DashboardController::class, 'messages'])->name('dashboard.messages');
         Route::post('/dashboard/messages/{id}/toggle-read', [\App\Http\Controllers\DashboardController::class, 'toggleReadMessage'])->name('dashboard.messages.toggle-read');
         Route::delete('/dashboard/messages/{id}', [\App\Http\Controllers\DashboardController::class, 'destroyMessage'])->name('dashboard.messages.destroy');
+
+        // ─── Gallery Management ───────────────────────────────────────────────
+        Route::get('/dashboard/gallery', [GalleryController::class, 'adminIndex'])->name('dashboard.gallery');
+        Route::get('/dashboard/gallery/create', [GalleryController::class, 'create'])->name('dashboard.gallery.create');
+        Route::post('/dashboard/gallery', [GalleryController::class, 'store'])->name('dashboard.gallery.store');
+        Route::get('/dashboard/gallery/{gallery}/edit', [GalleryController::class, 'edit'])->name('dashboard.gallery.edit');
+        Route::put('/dashboard/gallery/{gallery}', [GalleryController::class, 'update'])->name('dashboard.gallery.update');
+        Route::delete('/dashboard/gallery/{gallery}', [GalleryController::class, 'destroy'])->name('dashboard.gallery.destroy');
+        Route::delete('/dashboard/gallery/item/{galleryItem}', [GalleryController::class, 'destroyItem'])->name('dashboard.gallery.item.destroy');
+
+        // ─── Event / Agenda Management ────────────────────────────────────────
+        Route::get('/dashboard/events', [EventController::class, 'adminIndex'])->name('dashboard.events');
+        Route::get('/dashboard/events/create', [EventController::class, 'create'])->name('dashboard.events.create');
+        Route::post('/dashboard/events', [EventController::class, 'store'])->name('dashboard.events.store');
+        Route::get('/dashboard/events/{event}/edit', [EventController::class, 'edit'])->name('dashboard.events.edit');
+        Route::put('/dashboard/events/{event}', [EventController::class, 'update'])->name('dashboard.events.update');
+        Route::delete('/dashboard/events/{event}', [EventController::class, 'destroy'])->name('dashboard.events.destroy');
+
+        // ─── Download Center Management ───────────────────────────────────────
+        Route::get('/dashboard/downloads', [DownloadController::class, 'adminIndex'])->name('dashboard.downloads');
+        Route::get('/dashboard/downloads/create', [DownloadController::class, 'create'])->name('dashboard.downloads.create');
+        Route::post('/dashboard/downloads', [DownloadController::class, 'store'])->name('dashboard.downloads.store');
+        Route::get('/dashboard/downloads/{download}/edit', [DownloadController::class, 'edit'])->name('dashboard.downloads.edit');
+        Route::put('/dashboard/downloads/{download}', [DownloadController::class, 'update'])->name('dashboard.downloads.update');
+        Route::delete('/dashboard/downloads/{download}', [DownloadController::class, 'destroy'])->name('dashboard.downloads.destroy');
+        Route::get('/dashboard/downloads/categories', [DownloadController::class, 'categories'])->name('dashboard.downloads.categories');
+        Route::post('/dashboard/downloads/categories', [DownloadController::class, 'storeCategory'])->name('dashboard.downloads.categories.store');
+        Route::delete('/dashboard/downloads/categories/{downloadCategory}', [DownloadController::class, 'destroyCategory'])->name('dashboard.downloads.categories.destroy');
+
+        // ─── FAQ Management ───────────────────────────────────────────────────
+        Route::get('/dashboard/faqs', [FaqController::class, 'adminIndex'])->name('dashboard.faqs');
+        Route::post('/dashboard/faqs', [FaqController::class, 'store'])->name('dashboard.faqs.store');
+        Route::put('/dashboard/faqs/{faq}', [FaqController::class, 'update'])->name('dashboard.faqs.update');
+        Route::delete('/dashboard/faqs/{faq}', [FaqController::class, 'destroy'])->name('dashboard.faqs.destroy');
     });
 });

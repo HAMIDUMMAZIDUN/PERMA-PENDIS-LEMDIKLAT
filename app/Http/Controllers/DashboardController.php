@@ -102,18 +102,40 @@ class DashboardController extends Controller
             'cta_desc' => \App\Models\Setting::get('cta_desc', 'Daftarkan diri Anda sekarang sebagai peserta pelatihan profesional dan kembangkan kompetensi kepemimpinan institusi pendidikan.'),
             'gallery_title' => \App\Models\Setting::get('gallery_title', 'Arsip Dokumentasi'),
             'gallery_desc' => \App\Models\Setting::get('gallery_desc', 'Galeri momentum kegiatan pelatihan, sertifikasi, dan kemitraan strategis PERMA PENDIS.'),
-            'gallery_img_1' => \App\Models\Setting::get('gallery_img_1', 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600&h=400&fit=crop'),
-            'gallery_img_2' => \App\Models\Setting::get('gallery_img_2', 'https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=600&h=400&fit=crop'),
-            'gallery_img_3' => \App\Models\Setting::get('gallery_img_3', 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&h=400&fit=crop'),
-            'gallery_img_4' => \App\Models\Setting::get('gallery_img_4', 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&h=400&fit=crop'),
-            'gallery_img_5' => \App\Models\Setting::get('gallery_img_5', 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&h=400&fit=crop'),
-            'gallery_img_6' => \App\Models\Setting::get('gallery_img_6', 'https://images.unsplash.com/photo-1544717302-de29042820dd?w=600&h=400&fit=crop'),
-            'gallery_caption_1' => \App\Models\Setting::get('gallery_caption_1', 'Wisuda Kelulusan Kepala Sekolah'),
-            'gallery_caption_2' => \App\Models\Setting::get('gallery_caption_2', 'Seminar Kepemimpinan Transformasional'),
-            'gallery_caption_3' => \App\Models\Setting::get('gallery_caption_3', 'Lokakarya Kurikulum Digital'),
-            'gallery_caption_4' => \App\Models\Setting::get('gallery_caption_4', 'Pemaparan Program Kerja'),
-            'gallery_caption_5' => \App\Models\Setting::get('gallery_caption_5', 'Sesi Pelatihan Interaktif'),
-            'gallery_caption_6' => \App\Models\Setting::get('gallery_caption_6', 'Pusat Sumber Belajar Modern'),
+            'gallery_items' => (function() {
+                $galleryItemsJson = \App\Models\Setting::get('gallery_items');
+                if ($galleryItemsJson) {
+                    return json_decode($galleryItemsJson, true);
+                }
+                $galleryItems = [];
+                $defaultImages = [
+                    1 => 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=600&h=400&fit=crop',
+                    2 => 'https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=600&h=400&fit=crop',
+                    3 => 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&h=400&fit=crop',
+                    4 => 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&h=400&fit=crop',
+                    5 => 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&h=400&fit=crop',
+                    6 => 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=600&h=400&fit=crop',
+                ];
+                $defaultCaptions = [
+                    1 => 'Wisuda Kelulusan Kepala Sekolah',
+                    2 => 'Seminar Kepemimpinan Transformasional',
+                    3 => 'Lokakarya Kurikulum Digital',
+                    4 => 'Pemaparan Program Kerja',
+                    5 => 'Sesi Pelatihan Interaktif',
+                    6 => 'Pusat Sumber Belajar Modern',
+                ];
+                for ($i = 1; $i <= 6; $i++) {
+                    $img = \App\Models\Setting::get("gallery_img_{$i}", $defaultImages[$i]);
+                    $caption = \App\Models\Setting::get("gallery_caption_{$i}", $defaultCaptions[$i]);
+                    if ($img) {
+                        $galleryItems[] = [
+                            'image' => $img,
+                            'caption' => $caption ?: '',
+                        ];
+                    }
+                }
+                return $galleryItems;
+            })(),
         ];
 
         return view('dashboard.settings', compact('user', 'settings', 'activeTab'));
@@ -205,24 +227,13 @@ class DashboardController extends Controller
             $rules = [
                 'gallery_title' => 'required|string|max:255',
                 'gallery_desc' => 'required|string',
-                'gallery_caption_1' => 'nullable|string|max:255',
-                'gallery_caption_2' => 'nullable|string|max:255',
-                'gallery_caption_3' => 'nullable|string|max:255',
-                'gallery_caption_4' => 'nullable|string|max:255',
-                'gallery_caption_5' => 'nullable|string|max:255',
-                'gallery_caption_6' => 'nullable|string|max:255',
-                'gallery_img_url_1' => 'nullable|url',
-                'gallery_img_url_2' => 'nullable|url',
-                'gallery_img_url_3' => 'nullable|url',
-                'gallery_img_url_4' => 'nullable|url',
-                'gallery_img_url_5' => 'nullable|url',
-                'gallery_img_url_6' => 'nullable|url',
-                'gallery_img_file_1' => 'nullable|image|max:512000',
-                'gallery_img_file_2' => 'nullable|image|max:512000',
-                'gallery_img_file_3' => 'nullable|image|max:512000',
-                'gallery_img_file_4' => 'nullable|image|max:512000',
-                'gallery_img_file_5' => 'nullable|image|max:512000',
-                'gallery_img_file_6' => 'nullable|image|max:512000',
+                'gallery_items' => 'nullable|array',
+                'gallery_items.*.caption' => 'nullable|string|max:255',
+                'gallery_items.*.url' => 'nullable|url',
+                'gallery_items.*.file' => 'nullable|image|max:512000',
+                'gallery_items.*.sub_items' => 'nullable|array',
+                'gallery_items.*.sub_items.*.url' => 'nullable|url',
+                'gallery_items.*.sub_items.*.file' => 'nullable|image|max:512000',
             ];
         }
 
@@ -313,39 +324,111 @@ class DashboardController extends Controller
         } elseif ($activeTab === 'gallery') {
             \App\Models\Setting::set('gallery_title', $request->gallery_title);
             \App\Models\Setting::set('gallery_desc', $request->gallery_desc);
-            for ($i = 1; $i <= 6; $i++) {
-                $deleteKey = "delete_gallery_img_{$i}";
-                $settingKey = "gallery_img_{$i}";
-                $captionKey = "gallery_caption_{$i}";
 
-                if ($request->input($deleteKey) === '1') {
-                    // Delete physical file if it exists
-                    $currentVal = \App\Models\Setting::get($settingKey);
-                    if ($currentVal) {
-                        $parsedUrl = parse_url($currentVal);
-                        if (isset($parsedUrl['path'])) {
-                            $filePath = public_path(ltrim($parsedUrl['path'], '/'));
-                            if (file_exists($filePath)) {
-                                @unlink($filePath);
+            // Get old gallery items for cleanup
+            $oldGalleryItemsJson = \App\Models\Setting::get('gallery_items');
+            $oldImages = [];
+            if ($oldGalleryItemsJson) {
+                $oldItems = json_decode($oldGalleryItemsJson, true);
+                if (is_array($oldItems)) {
+                    foreach ($oldItems as $oldItem) {
+                        if (!empty($oldItem['image'])) {
+                            $oldImages[] = $oldItem['image'];
+                        }
+                        if (!empty($oldItem['images']) && is_array($oldItem['images'])) {
+                            foreach ($oldItem['images'] as $subImg) {
+                                $oldImages[] = $subImg;
                             }
                         }
                     }
-                    \App\Models\Setting::set($settingKey, null);
-                    \App\Models\Setting::set($captionKey, null);
-                } else {
-                    // Update settings only if delete is not triggered
-                    if ($request->has($captionKey)) {
-                        \App\Models\Setting::set($captionKey, $request->input($captionKey));
+                }
+            } else {
+                // Fallback old structure cleanup
+                for ($i = 1; $i <= 6; $i++) {
+                    $img = \App\Models\Setting::get("gallery_img_{$i}");
+                    if ($img) {
+                        $oldImages[] = $img;
                     }
-                    $fileKey = "gallery_img_file_{$i}";
-                    $urlKey = "gallery_img_url_{$i}";
-                    if ($request->hasFile($fileKey)) {
-                        $file = $request->file($fileKey);
-                        $filename = "gallery_img_{$i}_" . time() . '.' . $file->getClientOriginalExtension();
-                        $file->move(public_path('uploads/settings'), $filename);
-                        \App\Models\Setting::set($settingKey, asset('uploads/settings/' . $filename));
-                    } elseif ($request->filled($urlKey)) {
-                        \App\Models\Setting::set($settingKey, $request->$urlKey);
+                    // Clear the old settings keys
+                    \App\Models\Setting::set("gallery_img_{$i}", null);
+                    \App\Models\Setting::set("gallery_caption_{$i}", null);
+                }
+            }
+
+            $galleryItems = [];
+            $itemsInput = $request->input('gallery_items', []);
+            $filesInput = $request->file('gallery_items', []);
+
+            foreach ($itemsInput as $index => $itemData) {
+                $image = $itemData['image'] ?? null;
+                $caption = $itemData['caption'] ?? '';
+
+                if (isset($filesInput[$index]['file'])) {
+                    $file = $filesInput[$index]['file'];
+                    $filename = "gallery_dynamic_" . $index . "_" . time() . '.' . $file->getClientOriginalExtension();
+                    $file->move(public_path('uploads/settings'), $filename);
+                    $image = asset('uploads/settings/' . $filename);
+                } elseif (isset($itemData['url'])) {
+                    if (!empty($itemData['url'])) {
+                        $image = $itemData['url'];
+                    } else {
+                        $image = null;
+                    }
+                }
+
+                if ($image) {
+                    $subImages = [];
+                    if (isset($itemData['sub_items']) && is_array($itemData['sub_items'])) {
+                        foreach ($itemData['sub_items'] as $subIndex => $subItemData) {
+                            $subImg = $subItemData['image'] ?? null;
+                            if (isset($filesInput[$index]['sub_items'][$subIndex]['file'])) {
+                                $subFile = $filesInput[$index]['sub_items'][$subIndex]['file'];
+                                $subFilename = "gallery_sub_" . $index . "_" . $subIndex . "_" . time() . '.' . $subFile->getClientOriginalExtension();
+                                $subFile->move(public_path('uploads/settings'), $subFilename);
+                                $subImg = asset('uploads/settings/' . $subFilename);
+                            } elseif (isset($subItemData['url'])) {
+                                if (!empty($subItemData['url'])) {
+                                    $subImg = $subItemData['url'];
+                                } else {
+                                    $subImg = null;
+                                }
+                            }
+                            if ($subImg) {
+                                $subImages[] = $subImg;
+                            }
+                        }
+                    }
+
+                    $galleryItems[] = [
+                        'image' => $image,
+                        'caption' => $caption,
+                        'images' => $subImages,
+                    ];
+                }
+            }
+
+            \App\Models\Setting::set('gallery_items', json_encode($galleryItems));
+
+            // Delete unused old uploads
+            $newImages = [];
+            foreach ($galleryItems as $gi) {
+                if (!empty($gi['image'])) {
+                    $newImages[] = $gi['image'];
+                }
+                if (!empty($gi['images']) && is_array($gi['images'])) {
+                    foreach ($gi['images'] as $imgUrl) {
+                        $newImages[] = $imgUrl;
+                    }
+                }
+            }
+            foreach ($oldImages as $oldImage) {
+                if (!in_array($oldImage, $newImages)) {
+                    $parsedUrl = parse_url($oldImage);
+                    if (isset($parsedUrl['path'])) {
+                        $filePath = public_path(ltrim($parsedUrl['path'], '/'));
+                        if (file_exists($filePath) && strpos($filePath, 'uploads/settings') !== false) {
+                            @unlink($filePath);
+                        }
                     }
                 }
             }

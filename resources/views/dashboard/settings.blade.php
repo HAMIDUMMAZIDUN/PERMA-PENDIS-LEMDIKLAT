@@ -430,63 +430,155 @@
                     </div>
                 </div>
 
-                <div class="space-y-6">
-                    @for($i = 1; $i <= 6; $i++)
-                    <div class="p-5 rounded-2xl border border-gray-100 bg-gray-50/50 dark:border-emerald-950/20 dark:bg-[#080d0b]/40 flex flex-col md:flex-row gap-6 items-center animate-slide-up" id="gallery-slot-{{ $i }}">
-                        {{-- Hidden input for deletion --}}
-                        <input type="hidden" name="delete_gallery_img_{{ $i }}" id="delete_gallery_img_{{ $i }}" value="0">
+                <div id="gallery-items-container" class="space-y-6">
+                    @foreach($settings['gallery_items'] ?? [] as $index => $item)
+                    <div class="p-5 rounded-2xl border border-gray-100 bg-gray-50/50 dark:border-emerald-950/20 dark:bg-[#080d0b]/40 flex flex-col gap-6 animate-slide-up gallery-item-row" id="gallery-item-{{ $index }}">
+                        <div class="flex flex-col md:flex-row gap-6 items-center w-full">
+                            {{-- Hidden input for existing image path --}}
+                            <input type="hidden" name="gallery_items[{{ $index }}][image]" value="{{ $item['image'] ?? '' }}">
 
-                        {{-- Image Preview --}}
+                            {{-- Image Preview --}}
+                            <div class="w-32 h-20 rounded-xl overflow-hidden shrink-0 border border-gray-200 shadow-sm dark:border-emerald-950/40 relative bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+                                @if(!empty($item['image']))
+                                    <img id="preview-gallery-{{ $index }}" src="{{ $item['image'] }}" alt="Preview {{ $index }}" class="w-full h-full object-cover">
+                                    <div id="placeholder-gallery-{{ $index }}" class="text-gray-400 text-xs font-semibold hidden">Belum Ada Foto</div>
+                                @else
+                                    <div id="placeholder-gallery-{{ $index }}" class="text-gray-400 text-xs font-semibold">Belum Ada Foto</div>
+                                    <img id="preview-gallery-{{ $index }}" src="" alt="Preview {{ $index }}" class="w-full h-full object-cover hidden">
+                                @endif
+                            </div>
+                            
+                            {{-- Form Controls --}}
+                            <div class="flex-1 w-full space-y-3">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="md:col-span-2">
+                                        <div class="flex items-center justify-between mb-1.5">
+                                            <label class="block text-[11px] font-bold text-gray-455 dark:text-gray-500 uppercase tracking-wide">Keterangan / Caption Foto Utama <span class="text-red-500">*</span></label>
+                                            <button type="button" onclick="removeGalleryRow({{ $index }})" class="text-red-500 hover:text-red-750 text-[10px] font-bold flex items-center gap-1">
+                                                🗑️ Hapus Dokumentasi
+                                            </button>
+                                        </div>
+                                        <input type="text" name="gallery_items[{{ $index }}][caption]" value="{{ old('gallery_items.'.$index.'.caption', $item['caption'] ?? '') }}" placeholder="Masukkan keterangan foto dokumentasi..." class="form-input py-2 text-xs">
+                                    </div>
+                                    
+                                    {{-- Upload File Option --}}
+                                    <div>
+                                        <label class="block text-[11px] font-bold text-gray-455 mb-1.5 dark:text-gray-500 uppercase tracking-wide">Unggah Foto Utama Baru</label>
+                                        <input type="file" name="gallery_items[{{ $index }}][file]" accept="image/*" onchange="previewDynamicImage(this, {{ $index }})"
+                                               class="block w-full text-xs text-gray-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-primary-50 file:text-primary-750 hover:file:bg-primary-100 dark:file:bg-emerald-950/40 dark:file:text-emerald-300 dark:hover:file:bg-emerald-900/30 transition">
+                                        @error("gallery_items.{$index}.file")
+                                            <p class="text-red-500 text-[10px] mt-1">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+
+                                    {{-- Image URL Option --}}
+                                    <div>
+                                        <label class="block text-[11px] font-bold text-gray-455 mb-1.5 dark:text-gray-500 uppercase tracking-wide">Atau URL Gambar Utama</label>
+                                        <input type="url" name="gallery_items[{{ $index }}][url]" value="{{ old('gallery_items.'.$index.'.url', $item['image'] ?? '') }}" placeholder="https://example.com/image.jpg"
+                                               class="form-input py-2 text-xs" oninput="previewDynamicUrl(this, {{ $index }})">
+                                        @error("gallery_items.{$index}.url")
+                                            <p class="text-red-500 text-[10px] mt-1">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Sub Gallery Section --}}
+                        <div class="border-t border-gray-150/40 dark:border-emerald-950/20 pt-4 w-full">
+                            <div class="flex justify-between items-center mb-3">
+                                <label class="block text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide font-bold">Foto Tambahan (Untuk Slider / Lightbox)</label>
+                                <button type="button" onclick="addSubItem({{ $index }})" class="text-xs font-bold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 flex items-center gap-1">
+                                    ➕ Tambah Foto Tambahan
+                                </button>
+                            </div>
+                            
+                            <div id="sub-gallery-container-{{ $index }}" class="space-y-3 pl-4 border-l-2 border-emerald-500/20">
+                                @foreach($item['images'] ?? [] as $subIndex => $subImage)
+                                    <div class="flex items-center gap-4 bg-white dark:bg-emerald-950/10 p-3 rounded-xl border border-gray-100 dark:border-emerald-950/20" id="sub-item-row-{{ $index }}-{{ $subIndex }}">
+                                        <input type="hidden" name="gallery_items[{{ $index }}][sub_items][{{ $subIndex }}][image]" value="{{ $subImage }}">
+                                        
+                                        <div class="w-16 h-12 rounded-lg overflow-hidden shrink-0 border border-gray-200 bg-gray-100 flex items-center justify-center">
+                                            <img id="preview-sub-{{ $index }}-{{ $subIndex }}" src="{{ $subImage }}" class="w-full h-full object-cover">
+                                        </div>
+                                        
+                                        <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                            <input type="file" name="gallery_items[{{ $index }}][sub_items][{{ $subIndex }}][file]" accept="image/*" onchange="previewSubImage(this, {{ $index }}, {{ $subIndex }})" class="block w-full text-[10px] text-gray-500 file:mr-2 file:py-1 file:px-2 file:rounded-lg file:border-0 file:text-[10px] file:bg-primary-50 file:text-primary-750">
+                                            <input type="url" name="gallery_items[{{ $index }}][sub_items][{{ $subIndex }}][url]" value="{{ $subImage }}" oninput="previewSubUrl(this, {{ $index }}, {{ $subIndex }})" class="form-input py-1 text-xs" placeholder="Atau URL gambar...">
+                                        </div>
+                                        
+                                        <button type="button" onclick="removeSubRow({{ $index }}, {{ $subIndex }})" class="text-red-500 hover:text-red-750 text-xs font-bold p-1">
+                                            🗑️
+                                        </button>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+
+                {{-- Add Button --}}
+                <div class="mt-6">
+                    <button type="button" onclick="addGalleryItem()" class="w-full py-4 rounded-2xl border-2 border-dashed border-gray-200 dark:border-emerald-950/40 hover:border-primary-500 dark:hover:border-emerald-600 transition flex items-center justify-center gap-2 text-sm font-bold text-gray-500 hover:text-primary-650 dark:text-gray-400 dark:hover:text-emerald-450">
+                        <span>➕ Tambah Foto Dokumentasi Baru</span>
+                    </button>
+                </div>
+            </div>
+            
+            {{-- Template block for dynamic gallery rows --}}
+            <template id="gallery-item-template">
+                <div class="p-5 rounded-2xl border border-gray-100 bg-gray-50/50 dark:border-emerald-950/20 dark:bg-[#080d0b]/40 flex flex-col gap-6 animate-slide-up gallery-item-row" id="gallery-item-ROW_ID">
+                    <div class="flex flex-col md:flex-row gap-6 items-center w-full">
+                        <input type="hidden" name="gallery_items[ROW_ID][image]" value="">
+                        
                         <div class="w-32 h-20 rounded-xl overflow-hidden shrink-0 border border-gray-200 shadow-sm dark:border-emerald-950/40 relative bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
-                            @if(isset($settings["gallery_img_{$i}"]) && $settings["gallery_img_{$i}"])
-                                <img id="preview-gallery-{{ $i }}" src="{{ $settings["gallery_img_{$i}"] }}" alt="Preview {{ $i }}" class="w-full h-full object-cover">
-                                <div id="placeholder-gallery-{{ $i }}" class="text-gray-400 text-xs font-semibold hidden">Belum Ada Foto</div>
-                            @else
-                                <div id="placeholder-gallery-{{ $i }}" class="text-gray-400 text-xs font-semibold">Belum Ada Foto</div>
-                                <img id="preview-gallery-{{ $i }}" src="" alt="Preview {{ $i }}" class="w-full h-full object-cover hidden">
-                            @endif
+                            <img id="preview-gallery-ROW_ID" src="" alt="Preview" class="w-full h-full object-cover hidden">
+                            <div id="placeholder-gallery-ROW_ID" class="text-gray-400 text-xs font-semibold">Belum Ada Foto</div>
                         </div>
                         
-                        {{-- Form Controls --}}
                         <div class="flex-1 w-full space-y-3">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div class="md:col-span-2">
                                     <div class="flex items-center justify-between mb-1.5">
-                                        <label class="block text-[11px] font-bold text-gray-455 dark:text-gray-500 uppercase tracking-wide">Keterangan / Caption Foto {{ $i }}</label>
-                                        @if(isset($settings["gallery_img_{$i}"]) && $settings["gallery_img_{$i}"])
-                                        <button type="button" onclick="deleteGallerySlot({{ $i }})" class="text-red-500 hover:text-red-750 text-[10px] font-bold flex items-center gap-1">
-                                            🗑️ Hapus Dokumentasi {{ $i }}
+                                        <label class="block text-[11px] font-bold text-gray-455 dark:text-gray-500 uppercase tracking-wide">Keterangan / Caption Foto Utama <span class="text-red-500">*</span></label>
+                                        <button type="button" onclick="removeGalleryRow('ROW_ID')" class="text-red-500 hover:text-red-750 text-[10px] font-bold flex items-center gap-1">
+                                            🗑️ Hapus Dokumentasi
                                         </button>
-                                        @endif
                                     </div>
-                                    <input type="text" id="gallery_caption_{{ $i }}" name="gallery_caption_{{ $i }}" value="{{ old('gallery_caption_' . $i, $settings['gallery_caption_' . $i] ?? '') }}" placeholder="Masukkan keterangan foto dokumentasi..." class="form-input py-2 text-xs">
+                                    <input type="text" name="gallery_items[ROW_ID][caption]" value="" placeholder="Masukkan keterangan foto dokumentasi..." class="form-input py-2 text-xs">
                                 </div>
                                 
-                                {{-- Upload File Option --}}
                                 <div>
-                                    <label class="block text-[11px] font-bold text-gray-455 mb-1.5 dark:text-gray-500 uppercase tracking-wide">Unggah Foto Baru</label>
-                                    <input type="file" id="gallery_img_file_{{ $i }}" name="gallery_img_file_{{ $i }}" accept="image/*" onchange="previewGalleryImage(this, {{ $i }})"
+                                    <label class="block text-[11px] font-bold text-gray-455 mb-1.5 dark:text-gray-500 uppercase tracking-wide">Unggah Foto Utama Baru</label>
+                                    <input type="file" name="gallery_items[ROW_ID][file]" accept="image/*" onchange="previewDynamicImage(this, 'ROW_ID')"
                                            class="block w-full text-xs text-gray-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-primary-50 file:text-primary-750 hover:file:bg-primary-100 dark:file:bg-emerald-950/40 dark:file:text-emerald-300 dark:hover:file:bg-emerald-900/30 transition">
-                                    @error("gallery_img_file_{$i}")
-                                        <p class="text-red-500 text-[10px] mt-1">{{ $message }}</p>
-                                    @enderror
                                 </div>
-
-                                {{-- Image URL Option --}}
+                                
                                 <div>
-                                    <label class="block text-[11px] font-bold text-gray-455 mb-1.5 dark:text-gray-500 uppercase tracking-wide">Atau Gunakan URL Gambar</label>
-                                    <input type="url" id="gallery_img_url_{{ $i }}" name="gallery_img_url_{{ $i }}" value="{{ old('gallery_img_url_' . $i) }}" placeholder="https://example.com/image.jpg"
-                                           class="form-input py-2 text-xs" oninput="previewGalleryUrl(this, {{ $i }})">
-                                    @error("gallery_img_url_{$i}")
-                                        <p class="text-red-500 text-[10px] mt-1">{{ $message }}</p>
-                                    @enderror
+                                    <label class="block text-[11px] font-bold text-gray-455 mb-1.5 dark:text-gray-500 uppercase tracking-wide">Atau URL Gambar Utama</label>
+                                    <input type="url" name="gallery_items[ROW_ID][url]" placeholder="https://example.com/image.jpg"
+                                           class="form-input py-2 text-xs" oninput="previewDynamicUrl(this, 'ROW_ID')">
                                 </div>
                             </div>
                         </div>
                     </div>
-                    @endfor
+
+                    {{-- Sub Gallery Section --}}
+                    <div class="border-t border-gray-150/40 dark:border-emerald-950/20 pt-4 w-full">
+                        <div class="flex justify-between items-center mb-3">
+                            <label class="block text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide font-bold">Foto Tambahan (Untuk Slider / Lightbox)</label>
+                            <button type="button" onclick="addSubItem('ROW_ID')" class="text-xs font-bold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 flex items-center gap-1">
+                                ➕ Tambah Foto Tambahan
+                            </button>
+                        </div>
+                        
+                        <div id="sub-gallery-container-ROW_ID" class="space-y-3 pl-4 border-l-2 border-emerald-500/20">
+                            <!-- Dynamically added sub-gallery items go here -->
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </template>
         @endif
 
         @if($activeTab === 'contact')
@@ -572,35 +664,30 @@
         }
     }
 
-    function deleteGallerySlot(index) {
-        if (confirm('Apakah Anda yakin ingin menghapus dokumentasi slot ' + index + '?')) {
-            // Set hidden delete indicator
-            document.getElementById('delete_gallery_img_' + index).value = '1';
-            
-            // Clear inputs
-            document.getElementById('gallery_caption_' + index).value = '';
-            document.getElementById('gallery_img_file_' + index).value = '';
-            document.getElementById('gallery_img_url_' + index).value = '';
-            
-            // Hide preview, show placeholder
-            const previewEl = document.getElementById('preview-gallery-' + index);
-            const placeholderEl = document.getElementById('placeholder-gallery-' + index);
-            
-            if (previewEl) {
-                previewEl.src = '';
-                previewEl.classList.add('hidden');
-            }
-            if (placeholderEl) {
-                placeholderEl.classList.remove('hidden');
+    let rowCounter = {{ count($settings['gallery_items'] ?? []) }};
+    function addGalleryItem() {
+        const container = document.getElementById('gallery-items-container');
+        const template = document.getElementById('gallery-item-template').innerHTML;
+        const newRowHtml = template.replace(/ROW_ID/g, rowCounter);
+        
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = newRowHtml.trim();
+        container.appendChild(tempDiv.firstChild);
+        rowCounter++;
+    }
+
+    function removeGalleryRow(rowId) {
+        const row = document.getElementById('gallery-item-' + rowId);
+        if (row) {
+            if (confirm('Apakah Anda yakin ingin menghapus foto ini dari galeri?')) {
+                row.remove();
             }
         }
     }
 
-    function previewGalleryImage(input, index) {
-        document.getElementById('delete_gallery_img_' + index).value = '0';
-        const previewEl = document.getElementById('preview-gallery-' + index);
-        const placeholderEl = document.getElementById('placeholder-gallery-' + index);
-        
+    function previewDynamicImage(input, rowId) {
+        const previewEl = document.getElementById('preview-gallery-' + rowId);
+        const placeholderEl = document.getElementById('placeholder-gallery-' + rowId);
         if (input.files && input.files[0]) {
             const reader = new FileReader();
             reader.onload = function(e) {
@@ -616,11 +703,9 @@
         }
     }
 
-    function previewGalleryUrl(input, index) {
-        document.getElementById('delete_gallery_img_' + index).value = '0';
-        const previewEl = document.getElementById('preview-gallery-' + index);
-        const placeholderEl = document.getElementById('placeholder-gallery-' + index);
-        
+    function previewDynamicUrl(input, rowId) {
+        const previewEl = document.getElementById('preview-gallery-' + rowId);
+        const placeholderEl = document.getElementById('placeholder-gallery-' + rowId);
         if (input.value) {
             if (previewEl) {
                 previewEl.src = input.value;
@@ -628,6 +713,92 @@
             }
             if (placeholderEl) {
                 placeholderEl.classList.add('hidden');
+            }
+        } else {
+            const fileInput = document.querySelector(`input[name="gallery_items[${rowId}][file]"]`);
+            if (!fileInput || !fileInput.files.length) {
+                if (previewEl) previewEl.classList.add('hidden');
+                if (placeholderEl) placeholderEl.classList.remove('hidden');
+            }
+        }
+    }
+
+    // Sub-gallery management
+    let subCounters = {};
+    function addSubItem(rowId) {
+        if (subCounters[rowId] === undefined) {
+            const container = document.getElementById('sub-gallery-container-' + rowId);
+            subCounters[rowId] = container ? container.children.length : 0;
+        }
+        const subIndex = subCounters[rowId]++;
+        const container = document.getElementById('sub-gallery-container-' + rowId);
+        if (!container) return;
+
+        const subHtml = `
+            <div class="flex items-center gap-4 bg-white dark:bg-emerald-950/10 p-3 rounded-xl border border-gray-100 dark:border-emerald-950/20" id="sub-item-row-${rowId}-${subIndex}">
+                <input type="hidden" name="gallery_items[${rowId}][sub_items][${subIndex}][image]" value="">
+                
+                <div class="w-16 h-12 rounded-lg overflow-hidden shrink-0 border border-gray-200 bg-gray-100 flex items-center justify-center">
+                    <img id="preview-sub-${rowId}-${subIndex}" src="" class="w-full h-full object-cover hidden">
+                    <div id="placeholder-sub-${rowId}-${subIndex}" class="text-[10px] text-gray-400 font-semibold">No Image</div>
+                </div>
+                
+                <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <input type="file" name="gallery_items[${rowId}][sub_items][${subIndex}][file]" accept="image/*" onchange="previewSubImage(this, ${rowId}, ${subIndex})" class="block w-full text-[10px] text-gray-500 file:mr-2 file:py-1 file:px-2 file:rounded-lg file:border-0 file:text-[10px] file:bg-primary-50 file:text-primary-750">
+                    <input type="url" name="gallery_items[${rowId}][sub_items][${subIndex}][url]" oninput="previewSubUrl(this, ${rowId}, ${subIndex})" class="form-input py-1 text-xs" placeholder="Atau URL gambar...">
+                </div>
+                
+                <button type="button" onclick="removeSubRow(${rowId}, ${subIndex})" class="text-red-500 hover:text-red-750 text-xs font-bold p-1">
+                    🗑️
+                </button>
+            </div>
+        `;
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = subHtml.trim();
+        container.appendChild(tempDiv.firstChild);
+    }
+
+    function removeSubRow(rowId, subIndex) {
+        const row = document.getElementById('sub-item-row-' + rowId + '-' + subIndex);
+        if (row) {
+            row.remove();
+        }
+    }
+
+    function previewSubImage(input, rowId, subIndex) {
+        const previewEl = document.getElementById('preview-sub-' + rowId + '-' + subIndex);
+        const placeholderEl = document.getElementById('placeholder-sub-' + rowId + '-' + subIndex);
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                if (previewEl) {
+                    previewEl.src = e.target.result;
+                    previewEl.classList.remove('hidden');
+                }
+                if (placeholderEl) {
+                    placeholderEl.classList.add('hidden');
+                }
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function previewSubUrl(input, rowId, subIndex) {
+        const previewEl = document.getElementById('preview-sub-' + rowId + '-' + subIndex);
+        const placeholderEl = document.getElementById('placeholder-sub-' + rowId + '-' + subIndex);
+        if (input.value) {
+            if (previewEl) {
+                previewEl.src = input.value;
+                previewEl.classList.remove('hidden');
+            }
+            if (placeholderEl) {
+                placeholderEl.classList.add('hidden');
+            }
+        } else {
+            const fileInput = document.querySelector(`input[name="gallery_items[${rowId}][sub_items][${subIndex}][file]"]`);
+            if (!fileInput || !fileInput.files.length) {
+                if (previewEl) previewEl.classList.add('hidden');
+                if (placeholderEl) placeholderEl.classList.remove('hidden');
             }
         }
     }
