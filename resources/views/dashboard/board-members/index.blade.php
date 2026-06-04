@@ -6,7 +6,7 @@
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-gray-100 pb-4 dark:border-gray-800 gap-4">
         <div>
             <h1 class="text-3xl font-extrabold text-primary-900 dark:text-white">Kelola Pengurus</h1>
-            <p class="text-gray-500 text-sm mt-1 dark:text-gray-400">Atur susunan Dewan Pembina, Dewan Pengarah, Direktur, Wakil Direktur, Sekretaris & Bendahara, serta Kepala Bagian dan Unit.</p>
+            <p class="text-gray-500 text-sm mt-1 dark:text-gray-400">Atur susunan dewan, pengurus harian, dan divisi organisasi.</p>
         </div>
         <a href="{{ route('dashboard.board-members.create') }}" class="btn-primary inline-flex items-center gap-2 self-start">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
@@ -21,7 +21,13 @@
     @endif
 
     {{-- Groups --}}
-    @foreach(['Dewan Pembina', 'Dewan Pengarah', 'Direktur', 'Wakil Direktur', 'Sekretaris & Bendahara', 'Kepala Bagian dan Unit'] as $category)
+    @php
+        $allCategories = ['Dewan Pakar', 'Dewan Pengawas', 'Pengurus Harian', 'Divisi I', 'Divisi II', 'Divisi III', 'Divisi IV', 'Divisi V', 'Divisi VI', 'Divisi VII', 'Divisi VIII', 'Koordinator Wilayah'];
+        $categoriesToShow = array_filter($allCategories, function($cat) use ($members) {
+            return in_array($cat, ['Dewan Pakar', 'Dewan Pengawas', 'Pengurus Harian']) || $members->where('category', $cat)->count() > 0;
+        });
+    @endphp
+    @foreach($categoriesToShow as $category)
     @php
         $categoryMembers = $members->where('category', $category);
     @endphp

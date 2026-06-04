@@ -38,6 +38,9 @@ class DatabaseSeeder extends Seeder
             'is_activated'    => true,
         ]);
 
-        $this->call(BoardMemberSeeder::class);
+        $this->call([
+            BoardMemberSeeder::class,
+            MemberSeeder::class,
+        ]);
     }
 }

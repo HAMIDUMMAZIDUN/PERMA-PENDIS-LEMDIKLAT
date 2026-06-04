@@ -76,7 +76,7 @@
         {{-- Contact Info + Map --}}
         <div class="lg:col-span-5 space-y-8">
             <div class="card p-8 space-y-6">
-                <h2 class="text-lg font-bold text-gray-900 dark:text-white border-b border-gray-100 dark:border-emerald-950/20 pb-4">Informasi Kontak Resmi</h2>
+                <h2 class="text-lg font-bold text-gray-900 dark:text-white border-b border-gray-100 dark:border-emerald-950/20 pb-4">Informasi Kontak Kami</h2>
                 <div class="space-y-6">
                     @if(\App\Models\Setting::get('contact_address'))
                     <div class="flex items-start gap-4">
@@ -84,7 +84,7 @@
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                         </div>
                         <div>
-                            <p class="font-medium text-gray-900 text-sm dark:text-white">Alamat Kampus Utama</p>
+                            <p class="font-medium text-gray-900 text-sm dark:text-white">Alamat Kami</p>
                             <p class="text-gray-500 text-sm leading-relaxed dark:text-gray-400 mt-1 font-medium">{{ \App\Models\Setting::get('contact_address') }}</p>
                         </div>
                     </div>
@@ -117,10 +117,10 @@
             </div>
 
             {{-- Google Map with premium container --}}
-            @if(\App\Models\Setting::get('contact_map_embed'))
+            @if(\App\Models\Setting::getMapEmbedUrl())
             <div class="rounded-3xl overflow-hidden shadow-md border border-gray-100 dark:border-emerald-950/20">
                 <iframe width="100%" height="320" frameborder="0" scrolling="no"
-                    src="{{ \App\Models\Setting::get('contact_map_embed') }}"
+                    src="{{ \App\Models\Setting::getMapEmbedUrl() }}"
                     class="block filter grayscale dark:invert-[0.9] dark:hue-rotate-[180deg]">
                 </iframe>
             </div>

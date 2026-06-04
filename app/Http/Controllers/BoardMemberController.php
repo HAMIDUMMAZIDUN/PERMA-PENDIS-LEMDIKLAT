@@ -27,7 +27,7 @@ class BoardMemberController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'role' => 'required|string|max:255',
-            'category' => 'required|in:Dewan Pembina,Dewan Pengarah,Direktur,Wakil Direktur,Sekretaris & Bendahara,Kepala Bagian dan Unit',
+            'category' => 'required|in:Dewan Pakar,Dewan Pengawas,Pengurus Harian,Divisi I,Divisi II,Divisi III,Divisi IV,Divisi V,Divisi VI,Divisi VII,Divisi VIII,Koordinator Wilayah',
             'color' => 'required|string|max:10',
             'is_leader' => 'required|boolean',
             'sort_order' => 'required|integer|min:0',
@@ -62,7 +62,7 @@ class BoardMemberController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'role' => 'required|string|max:255',
-            'category' => 'required|in:Dewan Pembina,Dewan Pengarah,Direktur,Wakil Direktur,Sekretaris & Bendahara,Kepala Bagian dan Unit',
+            'category' => 'required|in:Dewan Pakar,Dewan Pengawas,Pengurus Harian,Divisi I,Divisi II,Divisi III,Divisi IV,Divisi V,Divisi VI,Divisi VII,Divisi VIII,Koordinator Wilayah',
             'color' => 'required|string|max:10',
             'is_leader' => 'required|boolean',
             'sort_order' => 'required|integer|min:0',

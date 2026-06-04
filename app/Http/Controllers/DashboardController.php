@@ -14,26 +14,22 @@ class DashboardController extends Controller
         // Fetch real metrics from DB
         $totalArticles = \App\Models\Article::count();
         $totalBoardMembers = \App\Models\BoardMember::count();
-        $pendingApprovals = \App\Models\User::where('is_activated', false)->count();
-        $activeUsers = \App\Models\User::where('is_activated', true)->count();
+        $totalMembers = \App\Models\UserProfile::whereNotNull('member_number')->count();
         $unreadMessages = \App\Models\ContactMessage::where('is_read', false)->count();
         
         // Fetch recent records
         $recentArticles = \App\Models\Article::with('category')->latest()->take(3)->get();
         $recentBoardMembers = \App\Models\BoardMember::latest()->take(3)->get();
-        $recentPendingUsers = \App\Models\User::where('is_activated', false)->with('profile', 'role')->latest()->take(3)->get();
         $recentMessages = \App\Models\ContactMessage::latest()->take(3)->get();
         
         return view('dashboard.index', compact(
             'user', 
             'totalArticles', 
             'totalBoardMembers', 
-            'pendingApprovals', 
-            'activeUsers',
+            'totalMembers',
             'unreadMessages',
             'recentArticles',
             'recentBoardMembers',
-            'recentPendingUsers',
             'recentMessages'
         ));
     }
@@ -56,31 +52,10 @@ class DashboardController extends Controller
             'home_img_3' => \App\Models\Setting::get('home_img_3', 'https://images.unsplash.com/photo-1606761568499-6d2451b23c66?w=200&h=130&fit=crop'),
             'home_img_4' => \App\Models\Setting::get('home_img_4', 'https://images.unsplash.com/photo-1588702547923-7408e47e5d6e?w=200&h=130&fit=crop'),
             'home_img_5' => \App\Models\Setting::get('home_img_5', 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=200&h=130&fit=crop'),
-            'home_program_img_1' => \App\Models\Setting::get('home_program_img_1', 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&h=250&fit=crop'),
-            'home_program_img_2' => \App\Models\Setting::get('home_program_img_2', 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=400&h=250&fit=crop'),
-            'home_program_img_3' => \App\Models\Setting::get('home_program_img_3', 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=400&h=250&fit=crop'),
             'stat_alumni' => \App\Models\Setting::get('stat_alumni', '500+'),
             'stat_instruktur' => \App\Models\Setting::get('stat_instruktur', '20+'),
             'stat_program' => \App\Models\Setting::get('stat_program', '3'),
             'stat_tahun' => \App\Models\Setting::get('stat_tahun', '10+'),
-            'why_title' => \App\Models\Setting::get('why_title', 'Mengapa Memilih Kami?'),
-            'why_desc' => \App\Models\Setting::get('why_desc', 'Komitmen kami adalah meningkatkan kualitas SDM pendidikan nasional melalui program terakreditasi dan profesional.'),
-            'why_card_title_1' => \App\Models\Setting::get('why_card_title_1', 'Pengalaman & Kompeten'),
-            'why_card_desc_1' => \App\Models\Setting::get('why_card_desc_1', 'Didukung oleh instruktur profesional bersertifikasi nasional dengan pengalaman puluhan tahun.'),
-            'why_card_title_2' => \App\Models\Setting::get('why_card_title_2', 'Kurikulum Relevan'),
-            'why_card_desc_2' => \App\Models\Setting::get('why_card_desc_2', 'Materi pelatihan disesuaikan dengan kurikulum nasional terbaru serta kebutuhan digitalisasi sekolah.'),
-            'why_card_title_3' => \App\Models\Setting::get('why_card_title_3', 'Inovasi Digital'),
-            'why_card_desc_3' => \App\Models\Setting::get('why_card_desc_3', 'Metode pembelajaran berbasis teknologi tinggi yang praktis, fleksibel, dan mudah diimplementasikan.'),
-            'why_card_title_4' => \App\Models\Setting::get('why_card_title_4', 'Jejaring Nasional'),
-            'why_card_desc_4' => \App\Models\Setting::get('why_card_desc_4', 'Hubungan erat dengan ribuan pengurus dan kepala sekolah se-Indonesia untuk berbagi ide.'),
-            'scheme_title' => \App\Models\Setting::get('scheme_title', 'Skema Pendidikan & Pelatihan'),
-            'scheme_desc' => \App\Models\Setting::get('scheme_desc', 'Beberapa program pelatihan berjenjang yang kami tawarkan untuk kepala sekolah di seluruh tingkat satuan pendidikan.'),
-            'scheme_title_1' => \App\Models\Setting::get('scheme_title_1', 'Pelatihan Kepala Sekolah SD / MI'),
-            'scheme_desc_1' => \App\Models\Setting::get('scheme_desc_1', 'Membekali kepala sekolah dasar dalam merancang strategi pembelajaran inovatif, pengelolaan tim pendidik dasar, serta komunikasi kemitraan dengan wali murid.'),
-            'scheme_title_2' => \App\Models\Setting::get('scheme_title_2', 'Pelatihan Kepala Sekolah SMP / MTs'),
-            'scheme_desc_2' => \App\Models\Setting::get('scheme_desc_2', 'Program penguatan manajemen kesiswaan remaja, tata laksana manajemen sekolah menengah pertama, serta kepemimpinan transformatif era global.'),
-            'scheme_title_3' => \App\Models\Setting::get('scheme_title_3', 'Pelatihan Kepala Sekolah SMA / SMK / MA'),
-            'scheme_desc_3' => \App\Models\Setting::get('scheme_desc_3', 'Fokus pada kurikulum kesiapan karir, kerja sama industri modern (link and match), tata kelola sekolah tingkat menengah atas, dan kepemimpinan visioner digital.'),
             'about_badge' => \App\Models\Setting::get('about_badge', 'Mengenal Lembaga Kami'),
             'about_title' => \App\Models\Setting::get('about_title', 'Tentang PERMA PENDIS'),
             'about_desc' => \App\Models\Setting::get('about_desc', 'Lembaga Pendidikan dan Pelatihan berkomitmen tinggi meningkatkan kompetensi melalui program pelatihan terstruktur, kurikulum mutakhir, instruktur berpengalaman, serta pendekatan modern yang berorientasi hasil nyata.'),
@@ -92,16 +67,30 @@ class DashboardController extends Controller
             'about_value_desc_2' => \App\Models\Setting::get('about_value_desc_2', 'Kemitraan global & dinas pendidikan daerah untuk perluasan kesempatan karir alumni.'),
             'about_value_title_3' => \App\Models\Setting::get('about_value_title_3', 'Berorientasi Output'),
             'about_value_desc_3' => \App\Models\Setting::get('about_value_desc_3', 'Fokus utama kami adalah keberhasilan lulusan dalam menerapkan program belajar inovatif di sekolah.'),
+            'org_title' => \App\Models\Setting::get('org_title', 'Susunan Organisasi'),
+            'org_desc' => \App\Models\Setting::get('org_desc', 'Struktur kepengurusan profesional yang mendampingi dan mengarahkan kemajuan PERMA PENDIS.'),
             'contact_page_title' => \App\Models\Setting::get('contact_page_title', 'Hubungi Kami'),
             'contact_page_desc' => \App\Models\Setting::get('contact_page_desc', 'Kami siap melayani kebutuhan informasi program pelatihan, sertifikasi pengajar, serta kerja sama kelembagaan.'),
             'contact_address' => \App\Models\Setting::get('contact_address', 'Jl. Gedebage Selatan No.137 Kel. Cisaranteun Kidul, Kec. Gedebage, Kota Bandung, Jawa Barat 40295'),
             'contact_email' => \App\Models\Setting::get('contact_email', 'info@permapendis.com'),
             'contact_phone' => \App\Models\Setting::get('contact_phone', '0812-3456-7890'),
             'contact_map_embed' => \App\Models\Setting::get('contact_map_embed', 'https://maps.google.com/maps?width=100%25&height=320&hl=id&q=Jl.+Gedebage+Selatan+No.137,+Bandung&t=&z=14&ie=UTF8&iwloc=B&output=embed'),
-            'cta_title' => \App\Models\Setting::get('cta_title', 'Siap Untuk Meningkatkan Kualitas Sekolah Anda?'),
-            'cta_desc' => \App\Models\Setting::get('cta_desc', 'Daftarkan diri Anda sekarang sebagai peserta pelatihan profesional dan kembangkan kompetensi kepemimpinan institusi pendidikan.'),
+
             'gallery_title' => \App\Models\Setting::get('gallery_title', 'Arsip Dokumentasi'),
             'gallery_desc' => \App\Models\Setting::get('gallery_desc', 'Galeri momentum kegiatan pelatihan, sertifikasi, dan kemitraan strategis PERMA PENDIS.'),
+            'youtube_gallery_items' => (function() {
+                $ytItemsJson = \App\Models\Setting::get('youtube_gallery_items');
+                if ($ytItemsJson) {
+                    return json_decode($ytItemsJson, true);
+                }
+                return [
+                    [
+                        'link' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+                        'title' => 'Dokumentasi Video Kegiatan',
+                        'desc' => 'Tonton rangkuman video momentum kegiatan, pelatihan, dan kebersamaan di PERMA PENDIS secara langsung.',
+                    ]
+                ];
+            })(),
             'gallery_items' => (function() {
                 $galleryItemsJson = \App\Models\Setting::get('gallery_items');
                 if ($galleryItemsJson) {
@@ -165,36 +154,7 @@ class DashboardController extends Controller
                 'home_bg_image_url' => 'nullable|url',
                 'home_bg_image_file' => 'nullable|image|max:512000',
             ];
-        } elseif ($activeTab === 'why') {
-            $rules = [
-                'why_title' => 'required|string|max:255',
-                'why_desc' => 'required|string',
-                'why_card_title_1' => 'required|string|max:255',
-                'why_card_desc_1' => 'required|string',
-                'why_card_title_2' => 'required|string|max:255',
-                'why_card_desc_2' => 'required|string',
-                'why_card_title_3' => 'required|string|max:255',
-                'why_card_desc_3' => 'required|string',
-                'why_card_title_4' => 'required|string|max:255',
-                'why_card_desc_4' => 'required|string',
-            ];
-        } elseif ($activeTab === 'scheme') {
-            $rules = [
-                'scheme_title' => 'required|string|max:255',
-                'scheme_desc' => 'required|string',
-                'scheme_title_1' => 'required|string|max:255',
-                'scheme_desc_1' => 'required|string',
-                'scheme_title_2' => 'required|string|max:255',
-                'scheme_desc_2' => 'required|string',
-                'scheme_title_3' => 'required|string|max:255',
-                'scheme_desc_3' => 'required|string',
-                'home_program_img_url_1' => 'nullable|url',
-                'home_program_img_url_2' => 'nullable|url',
-                'home_program_img_url_3' => 'nullable|url',
-                'home_program_img_file_1' => 'nullable|image|max:512000',
-                'home_program_img_file_2' => 'nullable|image|max:512000',
-                'home_program_img_file_3' => 'nullable|image|max:512000',
-            ];
+
         } elseif ($activeTab === 'about') {
             $rules = [
                 'about_badge' => 'required|string|max:255',
@@ -202,12 +162,8 @@ class DashboardController extends Controller
                 'about_desc' => 'required|string',
                 'about_visi' => 'required|string',
                 'about_misi' => 'required|string',
-                'about_value_title_1' => 'required|string|max:255',
-                'about_value_desc_1' => 'required|string',
-                'about_value_title_2' => 'required|string|max:255',
-                'about_value_desc_2' => 'required|string',
-                'about_value_title_3' => 'required|string|max:255',
-                'about_value_desc_3' => 'required|string',
+                'org_title' => 'required|string|max:255',
+                'org_desc' => 'required|string',
             ];
         } elseif ($activeTab === 'contact') {
             $rules = [
@@ -218,15 +174,15 @@ class DashboardController extends Controller
                 'contact_phone' => 'required|string|max:100',
                 'contact_map_embed' => 'required|string',
             ];
-        } elseif ($activeTab === 'cta') {
-            $rules = [
-                'cta_title' => 'required|string|max:255',
-                'cta_desc' => 'required|string',
-            ];
+
         } elseif ($activeTab === 'gallery') {
             $rules = [
                 'gallery_title' => 'required|string|max:255',
                 'gallery_desc' => 'required|string',
+                'youtube_gallery_items' => 'nullable|array',
+                'youtube_gallery_items.*.link' => 'nullable|url',
+                'youtube_gallery_items.*.title' => 'nullable|string|max:255',
+                'youtube_gallery_items.*.desc' => 'nullable|string',
                 'gallery_items' => 'nullable|array',
                 'gallery_items.*.caption' => 'nullable|string|max:255',
                 'gallery_items.*.url' => 'nullable|url',
@@ -266,51 +222,15 @@ class DashboardController extends Controller
             } elseif ($request->filled('home_bg_image_url')) {
                 \App\Models\Setting::set('home_bg_image', $request->home_bg_image_url);
             }
-        } elseif ($activeTab === 'why') {
-            \App\Models\Setting::set('why_title', $request->why_title);
-            \App\Models\Setting::set('why_desc', $request->why_desc);
-            \App\Models\Setting::set('why_card_title_1', $request->why_card_title_1);
-            \App\Models\Setting::set('why_card_desc_1', $request->why_card_desc_1);
-            \App\Models\Setting::set('why_card_title_2', $request->why_card_title_2);
-            \App\Models\Setting::set('why_card_desc_2', $request->why_card_desc_2);
-            \App\Models\Setting::set('why_card_title_3', $request->why_card_title_3);
-            \App\Models\Setting::set('why_card_desc_3', $request->why_card_desc_3);
-            \App\Models\Setting::set('why_card_title_4', $request->why_card_title_4);
-            \App\Models\Setting::set('why_card_desc_4', $request->why_card_desc_4);
-        } elseif ($activeTab === 'scheme') {
-            \App\Models\Setting::set('scheme_title', $request->scheme_title);
-            \App\Models\Setting::set('scheme_desc', $request->scheme_desc);
-            \App\Models\Setting::set('scheme_title_1', $request->scheme_title_1);
-            \App\Models\Setting::set('scheme_desc_1', $request->scheme_desc_1);
-            \App\Models\Setting::set('scheme_title_2', $request->scheme_title_2);
-            \App\Models\Setting::set('scheme_desc_2', $request->scheme_desc_2);
-            \App\Models\Setting::set('scheme_title_3', $request->scheme_title_3);
-            \App\Models\Setting::set('scheme_desc_3', $request->scheme_desc_3);
-            for ($i = 1; $i <= 3; $i++) {
-                $fileKey = "home_program_img_file_{$i}";
-                $urlKey = "home_program_img_url_{$i}";
-                $settingKey = "home_program_img_{$i}";
-                if ($request->hasFile($fileKey)) {
-                    $file = $request->file($fileKey);
-                    $filename = "home_program_img_{$i}_" . time() . '.' . $file->getClientOriginalExtension();
-                    $file->move(public_path('uploads/settings'), $filename);
-                    \App\Models\Setting::set($settingKey, asset('uploads/settings/' . $filename));
-                } elseif ($request->filled($urlKey)) {
-                    \App\Models\Setting::set($settingKey, $request->$urlKey);
-                }
-            }
+
         } elseif ($activeTab === 'about') {
             \App\Models\Setting::set('about_badge', $request->about_badge);
             \App\Models\Setting::set('about_title', $request->about_title);
             \App\Models\Setting::set('about_desc', $request->about_desc);
             \App\Models\Setting::set('about_visi', $request->about_visi);
             \App\Models\Setting::set('about_misi', $request->about_misi);
-            \App\Models\Setting::set('about_value_title_1', $request->about_value_title_1);
-            \App\Models\Setting::set('about_value_desc_1', $request->about_value_desc_1);
-            \App\Models\Setting::set('about_value_title_2', $request->about_value_title_2);
-            \App\Models\Setting::set('about_value_desc_2', $request->about_value_desc_2);
-            \App\Models\Setting::set('about_value_title_3', $request->about_value_title_3);
-            \App\Models\Setting::set('about_value_desc_3', $request->about_value_desc_3);
+            \App\Models\Setting::set('org_title', $request->org_title);
+            \App\Models\Setting::set('org_desc', $request->org_desc);
         } elseif ($activeTab === 'contact') {
             \App\Models\Setting::set('contact_page_title', $request->contact_page_title);
             \App\Models\Setting::set('contact_page_desc', $request->contact_page_desc);
@@ -318,12 +238,22 @@ class DashboardController extends Controller
             \App\Models\Setting::set('contact_email', $request->contact_email);
             \App\Models\Setting::set('contact_phone', $request->contact_phone);
             \App\Models\Setting::set('contact_map_embed', $request->contact_map_embed);
-        } elseif ($activeTab === 'cta') {
-            \App\Models\Setting::set('cta_title', $request->cta_title);
-            \App\Models\Setting::set('cta_desc', $request->cta_desc);
+
         } elseif ($activeTab === 'gallery') {
             \App\Models\Setting::set('gallery_title', $request->gallery_title);
             \App\Models\Setting::set('gallery_desc', $request->gallery_desc);
+            $youtubeGalleryItems = [];
+            $ytItemsInput = $request->input('youtube_gallery_items', []);
+            foreach ($ytItemsInput as $index => $itemData) {
+                if (!empty($itemData['link'])) {
+                    $youtubeGalleryItems[] = [
+                        'link' => $itemData['link'],
+                        'title' => $itemData['title'] ?? '',
+                        'desc' => $itemData['desc'] ?? '',
+                    ];
+                }
+            }
+            \App\Models\Setting::set('youtube_gallery_items', json_encode($youtubeGalleryItems));
 
             // Get old gallery items for cleanup
             $oldGalleryItemsJson = \App\Models\Setting::get('gallery_items');

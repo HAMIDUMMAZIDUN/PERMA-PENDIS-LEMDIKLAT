@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('role');
-            $table->string('category'); // 'Dewan Pembina', 'Dewan Pengarah', 'Direktur', 'Wakil Direktur'
+            $table->string('category'); // 'Dewan Pakar', 'Dewan Pengawas', 'Pengurus Harian'
             $table->string('photo')->nullable();
             $table->string('color')->default('10b981');
             $table->boolean('is_leader')->default(false);

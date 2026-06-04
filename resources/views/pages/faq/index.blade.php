@@ -42,7 +42,7 @@
         @endforeach
     @endif
 
-    {{-- CTA Helpdesk --}}
+    {{-- Bantuan WhatsApp --}}
     <div class="mt-12 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-2xl p-8 text-center text-white">
         <h2 class="text-xl font-bold mb-2">Pertanyaan Anda belum terjawab?</h2>
         <p class="text-emerald-100 text-sm mb-5">Hubungi tim helpdesk kami melalui WhatsApp untuk bantuan lebih lanjut.</p>

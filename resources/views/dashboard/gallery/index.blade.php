@@ -12,9 +12,14 @@
             <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Daftar Galeri</h2>
             <p class="text-sm text-gray-500 dark:text-gray-400">Total galeri terdaftar: {{ $galleries->total() }}</p>
         </div>
-        <a href="{{ route('dashboard.gallery.create') }}" class="btn-primary whitespace-nowrap">
-            Galeri Baru
-        </a>
+        <div class="flex items-center gap-3">
+            <a href="{{ route('dashboard.settings', ['tab' => 'gallery']) }}" class="btn-secondary py-2.5 px-4 text-xs font-bold flex items-center gap-1.5 border border-gray-200 dark:border-emerald-950/40">
+                🎥 Kelola Video YouTube
+            </a>
+            <a href="{{ route('dashboard.gallery.create') }}" class="btn-primary whitespace-nowrap">
+                Galeri Baru
+            </a>
+        </div>
     </div>
 
     {{-- Gallery Table --}}

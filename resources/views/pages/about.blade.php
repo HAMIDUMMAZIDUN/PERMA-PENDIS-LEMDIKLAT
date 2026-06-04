@@ -6,13 +6,10 @@
 
 {{-- Elegant Page Header --}}
 <section class="relative bg-gradient-to-br from-primary-950 via-primary-900 to-emerald-950 text-white py-24 text-center overflow-hidden">
-    <div class="relative max-w-4xl mx-auto px-4 space-y-6 animate-slide-up">
-        <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-medium tracking-wide backdrop-blur-md">
-            {{ \App\Models\Setting::get('about_badge', 'Mengenal Lembaga Kami') }}
-        </span>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 animate-slide-up">
         <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">{{ \App\Models\Setting::get('about_title', 'Tentang PERMA PENDIS') }}</h1>
         <div class="w-16 h-1 bg-gradient-to-r from-primary-600 to-secondary-500 mx-auto rounded-full"></div>
-        <p class="text-lg md:text-xl text-emerald-100/80 max-w-3xl mx-auto leading-relaxed font-medium">
+        <p class="text-lg md:text-xl text-emerald-100/80 leading-relaxed font-medium text-justify">
             {{ \App\Models\Setting::get('about_desc', 'Lembaga Pendidikan dan Pelatihan berkomitmen tinggi meningkatkan kompetensi melalui program pelatihan terstruktur, kurikulum mutakhir, instruktur berpengalaman, serta pendekatan modern yang berorientasi hasil nyata.') }}
         </p>
     </div>
@@ -50,164 +47,76 @@
         </div>
     </div>
 
-    {{-- Value Grid --}}
-    <div class="grid md:grid-cols-3 gap-8">
-        @foreach([
-            [
-                'title' => \App\Models\Setting::get('about_value_title_1', 'Profesional & Teruji'), 
-                'desc' => \App\Models\Setting::get('about_value_desc_1', 'Instruktur bersertifikat BNSP, kurikulum adaptif standar industri, dan fasilitas memadai.'), 
-                'color' => 'bg-emerald-500/5 text-emerald-900 dark:text-emerald-300 border border-emerald-500/10'
-            ],
-            [
-                'title' => \App\Models\Setting::get('about_value_title_2', 'Kolaborasi Luas'), 
-                'desc' => \App\Models\Setting::get('about_value_desc_2', 'Kemitraan global & dinas pendidikan daerah untuk perluasan kesempatan karir alumni.'), 
-                'color' => 'bg-amber-500/5 text-amber-900 dark:text-amber-300 border border-amber-500/10'
-            ],
-            [
-                'title' => \App\Models\Setting::get('about_value_title_3', 'Berorientasi Output'), 
-                'desc' => \App\Models\Setting::get('about_value_desc_3', 'Fokus utama kami adalah keberhasilan lulusan dalam menerapkan program belajar inovatif di sekolah.'), 
-                'color' => 'bg-indigo-500/5 text-indigo-900 dark:text-indigo-300 border border-indigo-500/10'
-            ],
-        ] as $val)
-        <div class="rounded-3xl p-8 space-y-4 {{ $val['color'] }}">
-            <h3 class="font-bold text-lg dark:text-white">{{ $val['title'] }}</h3>
-            <p class="text-sm leading-relaxed opacity-85 font-medium">{{ $val['desc'] }}</p>
+    {{-- AD/ART Section --}}
+    <div class="card border border-gray-150 p-8 dark:bg-[#0b120f] dark:border-emerald-950/20 rounded-3xl shadow-sm space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div class="space-y-3 max-w-3xl">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400">
+                    Dokumen Hukum Resmi
+                </span>
+                <h2 class="text-2xl font-extrabold text-primary-950 dark:text-white">Anggaran Dasar & Anggaran Rumah Tangga (AD/ART)</h2>
+                <p class="text-gray-500 dark:text-gray-400 font-medium text-sm leading-relaxed text-justify animate-text-clip">
+                    Anggaran Dasar (AD) dan Anggaran Rumah Tangga (ART) merupakan landasan operasional konstitusional Perkumpulan Manajer Pendidikan Islam (Perma Pendis) Indonesia. Dokumen resmi ini disahkan pada Kongres ke-I Tanggal 9 Februari 2019 di Pondok Pesantren Tebuireng Jombang Jawa Timur, yang mengatur asas, landasan hukum, kode etik profesi, hak dan kewajiban anggota, serta tata kelola organisasi di tingkat nasional dan wilayah.
+                </p>
+            </div>
+            <div class="shrink-0 self-start md:self-center">
+                <a href="{{ route('ad-art') }}" target="_blank" class="btn-primary py-3.5 px-6 text-sm rounded-2xl flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition">
+                    <span>Lihat Selengkapnya</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                    </svg>
+                </a>
+            </div>
         </div>
-        @endforeach
     </div>
+
+
 
     {{-- Susunan Pengurus (Institutional Board Layout) --}}
-    <div class="space-y-12">
+    <div id="susunan-organisasi" class="space-y-12">
         <div class="text-center space-y-4">
-            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-primary-950 dark:text-white">Susunan Organisasi</h2>
+            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-primary-950 dark:text-white">{{ \App\Models\Setting::get('org_title', 'Susunan Organisasi') }}</h2>
             <div class="w-16 h-1 bg-gradient-to-r from-primary-600 to-secondary-500 mx-auto rounded-full"></div>
-            <p class="text-gray-500 dark:text-gray-400 font-medium max-w-xl mx-auto">Struktur kepengurusan profesional yang mendampingi dan mengarahkan kemajuan PERMA PENDIS.</p>
-        </div>
-
-        {{-- Dewan Pembina --}}
-        @if($pembinaLeader || $pembinaMembers->count() > 0)
-        <div class="space-y-8 p-8 bg-gray-50/50 dark:bg-[#09100d]/50 rounded-3xl border border-gray-100/50 dark:border-emerald-950/20">
-            <h3 class="text-lg md:text-xl font-bold text-primary-950 dark:text-white border-b border-gray-200/50 dark:border-emerald-950/30 pb-4 flex items-center gap-3">
-                <span class="w-2.5 h-6 bg-gradient-to-b from-primary-600 to-primary-800 rounded-full"></span>
-                Dewan Pembina
-            </h3>
-            
-            @if($pembinaLeader)
-            <div class="flex justify-center">
-                <div class="max-w-xs w-full">
-                    @include('pages.partials.org-card', ['name' => $pembinaLeader->name, 'role' => $pembinaLeader->role, 'color' => $pembinaLeader->color, 'photo' => $pembinaLeader->photo])
-                </div>
-            </div>
-            @endif
-            
-            @if($pembinaMembers->count() > 0)
-            <div class="space-y-4">
-                <h4 class="text-xs font-medium text-gray-450 uppercase tracking-widest dark:text-gray-500">Anggota Dewan Pembina</h4>
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    @foreach($pembinaMembers as $member)
-                    @include('pages.partials.org-card', ['name' => $member->name, 'role' => $member->role, 'color' => $member->color, 'photo' => $member->photo])
-                    @endforeach
-                </div>
-            </div>
-            @endif
-        </div>
-        @endif
-
-        {{-- Dewan Pengarah --}}
-        @if($pengarahLeader || $pengarahMembers->count() > 0)
-        <div class="space-y-8 p-8 bg-gray-50/50 dark:bg-[#09100d]/50 rounded-3xl border border-gray-100/50 dark:border-emerald-950/20">
-            <h3 class="text-lg md:text-xl font-bold text-primary-950 dark:text-white border-b border-gray-200/50 dark:border-emerald-950/30 pb-4 flex items-center gap-3">
-                <span class="w-2.5 h-6 bg-gradient-to-b from-secondary-500 to-secondary-600 rounded-full"></span>
-                Dewan Pengarah
-            </h3>
-            
-            @if($pengarahLeader)
-            <div class="flex justify-center">
-                <div class="max-w-xs w-full">
-                    @include('pages.partials.org-card', ['name' => $pengarahLeader->name, 'role' => $pengarahLeader->role, 'color' => $pengarahLeader->color, 'photo' => $pengarahLeader->photo])
-                </div>
-            </div>
-            @endif
-            
-            @if($pengarahMembers->count() > 0)
-            <div class="space-y-4">
-                <h4 class="text-xs font-medium text-gray-450 uppercase tracking-widest dark:text-gray-500">Anggota Dewan Pengarah</h4>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                    @foreach($pengarahMembers as $member)
-                    @include('pages.partials.org-card', ['name' => $member->name, 'role' => $member->role, 'color' => $member->color, 'photo' => $member->photo])
-                    @endforeach
-                </div>
-            </div>
-            @endif
-        </div>
-        @endif
-
-        {{-- Jajaran Direksi / Pelaksana Harian --}}
-        @if($direktur || $wakilDirekturs->count() > 0)
-        <div class="space-y-8 p-8 bg-gray-50/50 dark:bg-[#09100d]/50 rounded-3xl border border-gray-100/50 dark:border-emerald-950/20">
-            <h3 class="text-lg md:text-xl font-bold text-primary-950 dark:text-white border-b border-gray-200/50 dark:border-emerald-950/30 pb-4 flex items-center gap-3">
-                <span class="w-2.5 h-6 bg-gradient-to-b from-emerald-500 to-emerald-700 rounded-full"></span>
-                Badan Pelaksana Pelatihan
-            </h3>
-            
-            <div class="flex flex-col gap-8">
-                @if($direktur)
-                <div class="flex flex-col items-center">
-                    <h4 class="text-xs font-medium text-gray-450 uppercase tracking-widest mb-4 dark:text-gray-500">Direktur Utama</h4>
-                    <div class="max-w-xs w-full">
-                        @include('pages.partials.org-card', ['name' => $direktur->name, 'role' => $direktur->role, 'color' => $direktur->color, 'photo' => $direktur->photo])
-                    </div>
-                </div>
-                @endif
-                
-                @if($wakilDirekturs->count() > 0)
-                <div class="space-y-4">
-                    <h4 class="text-xs font-medium text-gray-455 uppercase tracking-widest dark:text-gray-500 text-center md:text-left">Wakil Direktur</h4>
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
-                        @foreach($wakilDirekturs as $member)
-                        @include('pages.partials.org-card', ['name' => $member->name, 'role' => $member->role, 'color' => $member->color, 'photo' => $member->photo])
+            <p class="text-gray-500 dark:text-gray-400 font-medium max-w-xl mx-auto">{{ \App\Models\Setting::get('org_desc', 'Struktur kepengurusan profesional yang mendampingi dan mengarahkan kemajuan PERMA PENDIS.') }}</p>
+        </div>        @if($boardMembers->count() > 0)
+        <div class="card p-0 overflow-hidden border border-gray-100 dark:bg-[#0b120f] dark:border-emerald-950/20 rounded-3xl shadow-sm">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm text-gray-500 dark:text-gray-400">
+                    <thead>
+                        <tr class="text-xs text-gray-400 uppercase tracking-wider bg-gray-50/50 dark:bg-emerald-950/5 border-b border-gray-100 dark:border-emerald-950/20">
+                            <th class="py-4 px-6 font-semibold text-center w-16">No</th>
+                            <th class="py-4 px-6 font-semibold w-1/4">Struktur / Bagian</th>
+                            <th class="py-4 px-6 font-semibold w-2/5">Nama Pengurus</th>
+                            <th class="py-4 px-6 font-semibold">Jabatan</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-50 dark:divide-emerald-950/10 font-medium">
+                        @foreach($boardMembers as $member)
+                        <tr class="hover:bg-gray-50/30 dark:hover:bg-[#101b15]/10 transition-colors">
+                            <td class="py-4 px-6 text-center text-gray-450 dark:text-gray-650 font-mono text-xs">
+                                {{ $loop->iteration }}
+                            </td>
+                            <td class="py-4 px-6 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                                <span class="px-2.5 py-1 rounded-md bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-500/10">
+                                    {{ $member->category }}
+                                </span>
+                            </td>
+                            <td class="py-4 px-6 text-gray-900 dark:text-white font-semibold text-sm">
+                                {{ $member->name }}
+                            </td>
+                            <td class="py-4 px-6 text-xs text-gray-600 dark:text-gray-300">
+                                {{ $member->role }}
+                            </td>
+                        </tr>
                         @endforeach
-                    </div>
-                </div>
-                @endif
-            </div>
-        </div>
-        @endif
-
-        {{-- Sekretaris & Bendahara --}}
-        @if($sekretarisBendaharas->count() > 0)
-        <div class="space-y-8 p-8 bg-gray-50/50 dark:bg-[#09100d]/50 rounded-3xl border border-gray-100/50 dark:border-emerald-950/20 animate-slide-up">
-            <h3 class="text-lg md:text-xl font-bold text-primary-950 dark:text-white border-b border-gray-200/50 dark:border-emerald-950/30 pb-4 flex items-center gap-3">
-                <span class="w-2.5 h-6 bg-gradient-to-b from-amber-500 to-amber-700 rounded-full"></span>
-                Sekretaris & Bendahara
-            </h3>
-            
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                @foreach($sekretarisBendaharas as $member)
-                @include('pages.partials.org-card', ['name' => $member->name, 'role' => $member->role, 'color' => $member->color, 'photo' => $member->photo])
-                @endforeach
-            </div>
-        </div>
-        @endif
-
-        {{-- Kepala Bagian dan Unit --}}
-        @if($kabags->count() > 0)
-        <div class="space-y-8 p-8 bg-gray-50/50 dark:bg-[#09100d]/50 rounded-3xl border border-gray-100/50 dark:border-emerald-950/20 animate-slide-up">
-            <h3 class="text-lg md:text-xl font-bold text-primary-950 dark:text-white border-b border-gray-200/50 dark:border-emerald-950/30 pb-4 flex items-center gap-3">
-                <span class="w-2.5 h-6 bg-gradient-to-b from-indigo-500 to-indigo-700 rounded-full"></span>
-                Kepala Bagian dan Unit
-            </h3>
-            
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                @foreach($kabags as $member)
-                @include('pages.partials.org-card', ['name' => $member->name, 'role' => $member->role, 'color' => $member->color, 'photo' => $member->photo])
-                @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
         @endif
     </div>
 
-    {{-- Contact CTA --}}
+    {{-- Informasi Kontak --}}
     <div class="relative rounded-3xl overflow-hidden bg-gradient-to-r from-primary-950 to-primary-900 text-white px-8 py-14 text-center shadow-lg">
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(252,211,77,0.06),transparent_40%)]"></div>
         <div class="relative max-w-xl mx-auto space-y-6">

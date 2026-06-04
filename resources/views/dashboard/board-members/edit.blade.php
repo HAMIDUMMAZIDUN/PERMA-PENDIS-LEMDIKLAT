@@ -45,7 +45,7 @@
             <div>
                 <label for="role" class="form-label">Jabatan Struktural Organisasi <span class="text-red-500">*</span></label>
                 <input id="role" name="role" type="text" value="{{ old('role', $member->role) }}" required
-                       placeholder="Contoh: Ketua Dewan Pembina atau Anggota Eksekutif"
+                       placeholder="Contoh: Ketua Dewan Pakar, Ketua Dewan Pengawas, Ketua Umum"
                        class="form-input @error('role') border-red-400 @enderror">
                 @error('role')
                     <p class="text-red-500 text-xs mt-1.5 font-semibold">{{ $message }}</p>
@@ -56,12 +56,18 @@
                 <div>
                     <label for="category" class="form-label">Kategori Komponen Jabatan <span class="text-red-500">*</span></label>
                     <select id="category" name="category" required class="form-input">
-                        <option value="Dewan Pembina" {{ old('category', $member->category) == 'Dewan Pembina' ? 'selected' : '' }}>Dewan Pembina</option>
-                        <option value="Dewan Pengarah" {{ old('category', $member->category) == 'Dewan Pengarah' ? 'selected' : '' }}>Dewan Pengarah</option>
-                        <option value="Direktur" {{ old('category', $member->category) == 'Direktur' ? 'selected' : '' }}>Direktur</option>
-                        <option value="Wakil Direktur" {{ old('category', $member->category) == 'Wakil Direktur' ? 'selected' : '' }}>Wakil Direktur</option>
-                        <option value="Sekretaris & Bendahara" {{ old('category', $member->category) == 'Sekretaris & Bendahara' ? 'selected' : '' }}>Sekretaris & Bendahara</option>
-                        <option value="Kepala Bagian dan Unit" {{ old('category', $member->category) == 'Kepala Bagian dan Unit' ? 'selected' : '' }}>Kepala Bagian dan Unit</option>
+                        <option value="Dewan Pakar" {{ old('category', $member->category) == 'Dewan Pakar' ? 'selected' : '' }}>Dewan Pakar</option>
+                        <option value="Dewan Pengawas" {{ old('category', $member->category) == 'Dewan Pengawas' ? 'selected' : '' }}>Dewan Pengawas</option>
+                        <option value="Pengurus Harian" {{ old('category', $member->category) == 'Pengurus Harian' ? 'selected' : '' }}>Pengurus Harian</option>
+                        <option value="Divisi I" {{ old('category', $member->category) == 'Divisi I' ? 'selected' : '' }}>Divisi I</option>
+                        <option value="Divisi II" {{ old('category', $member->category) == 'Divisi II' ? 'selected' : '' }}>Divisi II</option>
+                        <option value="Divisi III" {{ old('category', $member->category) == 'Divisi III' ? 'selected' : '' }}>Divisi III</option>
+                        <option value="Divisi IV" {{ old('category', $member->category) == 'Divisi IV' ? 'selected' : '' }}>Divisi IV</option>
+                        <option value="Divisi V" {{ old('category', $member->category) == 'Divisi V' ? 'selected' : '' }}>Divisi V</option>
+                        <option value="Divisi VI" {{ old('category', $member->category) == 'Divisi VI' ? 'selected' : '' }}>Divisi VI</option>
+                        <option value="Divisi VII" {{ old('category', $member->category) == 'Divisi VII' ? 'selected' : '' }}>Divisi VII</option>
+                        <option value="Divisi VIII" {{ old('category', $member->category) == 'Divisi VIII' ? 'selected' : '' }}>Divisi VIII</option>
+                        <option value="Koordinator Wilayah" {{ old('category', $member->category) == 'Koordinator Wilayah' ? 'selected' : '' }}>Koordinator Wilayah</option>
                     </select>
                     @error('category')
                         <p class="text-red-500 text-xs mt-1.5 font-semibold">{{ $message }}</p>

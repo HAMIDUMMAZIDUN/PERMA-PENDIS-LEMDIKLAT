@@ -26,7 +26,7 @@
     </div>
 
     {{-- High-End Stat Grid --}}
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
         @foreach([
             [
                 'label' => 'Total Artikel', 
@@ -41,16 +41,10 @@
                 'color' => 'text-teal-700 bg-teal-50 dark:bg-teal-950/20 dark:text-teal-400'
             ],
             [
-                'label' => 'Persetujuan Tertunda', 
-                'value' => $pendingApprovals, 
-                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />',
-                'color' => 'text-indigo-700 bg-indigo-50 dark:bg-indigo-950/20 dark:text-indigo-400'
-            ],
-            [
-                'label' => 'Anggota Aktif', 
-                'value' => $activeUsers, 
+                'label' => 'Total Anggota', 
+                'value' => $totalMembers, 
                 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />',
-                'color' => 'text-amber-700 bg-amber-50 dark:bg-amber-950/20 dark:text-amber-400'
+                'color' => 'text-indigo-700 bg-indigo-50 dark:bg-indigo-950/20 dark:text-indigo-400'
             ],
             [
                 'label' => 'Pesan Unread', 
@@ -108,167 +102,74 @@
             </div>
         </div>
 
-        {{-- Registered Board Members --}}
-        <div class="card p-0 overflow-hidden">
-            <div class="px-6 py-5 border-b border-gray-100 dark:border-emerald-950/20 flex items-center justify-between">
-                <h3 class="font-bold text-gray-900 text-base dark:text-white">Pengurus Baru</h3>
-                <a href="{{ route('dashboard.board-members') }}" class="text-primary-750 text-sm font-medium hover:text-primary-900 transition-colors">Lihat Semua</a>
-            </div>
-            <div class="divide-y divide-gray-100/70 dark:divide-emerald-950/10">
-                @forelse($recentBoardMembers as $member)
-                <div class="flex items-center gap-4 px-6 py-4.5 hover:bg-gray-50/50 dark:hover:bg-[#101b15]/30 transition-colors">
-                    @if($member->photo)
-                        <img src="{{ $member->photo }}" class="w-10 h-10 rounded-xl object-cover shrink-0" alt="{{ $member->name }}">
-                    @else
-                        <div class="w-10 h-10 rounded-xl bg-teal-50 dark:bg-teal-950/20 text-teal-700 dark:text-teal-400 flex items-center justify-center shrink-0">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                            </svg>
-                        </div>
-                    @endif
-                    <div class="flex-1 min-w-0">
-                        <p class="font-medium text-gray-900 text-sm truncate dark:text-white">{{ $member->name }}</p>
-                        <p class="text-xs text-gray-400 font-normal mt-0.5">{{ $member->category ?? 'Pengurus PERMA PENDIS' }}</p>
-                    </div>
-                    <span class="badge-primary">{{ $member->role }}</span>
+        {{-- Right Side Stack --}}
+        <div class="space-y-8">
+            {{-- Registered Board Members --}}
+            <div class="card p-0 overflow-hidden">
+                <div class="px-6 py-5 border-b border-gray-100 dark:border-emerald-950/20 flex items-center justify-between">
+                    <h3 class="font-bold text-gray-900 text-base dark:text-white">Pengurus Baru</h3>
+                    <a href="{{ route('dashboard.board-members') }}" class="text-primary-750 text-sm font-medium hover:text-primary-900 transition-colors">Lihat Semua</a>
                 </div>
-                @empty
-                <div class="px-6 py-8 text-center text-gray-400 text-sm">
-                    Belum ada pengurus terdaftar.
-                </div>
-                @endforelse
-            </div>
-        </div>
-    </div>
-
-    {{-- Row 2 Grid: Pending User Registrations & Recent Contact Messages --}}
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {{-- Pending User Registrations --}}
-        <div class="card p-0 overflow-hidden">
-            <div class="px-6 py-5 border-b border-gray-100 dark:border-emerald-950/20 flex items-center justify-between">
-                <h3 class="font-bold text-gray-900 text-base dark:text-white">Persetujuan Akun Tertunda</h3>
-                <a href="{{ route('dashboard.approvals') }}" class="text-primary-750 text-sm font-medium hover:text-primary-900 transition-colors">Lihat Semua</a>
-            </div>
-            <div class="p-6">
-                @forelse($recentPendingUsers as $pendingUser)
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between border border-gray-100 dark:border-emerald-950/30 rounded-2xl p-5 hover:shadow-md transition-shadow dark:bg-[#080d0b] mb-4 last:mb-0 gap-4">
-                    <div class="flex items-center gap-4">
-                        @if($pendingUser->profile?->profile_picture)
-                            <img src="{{ asset('uploads/profile-photos/' . $pendingUser->profile->profile_picture) }}" class="w-12 h-12 rounded-full object-cover" alt="Foto">
+                <div class="divide-y divide-gray-100/70 dark:divide-emerald-950/10">
+                    @forelse($recentBoardMembers as $member)
+                    <div class="flex items-center gap-4 px-6 py-4.5 hover:bg-gray-50/50 dark:hover:bg-[#101b15]/30 transition-colors">
+                        @if($member->photo)
+                            <img src="{{ $member->photo }}" class="w-10 h-10 rounded-xl object-cover shrink-0" alt="{{ $member->name }}">
                         @else
-                            <div class="w-12 h-12 rounded-full bg-primary-900 flex items-center justify-center text-white text-sm font-medium dark:bg-primary-750">
-                                {{ $pendingUser->initials }}
+                            <div class="w-10 h-10 rounded-xl bg-teal-50 dark:bg-teal-950/20 text-teal-700 dark:text-teal-400 flex items-center justify-center shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
                             </div>
                         @endif
-                        <div>
-                            <h4 class="font-bold text-gray-900 text-sm dark:text-white leading-tight">{{ $pendingUser->display_name }}</h4>
-                            <p class="text-xs text-gray-450 dark:text-gray-400 font-normal mt-1">{{ $pendingUser->email }} • Role: {{ $pendingUser->role?->name ?? 'User' }}</p>
+                        <div class="flex-1 min-w-0">
+                            <p class="font-medium text-gray-900 text-sm truncate dark:text-white">{{ $member->name }}</p>
+                            <p class="text-xs text-gray-400 font-normal mt-0.5">{{ $member->category ?? 'Pengurus PERMA PENDIS' }}</p>
                         </div>
+                        <span class="badge-primary">{{ $member->role }}</span>
                     </div>
-                    <div class="flex items-center gap-2 sm:self-center">
-                        <form action="{{ route('dashboard.approvals.approve', $pendingUser->id) }}" method="POST" class="inline">
-                            @csrf
-                            <button type="submit" class="btn-success text-xs px-4 py-2">Setujui</button>
-                        </form>
-                        <form action="{{ route('dashboard.approvals.reject', $pendingUser->id) }}" method="POST" class="inline">
-                            @csrf
-                            <button type="submit" class="btn-danger text-xs px-4 py-2">Tolak</button>
-                        </form>
+                    @empty
+                    <div class="px-6 py-8 text-center text-gray-400 text-sm">
+                        Belum ada pengurus terdaftar.
                     </div>
+                    @endforelse
                 </div>
-                @empty
-                <div class="flex flex-col items-center justify-center py-10 text-center">
-                    <div class="w-16 h-16 rounded-full bg-teal-50 dark:bg-teal-950/20 text-teal-700 dark:text-teal-400 flex items-center justify-center mb-4">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                    </div>
-                    <h4 class="font-bold text-gray-900 dark:text-white text-sm">Semua Akun Telah Diproses</h4>
-                    <p class="text-xs text-gray-400 mt-1">Tidak ada pendaftaran akun yang tertunda saat ini.</p>
-                </div>
-                @endforelse
             </div>
-        </div>
 
-        {{-- Recent Contact Messages --}}
-        <div class="card p-0 overflow-hidden">
-            <div class="px-6 py-5 border-b border-gray-100 dark:border-emerald-950/20 flex items-center justify-between">
-                <h3 class="font-bold text-gray-900 text-base dark:text-white">Pesan Masuk Terbaru</h3>
-                <a href="{{ route('dashboard.messages') }}" class="text-primary-750 text-sm font-medium hover:text-primary-900 transition-colors">Lihat Semua</a>
-            </div>
-            <div class="divide-y divide-gray-100/70 dark:divide-emerald-950/10">
-                @forelse($recentMessages as $msg)
-                <div class="flex items-start gap-4 px-6 py-4.5 hover:bg-gray-50/50 dark:hover:bg-[#101b15]/30 transition-colors">
-                    <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/20 text-emerald-700 dark:text-emerald-400 flex items-center justify-center shrink-0">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                        </svg>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="flex items-center justify-between gap-2">
-                            <p class="font-medium text-gray-900 text-sm truncate dark:text-white">{{ $msg->name }}</p>
-                            <span class="text-[10px] text-gray-400 shrink-0 font-normal">{{ $msg->created_at->diffForHumans() }}</span>
+            {{-- Recent Contact Messages --}}
+            <div class="card p-0 overflow-hidden">
+                <div class="px-6 py-5 border-b border-gray-100 dark:border-emerald-950/20 flex items-center justify-between">
+                    <h3 class="font-bold text-gray-900 text-base dark:text-white">Pesan Masuk Terbaru</h3>
+                    <a href="{{ route('dashboard.messages') }}" class="text-primary-750 text-sm font-medium hover:text-primary-900 transition-colors">Lihat Semua</a>
+                </div>
+                <div class="divide-y divide-gray-100/70 dark:divide-emerald-950/10">
+                    @forelse($recentMessages as $msg)
+                    <div class="flex items-start gap-4 px-6 py-4.5 hover:bg-gray-50/50 dark:hover:bg-[#101b15]/30 transition-colors">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/20 text-emerald-700 dark:text-emerald-400 flex items-center justify-center shrink-0">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
                         </div>
-                        <p class="text-xs text-gray-500 truncate dark:text-gray-400 mt-0.5 font-medium">{{ Str::limit($msg->message, 80) }}</p>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between gap-2">
+                                <p class="font-medium text-gray-900 text-sm truncate dark:text-white">{{ $msg->name }}</p>
+                                <span class="text-[10px] text-gray-400 shrink-0 font-normal">{{ $msg->created_at->diffForHumans() }}</span>
+                            </div>
+                            <p class="text-xs text-gray-500 truncate dark:text-gray-400 mt-0.5 font-medium">{{ Str::limit($msg->message, 80) }}</p>
+                        </div>
+                        @if(!$msg->is_read)
+                            <span class="px-2 py-0.5 text-[9px] font-bold rounded-full bg-emerald-500 text-white shrink-0">New</span>
+                        @endif
                     </div>
-                    @if(!$msg->is_read)
-                        <span class="px-2 py-0.5 text-[9px] font-bold rounded-full bg-emerald-500 text-white shrink-0">New</span>
-                    @endif
+                    @empty
+                    <div class="px-6 py-8 text-center text-gray-400 text-sm">
+                        Belum ada pesan masuk.
+                    </div>
+                    @endforelse
                 </div>
-                @empty
-                <div class="px-6 py-8 text-center text-gray-400 text-sm">
-                    Belum ada pesan masuk.
-                </div>
-                @endforelse
             </div>
         </div>
-    </div>
 
-    {{-- Quick Actions --}}
-    <div class="card p-8">
-        <h3 class="font-bold text-gray-900 text-base mb-6 dark:text-white">Aksi Cepat</h3>
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            @foreach([
-                [
-                    'label' => 'Tulis Artikel', 
-                    'icon' => 'M12 4v16m8-8H4', 
-                    'href' => route('dashboard.articles.create'), 
-                    'style' => 'bg-gradient-to-r from-primary-900 to-primary-800 text-white hover:from-primary-800 hover:to-primary-700 shadow-md shadow-primary-900/10'
-                ],
-                [
-                    'label' => 'Kelola Pengurus', 
-                    'icon' => 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z', 
-                    'href' => route('dashboard.board-members'), 
-                    'style' => 'bg-white dark:bg-[#111e19]/60 border border-gray-150 dark:border-emerald-900/30 text-gray-700 dark:text-primary-300 hover:bg-gray-50 dark:hover:bg-primary-950/40'
-                ],
-                [
-                    'label' => 'Atur Tampilan', 
-                    'icon' => 'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z', 
-                    'href' => route('dashboard.settings'), 
-                    'style' => 'bg-white dark:bg-[#111e19]/60 border border-gray-150 dark:border-emerald-900/30 text-gray-700 dark:text-primary-300 hover:bg-gray-50 dark:hover:bg-primary-950/40'
-                ],
-                [
-                    'label' => 'Persetujuan Akun', 
-                    'icon' => 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z', 
-                    'href' => route('dashboard.approvals'), 
-                    'style' => 'bg-white dark:bg-[#111e19]/60 border border-gray-150 dark:border-emerald-900/30 text-gray-700 dark:text-primary-300 hover:bg-gray-50 dark:hover:bg-primary-950/40'
-                ],
-                [
-                    'label' => 'Pesan Masuk', 
-                    'icon' => 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z', 
-                    'href' => route('dashboard.messages'), 
-                    'style' => 'bg-white dark:bg-[#111e19]/60 border border-gray-150 dark:border-emerald-900/30 text-gray-700 dark:text-primary-300 hover:bg-gray-50 dark:hover:bg-primary-950/40'
-                ],
-            ] as $action)
-            <a href="{{ $action['href'] }}" class="flex flex-col items-center justify-center gap-2.5 h-24 rounded-2xl font-medium text-sm transition-all duration-350 active:scale-95 text-center p-3 {{ $action['style'] }}">
-                <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $action['icon'] }}" />
-                </svg>
-                {{ $action['label'] }}
-            </a>
-            @endforeach
-        </div>
     </div>
-
 </div>
 @endsection

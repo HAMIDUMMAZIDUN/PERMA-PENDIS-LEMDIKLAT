@@ -66,42 +66,40 @@
             </a>
 
             {{-- Desktop Nav --}}
-            <nav class="hidden md:flex items-center gap-1" id="main-nav">
+            <nav class="hidden lg:flex items-center gap-1" id="main-nav">
                 <a href="{{ request()->routeIs('home') ? '#hero' : route('home') . '#hero' }}" class="{{ request()->routeIs('home') ? 'nav-link-active' : 'nav-link' }}" data-section="hero">Beranda</a>
                 <a href="{{ request()->routeIs('home') ? '#articles' : route('articles') }}" class="{{ request()->routeIs('articles*') ? 'nav-link-active' : 'nav-link' }}" data-section="articles">Artikel</a>
                 <a href="{{ request()->routeIs('home') ? '#gallery' : route('gallery') }}" class="{{ request()->routeIs('gallery*') ? 'nav-link-active' : 'nav-link' }}" data-section="gallery">Galeri</a>
                 <a href="{{ request()->routeIs('home') ? '#events' : route('events') }}" class="{{ request()->routeIs('events*') ? 'nav-link-active' : 'nav-link' }}" data-section="events">Agenda</a>
                 <a href="{{ request()->routeIs('home') ? '#downloads' : route('downloads') }}" class="{{ request()->routeIs('downloads*') ? 'nav-link-active' : 'nav-link' }}" data-section="downloads">Download</a>
+                <a href="{{ route('members') }}" class="{{ request()->routeIs('members*') ? 'nav-link-active' : 'nav-link' }}">Anggota</a>
                 <a href="{{ request()->routeIs('home') ? '#about' : route('about') }}" class="{{ request()->routeIs('about') ? 'nav-link-active' : 'nav-link' }}" data-section="about">Tentang</a>
                 <a href="{{ request()->routeIs('home') ? '#contact' : route('contact') }}" class="{{ request()->routeIs('contact') ? 'nav-link-active' : 'nav-link' }}" data-section="contact">Kontak</a>
             </nav>
-
+            
             {{-- Auth Buttons & Theme Toggle --}}
-            <div class="hidden md:flex items-center gap-2">
+            <div class="hidden lg:flex items-center gap-2">
                 <button onclick="toggleTheme()" class="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors mr-1 dark:hover:bg-gray-800/50" aria-label="Toggle Theme">
                     <span class="dark:hidden">🌙</span>
                     <span class="hidden dark:block">☀️</span>
                 </button>
                 @auth
                     <a href="{{ route('dashboard') }}" class="nav-link">
-                        
                         Dashboard
                     </a>
                     <form action="{{ route('logout') }}" method="POST" class="inline">
                         @csrf
                         <button type="submit" class="nav-link text-red-600 hover:bg-red-50">
-                            
                             Keluar
                         </button>
                     </form>
                 @else
-                    <a href="{{ route('login') }}" class="btn-secondary py-2 px-4 text-sm">Masuk</a>
-                    <a href="{{ route('register') }}" class="btn-primary py-2 px-4 text-sm">Daftar</a>
+                    <a href="{{ route('login') }}" class="btn-primary py-2 px-4 text-sm">Masuk</a>
                 @endauth
             </div>
 
             {{-- Mobile Buttons --}}
-            <div class="flex items-center gap-2 md:hidden">
+            <div class="flex items-center gap-2 lg:hidden">
                 <button onclick="toggleTheme()" class="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors dark:hover:bg-gray-800/50" aria-label="Toggle Theme">
                     <span class="dark:hidden">🌙</span>
                     <span class="hidden dark:block">☀️</span>
@@ -114,21 +112,21 @@
     </div>
 
     {{-- Mobile Menu --}}
-    <div id="mobile-menu" class="hidden md:hidden border-t border-gray-200 bg-white dark:bg-gray-900 dark:border-gray-800">
+    <div id="mobile-menu" class="hidden lg:hidden border-t border-gray-200 bg-white dark:bg-gray-900 dark:border-gray-800">
         <nav class="px-4 py-3 space-y-1" id="mobile-nav">
             <a href="{{ request()->routeIs('home') ? '#hero' : route('home') . '#hero' }}" class="{{ request()->routeIs('home') ? 'sidebar-link-active' : 'sidebar-link' }}" data-section="hero">Beranda</a>
             <a href="{{ request()->routeIs('home') ? '#articles' : route('articles') }}" class="{{ request()->routeIs('articles*') ? 'sidebar-link-active' : 'sidebar-link' }}" data-section="articles">Artikel</a>
             <a href="{{ request()->routeIs('home') ? '#gallery' : route('gallery') }}" class="{{ request()->routeIs('gallery*') ? 'sidebar-link-active' : 'sidebar-link' }}" data-section="gallery">Galeri</a>
             <a href="{{ request()->routeIs('home') ? '#events' : route('events') }}" class="{{ request()->routeIs('events*') ? 'sidebar-link-active' : 'sidebar-link' }}" data-section="events">Agenda</a>
             <a href="{{ request()->routeIs('home') ? '#downloads' : route('downloads') }}" class="{{ request()->routeIs('downloads*') ? 'sidebar-link-active' : 'sidebar-link' }}" data-section="downloads">Download</a>
+            <a href="{{ route('members') }}" class="{{ request()->routeIs('members*') ? 'sidebar-link-active' : 'sidebar-link' }}">Anggota</a>
             <a href="{{ request()->routeIs('home') ? '#about' : route('about') }}" class="{{ request()->routeIs('about') ? 'sidebar-link-active' : 'sidebar-link' }}" data-section="about">Tentang</a>
             <a href="{{ request()->routeIs('home') ? '#contact' : route('contact') }}" class="{{ request()->routeIs('contact') ? 'sidebar-link-active' : 'sidebar-link' }}" data-section="contact">Kontak</a>
             <div class="pt-2 border-t border-gray-200 flex gap-2 dark:border-gray-800">
                 @auth
                     <a href="{{ route('dashboard') }}" class="btn-primary py-2 px-4 text-sm w-full justify-center">Dashboard</a>
                 @else
-                    <a href="{{ route('login') }}" class="btn-secondary py-2 px-4 text-sm flex-1 justify-center">Masuk</a>
-                    <a href="{{ route('register') }}" class="btn-primary py-2 px-4 text-sm flex-1 justify-center">Daftar</a>
+                    <a href="{{ route('login') }}" class="btn-primary py-2 px-4 text-sm w-full justify-center">Masuk</a>
                 @endauth
             </div>
         </nav>
@@ -167,7 +165,8 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
             <div>
                 <h3 class="text-white font-bold text-lg mb-3">PERMA PENDIS</h3>
-                <p class="text-sm leading-relaxed text-gray-400">Lembaga Pendidikan dan Pelatihan yang berdedikasi untuk meningkatkan kompetensi tenaga pendidik dan kependidikan di Indonesia.</p>
+                <p class="text-sm leading-relaxed text-gray-400">Perkumpulan Manajer Pendidikan Islam (Perma Pendis) Indonesia sebagai wadah profesional berperan dalam pengembangan dan penguatan manajer pendidikan Islam di seluruh Indonesia melalui pembinaan kompetensi, penegakan etika profesi, dan peningkatan standar layanan manajemen pendidikan Islam. Organisasi ini juga berkontribusi dalam memperkuat tata kelola lembaga pendidikan Islam yang bermutu, akuntabel, dan berdaya saing melalui pelatihan, pendampingan,
+serta pengembangan praktik manajemen yang profesional. Selain itu, Perkumpulan Manajer Pendidikan Indonesia berperan sebagai mitra strategis pemerintah dan pemangku kepentingan dalam perumusan kebijakan, advokasi profesi, serta peningkatan kualitas sumber daya manusia pendidikan Islam, sekaligus mendorong kepedulian sosial dan pengabdian kepada masyarakat di bidang pendidikan Islam.</p>
             </div>
             <div>
                 <h4 class="text-white font-bold mb-3">Navigasi</h4>
@@ -186,7 +185,7 @@
                 <h4 class="text-white font-bold mb-3">Kontak</h4>
                 <address class="text-sm not-italic text-gray-400 space-y-2">
                     <p>Jl. Gedebage Selatan No.137, Kel. Cisaranteun Kidul, Kec. Gedebage, Kota Bandung 40295</p>
-                    <p><a href="mailto:info@permapendis.com" class="hover:text-white transition-colors">info@permapendis.com</a></p>
+                    <p><a href="mailto:lspmanajemenpendidikanislam@gmail.com " class="hover:text-white transition-colors">lspmanajemenpendidikanislam@gmail.com </a></p>
                 </address>
             </div>
         </div>

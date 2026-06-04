@@ -73,7 +73,7 @@
     {{-- 1. TOP CONTAINER (Sticking to the top area of the image background) --}}
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-left z-10 w-full pt-2 animate-fade-in">
         <h1 class="text-xl md:text-2xl lg:text-3xl font-extrabold tracking-tight text-left leading-tight {{ $titleClass }}">
-            Selamat Datang di PERMA PENDIS Perkumpulan Manajer Pendidikan Islam Indonesia
+           
         </h1>
     </div>
 
@@ -83,14 +83,14 @@
             {{-- Description (Stored above the buttons and stats) --}}
             <div class="max-w-5xl">
                 <p class="text-xl md:text-2xl lg:text-3xl font-bold tracking-tight text-left leading-snug {{ $descClass }}">
-                   Perkumpulan Manajer Pendidikan Islam Indonesia adalah wadah bagi para manajer pendidikan untuk berperan, berkolaborasi, dan bersinergi dalam meningkatkan mutu dan daya saing lembaga pendidikan Islam
-                </p>
+                   
+                </p>    
             </div>
             
             {{-- Buttons and Stats (aligned horizontally on a single line on desktop) --}}
             <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 w-full">
                 {{-- Left Side: Buttons --}}
-                <div class="flex flex-row gap-3 shrink-0">
+                <div class="flex flex-row flex-wrap sm:flex-nowrap gap-3 shrink-0">
                     <a href="{{ route('about') }}" class="btn-primary py-2.5 px-6 text-sm whitespace-nowrap">
                         Tentang Kami
                     </a>
@@ -100,14 +100,14 @@
                 </div>
 
                 {{-- Right Side: Stats --}}
-                <div class="flex flex-row gap-6 md:gap-8 divide-x {{ $borderClass }} overflow-x-auto pb-2 lg:pb-0 shrink-0">
+                <div class="grid grid-cols-2 sm:flex sm:flex-row gap-y-4 gap-x-6 sm:gap-8 sm:divide-x {{ $borderClass }} shrink-0">
                     @foreach([
                         ['number' => \App\Models\Setting::get('stat_alumni', '500+'), 'label' => 'Alumni Tersertifikasi'],
                         ['number' => \App\Models\Setting::get('stat_instruktur', '20+'), 'label' => 'Instruktur BNSP'],
                         ['number' => \App\Models\Setting::get('stat_program', '3'), 'label' => 'Program Unggulan'],
                         ['number' => \App\Models\Setting::get('stat_tahun', '10+'), 'label' => 'Tahun Pelayanan'],
                     ] as $index => $stat)
-                    <div class="{{ $index > 0 ? 'pl-6 md:pl-8' : '' }} shrink-0">
+                    <div class="{{ $index > 0 ? 'sm:pl-8' : '' }} shrink-0">
                         <p class="text-xl md:text-2xl font-extrabold {{ $statNumberClass }} tracking-tight leading-none">{{ $stat['number'] }}</p>
                         <p class="text-[9px] font-bold {{ $statLabelClass }} uppercase tracking-wider mt-1.5 leading-none">{{ $stat['label'] }}</p>
                     </div>
@@ -118,58 +118,12 @@
     </div>
 </section>
 
-{{-- Mengapa Memilih Kami? (High-end Feature Grid) --}}
-<section class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-16 space-y-4 animate-slide-up">
-        <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-primary-950 dark:text-white">{{ \App\Models\Setting::get('why_title', 'Mengapa Memilih Kami?') }}</h2>
-        <div class="w-20 h-1.5 bg-gradient-to-r from-primary-600 to-secondary-500 mx-auto rounded-full"></div>
-        <p class="text-gray-500 max-w-2xl mx-auto text-lg dark:text-gray-400 font-medium">{{ \App\Models\Setting::get('why_desc', 'Komitmen kami adalah meningkatkan kualitas SDM pendidikan nasional melalui program terakreditasi dan profesional.') }}</p>
-    </div>
-    
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        @foreach([
-            [
-                'title' => \App\Models\Setting::get('why_card_title_1', 'Pengalaman & Kompeten'), 
-                'desc' => \App\Models\Setting::get('why_card_desc_1', 'Didukung oleh instruktur profesional bersertifikasi nasional dengan pengalaman puluhan tahun.'), 
-                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />',
-                'bg' => 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
-            ],
-            [
-                'title' => \App\Models\Setting::get('why_card_title_2', 'Kurikulum Relevan'), 
-                'desc' => \App\Models\Setting::get('why_card_desc_2', 'Materi pelatihan disesuaikan dengan kurikulum nasional terbaru serta kebutuhan digitalisasi sekolah.'), 
-                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />',
-                'bg' => 'bg-amber-500/10 text-amber-600 dark:text-amber-400'
-            ],
-            [
-                'title' => \App\Models\Setting::get('why_card_title_3', 'Inovasi Digital'), 
-                'desc' => \App\Models\Setting::get('why_card_desc_3', 'Metode pembelajaran berbasis teknologi tinggi yang praktis, fleksibel, dan mudah diimplementasikan.'), 
-                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />',
-                'bg' => 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400'
-            ],
-            [
-                'title' => \App\Models\Setting::get('why_card_title_4', 'Jejaring Nasional'), 
-                'desc' => \App\Models\Setting::get('why_card_desc_4', 'Hubungan erat dengan ribuan pengurus dan kepala sekolah se-Indonesia untuk berbagi ide.'), 
-                'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />',
-                'bg' => 'bg-teal-500/10 text-teal-600 dark:text-teal-400'
-            ]
-        ] as $feature)
-        <div class="card-hover group flex flex-col items-center text-center p-8 space-y-5">
-            <h3 class="font-bold text-gray-900 text-lg dark:text-white">{{ $feature['title'] }}</h3>
-            <p class="text-gray-500 text-sm leading-relaxed dark:text-gray-400 font-medium text-justify">{{ $feature['desc'] }}</p>
-        </div>
-        @endforeach
-    </div>
-</section>
-
 {{-- Tentang Section --}}
 <section id="about" class="py-24 border-t border-gray-150 dark:border-emerald-950/20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
     <div class="text-center space-y-4">
-        <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-medium tracking-wide backdrop-blur-md">
-            {{ \App\Models\Setting::get('about_badge', 'Mengenal Lembaga Kami') }}
-        </span>
         <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-primary-950 dark:text-white">{{ \App\Models\Setting::get('about_title', 'Tentang PERMA PENDIS') }}</h2>
         <div class="w-16 h-1 bg-gradient-to-r from-primary-600 to-secondary-500 mx-auto rounded-full"></div>
-        <p class="text-lg md:text-xl text-gray-500 max-w-3xl mx-auto leading-relaxed font-medium dark:text-gray-400">
+        <p class="text-lg md:text-xl text-gray-500 leading-relaxed font-medium dark:text-gray-400 text-justify">
             {{ \App\Models\Setting::get('about_desc', 'Lembaga Pendidikan dan Pelatihan berkomitmen tinggi meningkatkan kompetensi melalui program pelatihan terstruktur, kurikulum mutakhir, instruktur berpengalaman, serta pendekatan modern yang berorientasi hasil nyata.') }}
         </p>
     </div>
@@ -200,161 +154,24 @@
         </div>
     </div>
 
-    {{-- Value Grid --}}
-    <div class="grid md:grid-cols-3 gap-8">
-        @foreach([
-            [
-                'title' => \App\Models\Setting::get('about_value_title_1', 'Profesional & Teruji'), 
-                'desc' => \App\Models\Setting::get('about_value_desc_1', 'Instruktur bersertifikat BNSP, kurikulum adaptif standar industri, and fasilitas memadai.'), 
-                'color' => 'bg-emerald-500/5 text-emerald-900 dark:text-emerald-300 border border-emerald-500/10'
-            ],
-            [
-                'title' => \App\Models\Setting::get('about_value_title_2', 'Kolaborasi Luas'), 
-                'desc' => \App\Models\Setting::get('about_value_desc_2', 'Kemitraan global & dinas pendidikan daerah untuk perluasan kesempatan karir alumni.'), 
-                'color' => 'bg-amber-500/5 text-amber-900 dark:text-amber-300 border border-amber-500/10'
-            ],
-            [
-                'title' => \App\Models\Setting::get('about_value_title_3', 'Berorientasi Output'), 
-                'desc' => \App\Models\Setting::get('about_value_desc_3', 'Fokus utama kami adalah keberhasilan lulusan dalam menerapkan program belajar inovatif di sekolah.'), 
-                'color' => 'bg-indigo-500/5 text-indigo-900 dark:text-indigo-300 border border-indigo-500/10'
-            ],
-        ] as $val)
-        <div class="rounded-3xl p-8 space-y-4 {{ $val['color'] }}">
-            <h3 class="font-bold text-lg dark:text-white">{{ $val['title'] }}</h3>
-            <p class="text-sm leading-relaxed opacity-85 font-medium">{{ $val['desc'] }}</p>
-        </div>
-        @endforeach
-    </div>
 
-    {{-- Susunan Pengurus --}}
-    <div class="space-y-12">
-        <div class="text-center space-y-4">
-            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-primary-950 dark:text-white">Susunan Organisasi</h2>
-            <div class="w-16 h-1 bg-gradient-to-r from-primary-600 to-secondary-500 mx-auto rounded-full"></div>
-            <p class="text-gray-500 dark:text-gray-400 font-medium max-w-xl mx-auto">Struktur kepengurusan profesional yang mendampingi dan mengarahkan kemajuan PERMA PENDIS.</p>
-        </div>
 
-        {{-- Dewan Pembina --}}
-        @if($pembinaLeader || $pembinaMembers->count() > 0)
-        <div class="space-y-8 p-8 bg-gray-50/50 dark:bg-[#09100d]/50 rounded-3xl border border-gray-100/50 dark:border-emerald-950/20">
-            <h3 class="text-lg md:text-xl font-bold text-primary-950 dark:text-white border-b border-gray-200/50 dark:border-emerald-950/30 pb-4 flex items-center gap-3">
-                <span class="w-2.5 h-6 bg-gradient-to-b from-primary-600 to-primary-800 rounded-full"></span>
-                Dewan Pembina
-            </h3>
-            
-            @if($pembinaLeader)
-            <div class="flex justify-center">
-                <div class="max-w-xs w-full">
-                    @include('pages.partials.org-card', ['name' => $pembinaLeader->name, 'role' => $pembinaLeader->role, 'color' => $pembinaLeader->color, 'photo' => $pembinaLeader->photo])
-                </div>
-            </div>
-            @endif
-            
-            @if($pembinaMembers->count() > 0)
-            <div class="space-y-4">
-                <h4 class="text-xs font-medium text-gray-450 uppercase tracking-widest dark:text-gray-500">Anggota Dewan Pembina</h4>
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    @foreach($pembinaMembers as $member)
-                    @include('pages.partials.org-card', ['name' => $member->name, 'role' => $member->role, 'color' => $member->color, 'photo' => $member->photo])
-                    @endforeach
-                </div>
-            </div>
-            @endif
-        </div>
-        @endif
-
-        {{-- Dewan Pengarah --}}
-        @if($pengarahLeader || $pengarahMembers->count() > 0)
-        <div class="space-y-8 p-8 bg-gray-50/50 dark:bg-[#09100d]/50 rounded-3xl border border-gray-100/50 dark:border-emerald-950/20">
-            <h3 class="text-lg md:text-xl font-bold text-primary-950 dark:text-white border-b border-gray-200/50 dark:border-emerald-950/30 pb-4 flex items-center gap-3">
-                <span class="w-2.5 h-6 bg-gradient-to-b from-secondary-500 to-secondary-600 rounded-full"></span>
-                Dewan Pengarah
-            </h3>
-            
-            @if($pengarahLeader)
-            <div class="flex justify-center">
-                <div class="max-w-xs w-full">
-                    @include('pages.partials.org-card', ['name' => $pengarahLeader->name, 'role' => $pengarahLeader->role, 'color' => $pengarahLeader->color, 'photo' => $pengarahLeader->photo])
-                </div>
-            </div>
-            @endif
-            
-            @if($pengarahMembers->count() > 0)
-            <div class="space-y-4">
-                <h4 class="text-xs font-medium text-gray-455 uppercase tracking-widest dark:text-gray-500">Anggota Dewan Pengarah</h4>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                    @foreach($pengarahMembers as $member)
-                    @include('pages.partials.org-card', ['name' => $member->name, 'role' => $member->role, 'color' => $member->color, 'photo' => $member->photo])
-                    @endforeach
-                </div>
-            </div>
-            @endif
-        </div>
-        @endif
-
-        {{-- Jajaran Direksi / Pelaksana Harian --}}
-        @if($direktur || $wakilDirekturs->count() > 0)
-        <div class="space-y-8 p-8 bg-gray-50/50 dark:bg-[#09100d]/50 rounded-3xl border border-gray-100/50 dark:border-emerald-950/20">
-            <h3 class="text-lg md:text-xl font-bold text-primary-950 dark:text-white border-b border-gray-200/50 dark:border-emerald-950/30 pb-4 flex items-center gap-3">
-                <span class="w-2.5 h-6 bg-gradient-to-b from-emerald-500 to-emerald-700 rounded-full"></span>
-                Badan Pelaksana Pelatihan
-            </h3>
-            
-            <div class="flex flex-col gap-8">
-                @if($direktur)
-                <div class="flex flex-col items-center">
-                    <h4 class="text-xs font-medium text-gray-455 uppercase tracking-widest mb-4 dark:text-gray-500">Direktur Utama</h4>
-                    <div class="max-w-xs w-full">
-                        @include('pages.partials.org-card', ['name' => $direktur->name, 'role' => $direktur->role, 'color' => $direktur->color, 'photo' => $direktur->photo])
-                    </div>
-                </div>
-                @endif
-                
-                @if($wakilDirekturs->count() > 0)
-                <div class="space-y-4">
-                    <h4 class="text-xs font-medium text-gray-455 uppercase tracking-widest dark:text-gray-500 text-center md:text-left">Wakil Direktur</h4>
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
-                        @foreach($wakilDirekturs as $member)
-                        @include('pages.partials.org-card', ['name' => $member->name, 'role' => $member->role, 'color' => $member->color, 'photo' => $member->photo])
-                        @endforeach
-                    </div>
-                </div>
-                @endif
+    {{-- Banner Susunan Pengurus --}}
+    <div class="relative rounded-3xl overflow-hidden bg-gradient-to-r from-emerald-950 via-primary-950 to-teal-950 text-white px-8 py-14 text-center shadow-lg">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(252,211,77,0.06),transparent_40%)]"></div>
+        <div class="relative max-w-xl mx-auto space-y-6">
+            <h2 class="text-2xl md:text-3xl font-bold tracking-tight">{{ \App\Models\Setting::get('org_title', 'Susunan Organisasi') }}</h2>
+            <div class="w-16 h-1 bg-gradient-to-r from-emerald-500 to-teal-400 mx-auto rounded-full"></div>
+            <p class="text-emerald-100/80 text-sm font-medium leading-relaxed">
+                {{ \App\Models\Setting::get('org_desc', 'Struktur kepengurusan profesional yang mendampingi dan mengarahkan kemajuan PERMA PENDIS.') }}
+            </p>
+            <div class="pt-4">
+                <a href="{{ route('about') }}#susunan-organisasi" target="_blank" rel="noopener noreferrer" class="btn-primary inline-flex items-center gap-1.5 px-5 py-2.5 text-sm">
+                    <span>Lihat Susunan Kepengurusan Lengkap</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </a>
             </div>
         </div>
-        @endif
-
-        {{-- Sekretaris & Bendahara --}}
-        @if($sekretarisBendaharas->count() > 0)
-        <div class="space-y-8 p-8 bg-gray-50/50 dark:bg-[#09100d]/50 rounded-3xl border border-gray-100/50 dark:border-emerald-950/20 animate-slide-up">
-            <h3 class="text-lg md:text-xl font-bold text-primary-950 dark:text-white border-b border-gray-200/50 dark:border-emerald-950/30 pb-4 flex items-center gap-3">
-                <span class="w-2.5 h-6 bg-gradient-to-b from-amber-500 to-amber-700 rounded-full"></span>
-                Sekretaris & Bendahara
-            </h3>
-            
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                @foreach($sekretarisBendaharas as $member)
-                @include('pages.partials.org-card', ['name' => $member->name, 'role' => $member->role, 'color' => $member->color, 'photo' => $member->photo])
-                @endforeach
-            </div>
-        </div>
-        @endif
-
-        {{-- Kepala Bagian dan Unit --}}
-        @if($kabags->count() > 0)
-        <div class="space-y-8 p-8 bg-gray-50/50 dark:bg-[#09100d]/50 rounded-3xl border border-gray-100/50 dark:border-emerald-950/20 animate-slide-up">
-            <h3 class="text-lg md:text-xl font-bold text-primary-950 dark:text-white border-b border-gray-200/50 dark:border-emerald-950/30 pb-4 flex items-center gap-3">
-                <span class="w-2.5 h-6 bg-gradient-to-b from-indigo-500 to-indigo-700 rounded-full"></span>
-                Kepala Bagian dan Unit
-            </h3>
-            
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                @foreach($kabags as $member)
-                @include('pages.partials.org-card', ['name' => $member->name, 'role' => $member->role, 'color' => $member->color, 'photo' => $member->photo])
-                @endforeach
-            </div>
-        </div>
-        @endif
     </div>
 </section>
 
@@ -362,9 +179,6 @@
 <section id="events" class="py-24 border-t border-gray-150 dark:border-emerald-950/20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div class="space-y-4">
-            <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-300 text-xs font-medium tracking-wide backdrop-blur-md">
-                Agenda & Kalender Kegiatan
-            </span>
             <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-primary-950 dark:text-white">Agenda & Event Mendatang</h2>
             <div class="w-16 h-1 bg-gradient-to-r from-primary-600 to-secondary-500 rounded-full"></div>
             <p class="text-gray-500 dark:text-gray-400 font-medium max-w-xl">Ikuti berbagai kegiatan pelatihan, seminar, rapat kerja, dan diskusi panel yang diselenggarakan oleh PERMA PENDIS.</p>
@@ -472,9 +286,6 @@
 {{-- Arsip Dokumentasi Section --}}
 <section id="gallery" class="py-24 border-t border-gray-150 dark:border-emerald-950/20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
     <div class="text-center space-y-4">
-        <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-300 text-xs font-medium tracking-wide backdrop-blur-md">
-            Dokumentasi & Momentum
-        </span>
         <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-primary-950 dark:text-white">{{ \App\Models\Setting::get('gallery_title', 'Arsip Dokumentasi') }}</h2>
         <div class="w-16 h-1 bg-gradient-to-r from-primary-600 to-secondary-500 mx-auto rounded-full"></div>
         <p class="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed font-medium dark:text-gray-400">
@@ -530,15 +341,89 @@
         <p class="font-medium text-lg">Belum ada galeri kegiatan terbit.</p>
     </div>
     @endif
+
+    {{-- YouTube Video Gallery Section --}}
+    @php
+        $ytItemsJson = \App\Models\Setting::get('youtube_gallery_items');
+        $ytItems = $ytItemsJson ? json_decode($ytItemsJson, true) : [
+            [
+                'link' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+                'title' => 'Dokumentasi Video Kegiatan',
+                'desc' => 'Tonton rangkuman video momentum kegiatan, pelatihan, dan kebersamaan di PERMA PENDIS secara langsung.',
+            ]
+        ];
+    @endphp
+    @if(count($ytItems) > 0)
+    <div class="mt-20 border-t border-gray-150 dark:border-emerald-950/20 pt-20 space-y-12">
+        <div class="text-center space-y-4">
+            <h3 class="text-2xl md:text-3xl font-bold tracking-tight text-primary-950 dark:text-white">Galeri Video Dokumentasi</h3>
+            <div class="w-12 h-1 bg-gradient-to-r from-red-655 to-red-450 mx-auto rounded-full"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            @foreach($ytItems as $index => $item)
+                @php
+                    $ytId = \App\Models\Setting::getYoutubeId($item['link']);
+                @endphp
+                @if($ytId)
+                <div class="bg-white dark:bg-[#0b120f]/50 border border-gray-100 dark:border-emerald-950/20 rounded-3xl overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col justify-between">
+                    <div>
+                        <!-- Custom Playable Video Card -->
+                        <div id="yt-player-container-{{ $index }}" class="relative overflow-hidden aspect-[16/9] bg-black group cursor-pointer w-full border-b border-gray-100 dark:border-emerald-950/20">
+                            <!-- Video Thumbnail -->
+                            <img id="yt-thumbnail-{{ $index }}" src="https://img.youtube.com/vi/{{ $ytId }}/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/{{ $ytId }}/hqdefault.jpg'" alt="Video Thumbnail" class="w-full h-full object-cover group-hover:scale-102 transition duration-500">
+                            
+                            <!-- Overlay with Play Button -->
+                            <div id="yt-play-overlay-{{ $index }}" onclick="playYoutubeOnSite('{{ $ytId }}', 'yt-player-container-{{ $index }}')" class="absolute inset-0 bg-black/35 group-hover:bg-black/45 transition flex items-center justify-center">
+                                <div class="w-14 h-14 rounded-full bg-red-600 text-white flex items-center justify-center shadow-xl group-hover:scale-110 transition duration-300 transform">
+                                    <svg class="w-6 h-6 fill-current ml-1" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Content details -->
+                        <div class="p-6 space-y-2 text-left">
+                            <h4 class="font-bold text-gray-900 text-base leading-snug dark:text-white line-clamp-1">
+                                {{ $item['title'] ?: 'Video Dokumentasi' }}
+                            </h4>
+                            @if(!empty($item['desc']))
+                            <p class="text-xs text-gray-500 dark:text-gray-400 line-clamp-2 leading-relaxed">
+                                {{ $item['desc'] }}
+                            </p>
+                            @endif
+                        </div>
+                    </div>
+                    
+                    <!-- Action buttons -->
+                    <div class="p-6 pt-0 flex gap-2">
+                        <button onclick="playYoutubeOnSite('{{ $ytId }}', 'yt-player-container-{{ $index }}')" class="btn-primary py-2 px-4 text-xs flex items-center gap-1.5 justify-center flex-1">
+                            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"/>
+                            </svg>
+                            <span>Putar</span>
+                        </button>
+                        
+                        <a href="{{ $item['link'] }}" target="_blank" rel="noopener noreferrer" class="btn-secondary py-2 px-4 text-xs flex items-center gap-1.5 justify-center border border-gray-205 dark:border-emerald-950/40 flex-1">
+                            <svg class="w-3.5 h-3.5 text-red-600 fill-current" viewBox="0 0 24 24">
+                                <path d="M23.498 6.163c-.272-1.002-1.064-1.794-2.066-2.066C19.605 3.5 12 3.5 12 3.5s-7.605 0-9.432.597c-1.002.272-1.794 1.064-2.066 2.066C0 7.995 0 12 0 12s0 4.005.597 5.837c.272 1.002 1.064 1.794 2.066 2.066C4.395 20.5 12 20.5 12 20.5s7.605 0 9.432-.597c1.002-.272 1.794-1.064 2.066-2.066C24 16.005 24 12 24 12s0-4.005-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                            </svg>
+                            <span>YouTube</span>
+                        </a>
+                    </div>
+                </div>
+                @endif
+            @endforeach
+        </div>
+    </div>
+    @endif
 </section>
 
 {{-- Downloads Section --}}
 <section id="downloads" class="py-24 border-t border-gray-150 dark:border-emerald-950/20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div class="space-y-4">
-            <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-300 text-xs font-medium tracking-wide backdrop-blur-md">
-                Download Center / Dokumen Publik
-            </span>
             <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-primary-950 dark:text-white">Dokumen & Formulir Resmi</h2>
             <div class="w-16 h-1 bg-gradient-to-r from-primary-600 to-secondary-500 rounded-full"></div>
             <p class="text-gray-500 dark:text-gray-400 font-medium max-w-xl">Unduh berbagai formulir pendaftaran, brosur program, surat keputusan, dan file administrasi resmi lainnya secara langsung.</p>
@@ -595,9 +480,6 @@
 {{-- Kontak Section --}}
 <section id="contact" class="py-24 border-t border-gray-150 dark:border-emerald-950/20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
     <div class="text-center space-y-4">
-        <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-medium tracking-wide backdrop-blur-md">
-            Hubungi Tim PERMA PENDIS
-        </span>
         <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-primary-950 dark:text-white">{{ \App\Models\Setting::get('contact_page_title', 'Hubungi Kami') }}</h2>
         <div class="w-16 h-1 bg-gradient-to-r from-primary-600 to-secondary-500 mx-auto rounded-full"></div>
         <p class="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed font-medium dark:text-gray-400">
@@ -682,10 +564,10 @@
             </div>
 
             {{-- Google Map with premium container --}}
-            @if(\App\Models\Setting::get('contact_map_embed'))
+            @if(\App\Models\Setting::getMapEmbedUrl())
             <div class="rounded-3xl overflow-hidden shadow-md border border-gray-100 dark:border-emerald-950/20">
                 <iframe width="100%" height="320" frameborder="0" scrolling="no"
-                    src="{{ \App\Models\Setting::get('contact_map_embed') }}"
+                    src="{{ \App\Models\Setting::getMapEmbedUrl() }}"
                     class="block filter grayscale dark:invert-[0.9] dark:hue-rotate-[180deg]">
                 </iframe>
             </div>
@@ -694,27 +576,7 @@
     </div>
 </section>
 
-{{-- CTA Section --}}
-<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
-    <div class="relative rounded-3xl overflow-hidden bg-gradient-to-r from-primary-950 to-primary-900 text-white px-8 py-16 md:py-20 md:px-16 text-center shadow-[0_20px_50px_rgba(0,0,0,0.1)]">
-        {{-- Artistic glow overlays --}}
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(252,211,77,0.1),transparent_50%)]"></div>
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(5,150,105,0.2),transparent_40%)]"></div>
-        
-        <div class="relative max-w-2xl mx-auto space-y-6">
-            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight leading-tight">{{ \App\Models\Setting::get('cta_title', 'Siap Untuk Meningkatkan Kualitas Sekolah Anda?') }}</h2>
-            <p class="text-emerald-100/80 text-base md:text-lg font-medium leading-relaxed">{{ \App\Models\Setting::get('cta_desc', 'Daftarkan diri Anda sekarang sebagai peserta pelatihan profesional dan kembangkan kompetensi kepemimpinan institusi pendidikan.') }}</p>
-            <div class="flex flex-wrap justify-center gap-4 pt-4">
-                <a href="{{ route('register') }}" class="btn-primary px-8 py-3.5">
-                    Daftar Sekarang Juga
-                </a>
-                <a href="{{ route('contact') }}" class="btn-secondary px-8 py-3.5">
-                    Hubungi Kami
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
+
 
 {{-- Gallery Lightbox Modal --}}
 <div id="gallery-lightbox-modal" class="fixed inset-0 z-50 hidden bg-black/95 backdrop-blur-md flex items-center justify-center p-4 transition-all duration-300 opacity-0">
@@ -754,6 +616,20 @@
 </div>
 
 <script>
+    function playYoutubeOnSite(videoId, containerId) {
+        const container = document.getElementById(containerId);
+        if (container) {
+            container.innerHTML = `
+                <iframe class="w-full h-full" 
+                        src="https://www.youtube.com/embed/${videoId}?autoplay=1" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                </iframe>
+            `;
+        }
+    }
+
     let lightboxImages = [];
     let currentLightboxIndex = 0;
 

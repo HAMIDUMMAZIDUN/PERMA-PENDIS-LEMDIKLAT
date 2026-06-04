@@ -15,6 +15,8 @@ use App\Http\Middleware\AdminMiddleware;
 // ─── Public Routes ────────────────────────────────────────────────────────────
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/about', [PageController::class, 'about'])->name('about');
+Route::get('/ad-art', [PageController::class, 'adArt'])->name('ad-art');
+Route::get('/anggota', [PageController::class, 'members'])->name('members');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 Route::post('/contact', [PageController::class, 'sendContact'])->name('contact.send');
 
@@ -43,9 +45,6 @@ Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
     Route::post('/login', [AuthController::class, 'login'])->name('login.post');
     Route::post('/login/google', [AuthController::class, 'loginGoogle'])->name('login.google');
-    Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
-    Route::post('/register', [AuthController::class, 'register'])->name('register.post');
-    Route::post('/register/google', [AuthController::class, 'registerGoogle'])->name('register.google');
 });
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
@@ -78,10 +77,15 @@ Route::middleware('auth')->group(function () {
         Route::put('/dashboard/board-members/{id}', [\App\Http\Controllers\BoardMemberController::class, 'update'])->name('dashboard.board-members.update');
         Route::delete('/dashboard/board-members/{id}', [\App\Http\Controllers\BoardMemberController::class, 'destroy'])->name('dashboard.board-members.destroy');
 
-        // ─── User Approval Routes ─────────────────────────────────────────────
-        Route::get('/dashboard/approvals', [\App\Http\Controllers\DashboardController::class, 'approvals'])->name('dashboard.approvals');
-        Route::post('/dashboard/approvals/{id}/approve', [\App\Http\Controllers\DashboardController::class, 'approveUser'])->name('dashboard.approvals.approve');
-        Route::post('/dashboard/approvals/{id}/reject', [\App\Http\Controllers\DashboardController::class, 'rejectUser'])->name('dashboard.approvals.reject');
+        // ─── Members (Anggota) Routes ─────────────────────────────────────────
+        Route::get('/dashboard/members', [\App\Http\Controllers\MemberController::class, 'index'])->name('dashboard.members');
+        Route::get('/dashboard/members/create', [\App\Http\Controllers\MemberController::class, 'create'])->name('dashboard.members.create');
+        Route::post('/dashboard/members', [\App\Http\Controllers\MemberController::class, 'store'])->name('dashboard.members.store');
+        Route::get('/dashboard/members/{id}/edit', [\App\Http\Controllers\MemberController::class, 'edit'])->name('dashboard.members.edit');
+        Route::put('/dashboard/members/{id}', [\App\Http\Controllers\MemberController::class, 'update'])->name('dashboard.members.update');
+        Route::delete('/dashboard/members/{id}', [\App\Http\Controllers\MemberController::class, 'destroy'])->name('dashboard.members.destroy');
+
+
 
         // ─── Contact Message Routes ───────────────────────────────────────────
         Route::get('/dashboard/messages', [\App\Http\Controllers\DashboardController::class, 'messages'])->name('dashboard.messages');

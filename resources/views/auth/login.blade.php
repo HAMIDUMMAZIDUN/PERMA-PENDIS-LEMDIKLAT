@@ -6,7 +6,12 @@
     <title>Masuk - PERMA PENDIS</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     
-    {{-- Theme detection to prevent flash of unstyled content --}}
+    {{-- Google Font for Premium Typography --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    {{-- Theme detection --}}
     <script>
         if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
@@ -14,89 +19,178 @@
             document.documentElement.classList.remove('dark');
         }
     </script>
-</head>
-<body class="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col md:flex-row w-full overflow-x-hidden transition-colors duration-300">
 
-    {{-- Left Side: Brand Panel --}}
-    <div class="w-full md:w-5/12 bg-white dark:bg-[#0b0f19] flex flex-col justify-between p-8 md:p-12 border-b md:border-b-0 md:border-r border-slate-200/60 dark:border-white/5">
-        {{-- Spacer --}}
-        <div class="hidden md:block"></div>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .grid-pattern {
+            background-image: radial-gradient(rgba(16, 185, 129, 0.07) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .dark .grid-pattern {
+            background-image: radial-gradient(rgba(16, 185, 129, 0.15) 1px, transparent 1px);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col lg:flex-row w-full overflow-x-hidden transition-colors duration-300">
+
+    {{-- Left Side: Premium Brand Panel (Desktop Only) --}}
+    <div class="hidden lg:flex lg:w-5/12 bg-slate-900 dark:bg-slate-950 relative overflow-hidden flex-col justify-between p-12 border-r border-slate-800">
+        {{-- Background Effects --}}
+        <div class="absolute inset-0 grid-pattern pointer-events-none opacity-80"></div>
+        <div class="absolute -top-40 -left-40 w-96 h-96 bg-emerald-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+        <div class="absolute -bottom-40 -right-40 w-96 h-96 bg-teal-500/10 rounded-full blur-[100px] pointer-events-none"></div>
         
-        {{-- Brand Info --}}
-        <div class="flex flex-col items-center justify-center text-center my-auto py-8 md:py-0 animate-slide-up">
-            <a href="{{ route('home') }}" class="group flex flex-col items-center gap-5 transition-transform hover:scale-102 duration-300">
-                {{-- Beautiful Glassmorphic Logo Ring --}}
-                <div class="w-24 h-24 rounded-full bg-emerald-50 dark:bg-emerald-950/40 flex items-center justify-center shadow-inner p-4 border border-emerald-100/50 dark:border-emerald-900/30">
-                    <img src="{{ \App\Models\Setting::get('app_logo', asset('img/logo.png')) }}" alt="Logo" class="w-full h-full object-contain" onerror="this.style.display='none'">
-                </div>
-                <div>
-                    <h1 class="text-2xl md:text-3xl font-black tracking-wider text-slate-800 dark:text-white uppercase leading-tight">
-                        PERMA PENDIS<br>
-                        <span class="text-emerald-600 dark:text-emerald-400 font-extrabold text-lg md:text-xl">DASHBOARD</span>
-                    </h1>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 font-medium max-w-[280px]">
-                        Perkumpulan Manajer Pendidikan Islam Indonesia
-                    </p>
-                </div>
+        {{-- Header logo/back link --}}
+        <div class="z-10">
+            <a href="{{ route('home') }}" class="inline-flex items-center gap-2.5 text-xs font-bold text-slate-400 hover:text-white transition-colors duration-200">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                </svg>
+                KEMBALI KE BERANDA
             </a>
         </div>
-        
-        {{-- Footer branding --}}
-        <div class="text-center text-[10px] text-slate-400 dark:text-slate-500 hidden md:block">
-            &copy; {{ date('Y') }} PERMA PENDIS. Hak Cipta Dilindungi.
+
+        {{-- Brand Info Centered --}}
+        <div class="z-10 my-auto space-y-8 max-w-sm">
+            <div class="space-y-3">
+                {{-- Logo Ring --}}
+                <div class="w-14 h-14 rounded-xl bg-white/5 backdrop-blur-md flex items-center justify-center p-2.5 border border-white/10 shadow-xl">
+                    <img src="{{ \App\Models\Setting::get('app_logo', asset('img/logo.png')) }}" alt="Logo" class="w-full h-full object-contain" onerror="this.style.display='none'">
+                </div>
+                
+                <h1 class="text-3xl font-extrabold tracking-tight text-white leading-tight uppercase">
+                    PERMA PENDIS<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300 font-extrabold">DASHBOARD</span>
+                </h1>
+                
+                <p class="text-sm text-slate-400 leading-relaxed">
+                    Wadah profesional pengembangan dan penguatan kompetensi manajer pendidikan Islam di seluruh Indonesia.
+                </p>
+            </div>
+
+            {{-- Feature list --}}
+            <div class="space-y-3.5 pt-5 border-t border-slate-800">
+                <div class="flex items-start gap-3">
+                    <div class="w-7 h-7 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400 shrink-0">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-semibold text-slate-200">Akses Terenkripsi</h4>
+                        <p class="text-[11px] text-slate-400 mt-0.5 leading-normal">Sistem masuk aman dilindungi protokol enkripsi modern.</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-3">
+                    <div class="w-7 h-7 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400 shrink-0">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-semibold text-slate-200">Dashboard Manajemen Terpadu</h4>
+                        <p class="text-[11px] text-slate-400 mt-0.5 leading-normal">Kelola konten program, kepengurusan, dan dokumen dalam satu wadah.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- Footer --}}
+        <div class="z-10 text-xs text-slate-500">
+            &copy; {{ date('Y') }} PERMA PENDIS. Semua hak cipta dilindungi.
         </div>
     </div>
 
-    {{-- Right Side: Login Form Panel (Full Height & Centered) --}}
-    <div class="flex-1 bg-emerald-800 dark:bg-emerald-950 flex flex-col justify-center p-8 md:p-16 text-white min-h-[500px] md:min-h-screen overflow-y-auto">
-        
-        <div class="max-w-sm w-full mx-auto space-y-6 py-8 animate-slide-up">
-            <div>
-                <h2 class="text-2xl font-black tracking-tight">Selamat Datang Kembali!</h2>
-                <p class="text-emerald-200 text-xs mt-1 font-medium">Silakan masukkan akun Anda untuk masuk ke sistem dashboard.</p>
+    {{-- Right Side: Login Form Panel --}}
+    <div class="flex-1 flex flex-col justify-center items-center p-6 md:p-12 relative">
+        {{-- Mobile Header Logo (Visible on Mobile only) --}}
+        <div class="lg:hidden flex flex-col items-center text-center mb-6 mt-2 animate-fade-in">
+            <div class="w-12 h-12 rounded-xl bg-white dark:bg-slate-900 flex items-center justify-center p-2 border border-slate-200/50 dark:border-white/5 shadow-md">
+                <img src="{{ \App\Models\Setting::get('app_logo', asset('img/logo.png')) }}" alt="Logo" class="w-full h-full object-contain" onerror="this.style.display='none'">
+            </div>
+            <h1 class="text-lg font-bold tracking-tight text-slate-900 dark:text-white uppercase mt-2.5">
+                PERMA PENDIS
+            </h1>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                Dashboard Perkumpulan Manajer Pendidikan Islam
+            </p>
+        </div>
+
+        {{-- Glow background effects --}}
+        <div class="absolute top-1/4 left-1/4 w-80 h-80 bg-glow-1 rounded-full pointer-events-none"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-glow-2 rounded-full pointer-events-none"></div>
+
+        {{-- Card Container --}}
+        <div class="w-full max-w-md bg-white dark:bg-slate-900/60 backdrop-blur-xl rounded-3xl border border-slate-200/50 dark:border-white/5 p-8 md:p-10 shadow-xl shadow-slate-100/40 dark:shadow-none z-10 animate-slide-up">
+            
+            <div class="space-y-2 mb-8">
+                <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">Masuk Akun</h2>
+                <p class="text-sm text-slate-500 dark:text-slate-400">Silakan masukkan detail kredensial Anda untuk masuk ke sistem dashboard.</p>
             </div>
 
             @if(session('success'))
-            <div class="p-3.5 bg-emerald-900/60 border border-emerald-500/30 text-emerald-200 rounded-2xl text-xs font-semibold">
-                {{ session('success') }}
+            <div class="mb-5 p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-300 rounded-2xl text-xs font-semibold flex items-center gap-2">
+                <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <span>{{ session('success') }}</span>
             </div>
             @endif
 
             @if($errors->any())
-            <div class="p-3.5 bg-red-950/60 border border-red-500/30 text-red-200 rounded-2xl text-xs font-semibold">
+            <div class="mb-5 p-4 bg-red-500/10 border border-red-500/20 text-red-700 dark:text-red-300 rounded-2xl text-xs font-semibold space-y-1">
                 @foreach($errors->all() as $error)
-                    <p>{{ $error }}</p>
+                    <div class="flex items-center gap-2">
+                        <svg class="w-4 h-4 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                        </svg>
+                        <span>{{ $error }}</span>
+                    </div>
                 @endforeach
             </div>
             @endif
 
-            <form action="{{ route('login.post') }}" method="POST" class="space-y-4">
+            <form action="{{ route('login.post') }}" method="POST" class="space-y-5">
                 @csrf
                 
                 {{-- Username Input --}}
                 <div class="space-y-1">
-                    <label for="username" class="block text-xs font-semibold text-emerald-100">Username Anda</label>
-                    <input id="username" name="username" type="text" value="{{ old('username') }}" required autofocus
-                           class="w-full px-4 py-3 bg-white/10 focus:bg-white/20 border border-white/15 focus:border-white/40 text-white rounded-xl outline-none placeholder:text-white/45 text-sm transition-all shadow-inner" 
-                           placeholder="Masukkan username Anda">
+                    <label for="username" class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Username</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 pointer-events-none">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                            </svg>
+                        </span>
+                        <input id="username" name="username" type="text" value="{{ old('username') }}" required autofocus
+                               class="w-full pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 text-slate-900 dark:text-white rounded-xl outline-none placeholder:text-slate-400 text-xs font-medium transition-all shadow-sm" 
+                               placeholder="Masukkan username Anda">
+                    </div>
                 </div>
 
                 {{-- Password Input --}}
-                {{-- Password Input --}}
                 <div class="space-y-1">
-                    <label for="password" class="block text-xs font-semibold text-emerald-100">Kata Sandi (Password)</label>
+                    <label for="password" class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Kata Sandi</label>
                     <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 pointer-events-none">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                            </svg>
+                        </span>
                         <input id="password" name="password" type="password" required
-                               class="w-full pl-4 pr-12 py-3 bg-white/10 focus:bg-white/20 border border-white/15 focus:border-white/40 text-white rounded-xl outline-none placeholder:text-white/45 text-sm transition-all shadow-inner" 
+                               class="w-full pl-9 pr-10 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 text-slate-900 dark:text-white rounded-xl outline-none placeholder:text-slate-400 text-xs font-medium transition-all shadow-sm" 
                                placeholder="Masukkan password Anda">
-                        <button type="button" onclick="togglePasswordVisibility()" class="absolute inset-y-0 right-0 pr-4 flex items-center text-emerald-300 hover:text-white transition-colors duration-200" title="Tampilkan/Sembunyikan Password">
+                        <button type="button" onclick="togglePasswordVisibility()" class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600 dark:hover:text-white transition-colors duration-200" title="Tampilkan/Sembunyikan Password">
                             {{-- Show Eye Icon --}}
-                            <svg id="eye-icon-show" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <svg id="eye-icon-show" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
                             </svg>
                             {{-- Hide Eye Icon (Crossed) --}}
-                            <svg id="eye-icon-hide" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <svg id="eye-icon-hide" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/>
                             </svg>
                         </button>
@@ -104,42 +198,49 @@
                 </div>
 
                 {{-- Options row --}}
-                <div class="flex items-center text-xs pt-1">
-                    <label class="flex items-center gap-2 cursor-pointer select-none">
-                        <input id="remember" name="remember" type="checkbox" class="h-4 w-4 bg-white/10 text-emerald-600 rounded border-white/20 focus:ring-0">
-                        <span class="text-emerald-100 font-medium">Ingat saya</span>
+                <div class="flex items-center justify-between text-xs pt-1">
+                    <label class="flex items-center gap-2.5 cursor-pointer select-none">
+                        <input id="remember" name="remember" type="checkbox" class="h-4.5 w-4.5 bg-slate-50 dark:bg-slate-900 text-emerald-600 rounded-lg border-slate-200 dark:border-slate-800 focus:ring-0">
+                        <span class="text-slate-600 dark:text-slate-400 font-medium">Ingat saya</span>
                     </label>
                 </div>
 
                 {{-- Sign In Button --}}
-                <button type="submit" class="btn-primary w-full py-3.5 mt-2">
-                    Masuk Sekarang
+                <button type="submit" class="w-full py-2.5 px-4 bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-700 hover:to-teal-600 text-white font-bold rounded-xl shadow-md shadow-emerald-500/10 hover:shadow-emerald-500/20 hover:scale-[1.01] active:scale-[0.99] transition-all duration-200 text-center flex items-center justify-center gap-1.5 text-xs mt-2">
+                    <span>Masuk Ke Dashboard</span>
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
+                    </svg>
                 </button>
 
                 {{-- OR divider --}}
-                <div class="flex items-center gap-3 my-2">
-                    <hr class="flex-1 border-white/10">
-                    <span class="text-[9px] text-emerald-200 uppercase tracking-widest font-bold">atau</span>
-                    <hr class="flex-1 border-white/10">
+                <div class="flex items-center gap-3 my-3">
+                    <hr class="flex-1 border-slate-100 dark:border-slate-800">
+                    <span class="text-[9px] text-slate-400 dark:text-slate-500 uppercase tracking-widest font-bold">atau</span>
+                    <hr class="flex-1 border-slate-100 dark:border-slate-800">
                 </div>
 
-                {{-- Google SSO Login Button (Icon Only) --}}
-                <div class="flex justify-center mt-2">
-                    <button type="button" onclick="openGoogleLoginModal()" class="w-11 h-11 bg-white hover:bg-emerald-50 text-slate-800 rounded-full flex items-center justify-center shadow-md hover:shadow-lg transition-all duration-300 transform active:scale-95 border border-white/10" title="Masuk dengan Google">
-                        <svg class="w-5 h-5" viewBox="0 0 24 24">
+                {{-- Google SSO Login Button --}}
+                <div class="flex justify-center">
+                    <button type="button" onclick="openGoogleLoginModal()" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-white dark:bg-slate-850 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-white font-bold rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow transition transform active:scale-98 text-[11px]">
+                        <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24">
                             <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                             <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
                             <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
                             <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
                         </svg>
+                        <span>Masuk dengan Google</span>
                     </button>
                 </div>
             </form>
 
             {{-- Back home link --}}
-            <div class="text-center pt-2">
-                <a href="{{ route('home') }}" class="text-emerald-300 hover:text-white text-xs font-semibold transition-all">
-                    ← Kembali ke Beranda Utama
+            <div class="text-center pt-6 mt-6 border-t border-slate-100 dark:border-slate-800">
+                <a href="{{ route('home') }}" class="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white text-xs font-semibold transition-all inline-flex items-center gap-1.5">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                    </svg>
+                    <span>Kembali ke Beranda</span>
                 </a>
             </div>
         </div>

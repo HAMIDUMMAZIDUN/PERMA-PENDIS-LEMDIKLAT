@@ -33,50 +33,74 @@ class PageController extends Controller
             ->take(6)
             ->get();
 
-        $pembinaLeader = \App\Models\BoardMember::where('category', 'Dewan Pembina')->where('is_leader', true)->first();
-        $pembinaMembers = \App\Models\BoardMember::where('category', 'Dewan Pembina')->where('is_leader', false)->orderBy('sort_order')->get();
-        
-        $pengarahLeader = \App\Models\BoardMember::where('category', 'Dewan Pengarah')->where('is_leader', true)->first();
-        $pengarahMembers = \App\Models\BoardMember::where('category', 'Dewan Pengarah')->where('is_leader', false)->orderBy('sort_order')->get();
-        
-        $direktur = \App\Models\BoardMember::where('category', 'Dewan Direksi')->first() ?: \App\Models\BoardMember::where('category', 'Direktur')->first();
-        $wakilDirekturs = \App\Models\BoardMember::where('category', 'Wakil Direktur')->orderBy('sort_order')->get();
-
-        $sekretarisBendaharas = \App\Models\BoardMember::where('category', 'Sekretaris & Bendahara')->orderBy('sort_order')->get();
-        $kabags = \App\Models\BoardMember::where('category', 'Kepala Bagian dan Unit')->orderBy('sort_order')->get();
+        $boardMembers = \App\Models\BoardMember::orderByRaw("CASE 
+            WHEN category = 'Dewan Pakar' THEN 1 
+            WHEN category = 'Dewan Pengawas' THEN 2 
+            WHEN category = 'Pengurus Harian' THEN 3 
+            WHEN category = 'Divisi I' THEN 4 
+            WHEN category = 'Divisi II' THEN 5 
+            WHEN category = 'Divisi III' THEN 6 
+            WHEN category = 'Divisi IV' THEN 7 
+            WHEN category = 'Divisi V' THEN 8 
+            WHEN category = 'Divisi VI' THEN 9 
+            WHEN category = 'Divisi VII' THEN 10 
+            WHEN category = 'Divisi VIII' THEN 11 
+            WHEN category = 'Koordinator Wilayah' THEN 12 
+            ELSE 13 END")
+            ->orderBy('is_leader', 'desc')
+            ->orderBy('sort_order', 'asc')
+            ->take(8)
+            ->get();
 
         return view('pages.home', compact(
             'articles',
             'events',
             'downloads',
             'galleries',
-            'pembinaLeader', 'pembinaMembers',
-            'pengarahLeader', 'pengarahMembers',
-            'direktur', 'wakilDirekturs',
-            'sekretarisBendaharas', 'kabags'
+            'boardMembers'
         ));
     }
 
     public function about()
     {
-        $pembinaLeader = \App\Models\BoardMember::where('category', 'Dewan Pembina')->where('is_leader', true)->first();
-        $pembinaMembers = \App\Models\BoardMember::where('category', 'Dewan Pembina')->where('is_leader', false)->orderBy('sort_order')->get();
-        
-        $pengarahLeader = \App\Models\BoardMember::where('category', 'Dewan Pengarah')->where('is_leader', true)->first();
-        $pengarahMembers = \App\Models\BoardMember::where('category', 'Dewan Pengarah')->where('is_leader', false)->orderBy('sort_order')->get();
-        
-        $direktur = \App\Models\BoardMember::where('category', 'Direktur')->first();
-        $wakilDirekturs = \App\Models\BoardMember::where('category', 'Wakil Direktur')->orderBy('sort_order')->get();
+        $boardMembers = \App\Models\BoardMember::orderByRaw("CASE 
+            WHEN category = 'Dewan Pakar' THEN 1 
+            WHEN category = 'Dewan Pengawas' THEN 2 
+            WHEN category = 'Pengurus Harian' THEN 3 
+            WHEN category = 'Divisi I' THEN 4 
+            WHEN category = 'Divisi II' THEN 5 
+            WHEN category = 'Divisi III' THEN 6 
+            WHEN category = 'Divisi IV' THEN 7 
+            WHEN category = 'Divisi V' THEN 8 
+            WHEN category = 'Divisi VI' THEN 9 
+            WHEN category = 'Divisi VII' THEN 10 
+            WHEN category = 'Divisi VIII' THEN 11 
+            WHEN category = 'Koordinator Wilayah' THEN 12 
+            ELSE 13 END")
+            ->orderBy('is_leader', 'desc')
+            ->orderBy('sort_order', 'asc')
+            ->get();
 
-        $sekretarisBendaharas = \App\Models\BoardMember::where('category', 'Sekretaris & Bendahara')->orderBy('sort_order')->get();
-        $kabags = \App\Models\BoardMember::where('category', 'Kepala Bagian dan Unit')->orderBy('sort_order')->get();
+        return view('pages.about', compact('boardMembers'));
+    }
+    
+    public function members(\Illuminate\Http\Request $request)
+    {
+        $search = $request->query('search');
+        $query = \App\Models\UserProfile::whereNotNull('member_number')
+            ->where('membership_status', 'aktif');
 
-        return view('pages.about', compact(
-            'pembinaLeader', 'pembinaMembers',
-            'pengarahLeader', 'pengarahMembers',
-            'direktur', 'wakilDirekturs',
-            'sekretarisBendaharas', 'kabags'
-        ));
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%')
+                  ->orWhere('member_number', 'like', '%' . $search . '%')
+                  ->orWhere('institution', 'like', '%' . $search . '%');
+            });
+        }
+
+        $membersList = $query->orderBy('member_number', 'asc')->paginate(20)->withQueryString();
+
+        return view('pages.members', compact('membersList', 'search'));
     }
 
     public function contact()
@@ -99,5 +123,10 @@ class PageController extends Controller
         ]);
 
         return back()->with('success', 'Terima kasih! Pesan Anda telah dikirim.');
+    }
+
+    public function adArt()
+    {
+        return view('pages.ad-art');
     }
 }

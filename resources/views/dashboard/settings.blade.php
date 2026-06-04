@@ -2,12 +2,9 @@
     $tabNames = [
         'hero' => 'Hero & Statistik',
         'background' => 'Latar & Logo',
-        'why' => 'Mengapa Memilih Kami',
-        'scheme' => 'Skema Pendidikan',
         'about' => 'Tentang Lembaga',
         'gallery' => 'Arsip Dokumentasi',
-        'contact' => 'Hubungi Kami',
-        'cta' => 'Panggilan Aksi (CTA)'
+        'contact' => 'Hubungi Kami'
     ];
     $currentTabName = $tabNames[$activeTab] ?? 'Pengaturan Tampilan';
 @endphp
@@ -221,139 +218,7 @@
         </div>
         @endif
 
-        @if($activeTab === 'why')
-            {{-- Card 1: Mengapa Memilih Kami --}}
-            <div class="card p-8">
-                <h2 class="text-xl font-extrabold text-gray-900 mb-6 dark:text-white border-b border-gray-100 dark:border-emerald-950/20 pb-4">Bagian: Mengapa Memilih Kami?</h2>
-                <div class="space-y-6">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="why_title" class="form-label font-bold text-sm">Judul Seksi <span class="text-red-500">*</span></label>
-                            <input id="why_title" name="why_title" type="text" value="{{ old('why_title', $settings['why_title']) }}" required class="form-input">
-                        </div>
-                        <div>
-                            <label for="why_desc" class="form-label font-bold text-sm">Deskripsi Singkat Seksi <span class="text-red-500">*</span></label>
-                            <input id="why_desc" name="why_desc" type="text" value="{{ old('why_desc', $settings['why_desc']) }}" required class="form-input">
-                        </div>
-                    </div>
 
-                    <div class="border-t border-gray-50 pt-6 dark:border-emerald-950/20 space-y-4">
-                        <span class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Detail Kartu Manfaat</span>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="p-4 rounded-2xl bg-gray-50/50 dark:bg-[#080d0b]/40 border border-gray-100 dark:border-emerald-950/20 space-y-3">
-                                <span class="text-xs font-bold text-primary-900 dark:text-emerald-300">Kartu 1</span>
-                                <input name="why_card_title_1" type="text" value="{{ old('why_card_title_1', $settings['why_card_title_1']) }}" required class="form-input text-sm" placeholder="Judul Kartu 1">
-                                <textarea name="why_card_desc_1" rows="2" required class="form-input text-xs" placeholder="Deskripsi Kartu 1">{{ old('why_card_desc_1', $settings['why_card_desc_1']) }}</textarea>
-                            </div>
-                            <div class="p-4 rounded-2xl bg-gray-50/50 dark:bg-[#080d0b]/40 border border-gray-100 dark:border-emerald-950/20 space-y-3">
-                                <span class="text-xs font-bold text-primary-900 dark:text-emerald-300">Kartu 2</span>
-                                <input name="why_card_title_2" type="text" value="{{ old('why_card_title_2', $settings['why_card_title_2']) }}" required class="form-input text-sm" placeholder="Judul Kartu 2">
-                                <textarea name="why_card_desc_2" rows="2" required class="form-input text-xs" placeholder="Deskripsi Kartu 2">{{ old('why_card_desc_2', $settings['why_card_desc_2']) }}</textarea>
-                            </div>
-                            <div class="p-4 rounded-2xl bg-gray-50/50 dark:bg-[#080d0b]/40 border border-gray-100 dark:border-emerald-950/20 space-y-3">
-                                <span class="text-xs font-bold text-primary-900 dark:text-emerald-300">Kartu 3</span>
-                                <input name="why_card_title_3" type="text" value="{{ old('why_card_title_3', $settings['why_card_title_3']) }}" required class="form-input text-sm" placeholder="Judul Kartu 3">
-                                <textarea name="why_card_desc_3" rows="2" required class="form-input text-xs" placeholder="Deskripsi Kartu 3">{{ old('why_card_desc_3', $settings['why_card_desc_3']) }}</textarea>
-                            </div>
-                            <div class="p-4 rounded-2xl bg-gray-50/50 dark:bg-[#080d0b]/40 border border-gray-100 dark:border-emerald-950/20 space-y-3">
-                                <span class="text-xs font-bold text-primary-900 dark:text-emerald-300">Kartu 4</span>
-                                <input name="why_card_title_4" type="text" value="{{ old('why_card_title_4', $settings['why_card_title_4']) }}" required class="form-input text-sm" placeholder="Judul Kartu 4">
-                                <textarea name="why_card_desc_4" rows="2" required class="form-input text-xs" placeholder="Deskripsi Kartu 4">{{ old('why_card_desc_4', $settings['why_card_desc_4']) }}</textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endif
-
-        @if($activeTab === 'scheme')
-            {{-- Program Images Management Card --}}
-            <div class="card p-8">
-                <h2 class="text-xl font-extrabold text-gray-900 mb-2 dark:text-white">Kelola Foto Skema Pelatihan (3 Foto)</h2>
-                <p class="text-gray-400 text-xs mb-6 font-semibold">Atur gambar skema untuk jenjang SD/MI, SMP/MTS, dan SMA/SMK di halaman Beranda (Maksimal 500MB per foto).</p>
-                
-                <div class="space-y-6">
-                    @php
-                        $badges = [1 => 'SD/MI', 2 => 'SMP/MTS', 3 => 'SMA/SMK'];
-                    @endphp
-                    @for($i = 1; $i <= 3; $i++)
-                    <div class="p-5 rounded-2xl border border-gray-100 bg-gray-50/50 dark:border-emerald-950/20 dark:bg-[#080d0b]/40 flex flex-col md:flex-row gap-6 items-center">
-                        {{-- Image Preview --}}
-                        <div class="w-32 h-20 rounded-xl overflow-hidden shrink-0 border border-gray-200 shadow-sm dark:border-emerald-950/40 relative">
-                            <img id="preview-program-{{ $i }}" src="{{ $settings["home_program_img_{$i}"] }}" alt="Preview {{ $i }}" class="w-full h-full object-cover">
-                        </div>
-                        
-                        {{-- Form Controls --}}
-                        <div class="flex-1 w-full space-y-3">
-                            <div class="flex items-center justify-between">
-                                <span class="text-sm font-extrabold text-primary-900 dark:text-white">Skema Jenjang {{ $badges[$i] }}</span>
-                            </div>
-                            
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                {{-- Upload File Option --}}
-                                <div>
-                                    <label class="block text-[11px] font-bold text-gray-455 mb-1.5 dark:text-gray-500 uppercase tracking-wide">Unggah Foto Baru</label>
-                                    <input type="file" name="home_program_img_file_{{ $i }}" accept="image/*" onchange="previewSettingsImage(this, 'preview-program-{{ $i }}')"
-                                           class="block w-full text-xs text-gray-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-primary-50 file:text-primary-750 hover:file:bg-primary-100 dark:file:bg-emerald-950/40 dark:file:text-emerald-300 dark:hover:file:bg-emerald-900/30 transition">
-                                    @error("home_program_img_file_{{ $i }}")
-                                        <p class="text-red-500 text-[10px] mt-1">{{ $message }}</p>
-                                    @enderror
-                                </div>
-
-                                {{-- Image URL Option --}}
-                                <div>
-                                    <label class="block text-[11px] font-bold text-gray-455 mb-1.5 dark:text-gray-500 uppercase tracking-wide">Atau Gunakan URL Gambar</label>
-                                    <input type="url" name="home_program_img_url_{{ $i }}" placeholder="https://example.com/image.jpg"
-                                           class="form-input py-2 text-xs">
-                                    @error("home_program_img_url_{{ $i }}")
-                                        <p class="text-red-500 text-[10px] mt-1">{{ $message }}</p>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @endfor
-                </div>
-            </div>
-
-            {{-- Card 2: Skema Pendidikan & Pelatihan --}}
-            <div class="card p-8">
-                <h2 class="text-xl font-extrabold text-gray-900 mb-6 dark:text-white border-b border-gray-100 dark:border-emerald-950/20 pb-4">Bagian: Skema Pendidikan & Pelatihan</h2>
-                <div class="space-y-6">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="scheme_title" class="form-label font-bold text-sm">Judul Seksi <span class="text-red-500">*</span></label>
-                            <input id="scheme_title" name="scheme_title" type="text" value="{{ old('scheme_title', $settings['scheme_title']) }}" required class="form-input">
-                        </div>
-                        <div>
-                            <label for="scheme_desc" class="form-label font-bold text-sm">Deskripsi Seksi <span class="text-red-500">*</span></label>
-                            <input id="scheme_desc" name="scheme_desc" type="text" value="{{ old('scheme_desc', $settings['scheme_desc']) }}" required class="form-input">
-                        </div>
-                    </div>
-
-                    <div class="border-t border-gray-50 pt-6 dark:border-emerald-950/20 space-y-4">
-                        <span class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Detail Kartu Jenjang</span>
-                        <div class="space-y-4">
-                            <div class="p-4 rounded-2xl bg-gray-50/50 dark:bg-[#080d0b]/40 border border-gray-100 dark:border-emerald-950/20 space-y-3">
-                                <span class="text-xs font-bold text-primary-900 dark:text-emerald-300">Jenjang SD / MI</span>
-                                <input name="scheme_title_1" type="text" value="{{ old('scheme_title_1', $settings['scheme_title_1']) }}" required class="form-input text-sm">
-                                <textarea name="scheme_desc_1" rows="2" required class="form-input text-xs">{{ old('scheme_desc_1', $settings['scheme_desc_1']) }}</textarea>
-                            </div>
-                            <div class="p-4 rounded-2xl bg-gray-50/50 dark:bg-[#080d0b]/40 border border-gray-100 dark:border-emerald-950/20 space-y-3">
-                                <span class="text-xs font-bold text-primary-900 dark:text-emerald-300">Jenjang SMP / MTs</span>
-                                <input name="scheme_title_2" type="text" value="{{ old('scheme_title_2', $settings['scheme_title_2']) }}" required class="form-input text-sm">
-                                <textarea name="scheme_desc_2" rows="2" required class="form-input text-xs">{{ old('scheme_desc_2', $settings['scheme_desc_2']) }}</textarea>
-                            </div>
-                            <div class="p-4 rounded-2xl bg-gray-50/50 dark:bg-[#080d0b]/40 border border-gray-100 dark:border-emerald-950/20 space-y-3">
-                                <span class="text-xs font-bold text-primary-900 dark:text-emerald-300">Jenjang SMA / SMK / MA</span>
-                                <input name="scheme_title_3" type="text" value="{{ old('scheme_title_3', $settings['scheme_title_3']) }}" required class="form-input text-sm">
-                                <textarea name="scheme_desc_3" rows="2" required class="form-input text-xs">{{ old('scheme_desc_3', $settings['scheme_desc_3']) }}</textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endif
 
         @if($activeTab === 'about')
             {{-- Card 3: Tentang Kami & Visi Misi --}}
@@ -387,23 +252,18 @@
                         </div>
                     </div>
 
+
+
                     <div class="border-t border-gray-50 pt-6 dark:border-emerald-950/20 space-y-4">
-                        <span class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Nilai-Nilai Utama (Values)</span>
+                        <span class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Bagian: Susunan Organisasi (Tampilan Publik)</span>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <div class="p-4 rounded-2xl bg-gray-50/50 dark:bg-[#080d0b]/40 border border-gray-100 dark:border-emerald-950/20 space-y-3">
-                                <span class="text-xs font-bold text-primary-900 dark:text-emerald-300">Nilai 1</span>
-                                <input name="about_value_title_1" type="text" value="{{ old('about_value_title_1', $settings['about_value_title_1']) }}" required class="form-input text-sm">
-                                <textarea name="about_value_desc_1" rows="2" required class="form-input text-xs">{{ old('about_value_desc_1', $settings['about_value_desc_1']) }}</textarea>
+                            <div class="md:col-span-1">
+                                <label for="org_title" class="form-label font-bold text-sm">Judul Seksi <span class="text-red-500">*</span></label>
+                                <input id="org_title" name="org_title" type="text" value="{{ old('org_title', $settings['org_title']) }}" required class="form-input">
                             </div>
-                            <div class="p-4 rounded-2xl bg-gray-50/50 dark:bg-[#080d0b]/40 border border-gray-100 dark:border-emerald-950/20 space-y-3">
-                                <span class="text-xs font-bold text-primary-900 dark:text-emerald-300">Nilai 2</span>
-                                <input name="about_value_title_2" type="text" value="{{ old('about_value_title_2', $settings['about_value_title_2']) }}" required class="form-input text-sm">
-                                <textarea name="about_value_desc_2" rows="2" required class="form-input text-xs">{{ old('about_value_desc_2', $settings['about_value_desc_2']) }}</textarea>
-                            </div>
-                            <div class="p-4 rounded-2xl bg-gray-50/50 dark:bg-[#080d0b]/40 border border-gray-100 dark:border-emerald-950/20 space-y-3">
-                                <span class="text-xs font-bold text-primary-900 dark:text-emerald-300">Nilai 3</span>
-                                <input name="about_value_title_3" type="text" value="{{ old('about_value_title_3', $settings['about_value_title_3']) }}" required class="form-input text-sm">
-                                <textarea name="about_value_desc_3" rows="2" required class="form-input text-xs">{{ old('about_value_desc_3', $settings['about_value_desc_3']) }}</textarea>
+                            <div class="md:col-span-2">
+                                <label for="org_desc" class="form-label font-bold text-sm">Deskripsi Seksi <span class="text-red-500">*</span></label>
+                                <input id="org_desc" name="org_desc" type="text" value="{{ old('org_desc', $settings['org_desc']) }}" required class="form-input">
                             </div>
                         </div>
                     </div>
@@ -412,6 +272,80 @@
         @endif
 
         @if($activeTab === 'gallery')
+            {{-- YouTube Video Gallery Card --}}
+            <div class="card p-8 mb-8">
+                <h2 class="text-xl font-extrabold text-gray-900 mb-2 dark:text-white">Galeri Video YouTube</h2>
+                <p class="text-gray-400 text-xs mb-6 font-semibold">Kelola galeri video kegiatan dari YouTube yang ingin ditampilkan di halaman depan. Anda bisa mengatur berapa banyak yang ingin dimasukkan.</p>
+                
+                <div id="youtube-gallery-items-container" class="space-y-6">
+                    @foreach($settings['youtube_gallery_items'] ?? [] as $index => $item)
+                    <div class="p-5 rounded-2xl border border-gray-150 bg-gray-50/50 dark:border-emerald-950/20 dark:bg-[#080d0b]/40 flex flex-col gap-4 youtube-gallery-row animate-slide-up" id="youtube-gallery-item-{{ $index }}">
+                        <div class="flex items-center justify-between border-b border-gray-100 dark:border-emerald-950/10 pb-2">
+                            <span class="text-xs font-bold text-primary-900 dark:text-emerald-300">Video #{{ $index + 1 }}</span>
+                            <button type="button" onclick="removeYoutubeRow({{ $index }})" class="text-red-500 hover:text-red-750 text-[10px] font-bold flex items-center gap-1">
+                                🗑️ Hapus Video
+                            </button>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-[11px] font-bold text-gray-455 mb-1.5 dark:text-gray-550 uppercase tracking-wide">Link Video YouTube <span class="text-red-500">*</span></label>
+                                <input type="url" name="youtube_gallery_items[{{ $index }}][link]" value="{{ old('youtube_gallery_items.'.$index.'.link', $item['link'] ?? '') }}" placeholder="Contoh: https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="form-input py-2 text-xs" required>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-[11px] font-bold text-gray-455 mb-1.5 dark:text-gray-550 uppercase tracking-wide">Judul Video</label>
+                                    <input type="text" name="youtube_gallery_items[{{ $index }}][title]" value="{{ old('youtube_gallery_items.'.$index.'.title', $item['title'] ?? '') }}" placeholder="Masukkan judul video..." class="form-input py-2 text-xs">
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-bold text-gray-455 mb-1.5 dark:text-gray-550 uppercase tracking-wide">Deskripsi Singkat</label>
+                                    <input type="text" name="youtube_gallery_items[{{ $index }}][desc]" value="{{ old('youtube_gallery_items.'.$index.'.desc', $item['desc'] ?? '') }}" placeholder="Masukkan deskripsi video..." class="form-input py-2 text-xs">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+
+                {{-- Add Video Button --}}
+                <div class="mt-6">
+                    <button type="button" onclick="addYoutubeItem()" class="w-full py-4 rounded-2xl border-2 border-dashed border-gray-200 dark:border-emerald-950/40 hover:border-primary-500 dark:hover:border-emerald-600 transition flex items-center justify-center gap-2 text-sm font-bold text-gray-500 hover:text-primary-650 dark:text-gray-400 dark:hover:text-emerald-455">
+                        <span>➕ Tambah Video YouTube Baru</span>
+                    </button>
+                </div>
+            </div>
+
+            {{-- Template block for dynamic youtube rows --}}
+            <template id="youtube-item-template">
+                <div class="p-5 rounded-2xl border border-gray-150 bg-gray-50/50 dark:border-emerald-950/20 dark:bg-[#080d0b]/40 flex flex-col gap-4 youtube-gallery-row animate-slide-up" id="youtube-gallery-item-ROW_ID">
+                    <div class="flex items-center justify-between border-b border-gray-100 dark:border-emerald-950/10 pb-2">
+                        <span class="text-xs font-bold text-primary-900 dark:text-emerald-300">Video Baru</span>
+                        <button type="button" onclick="removeYoutubeRow('ROW_ID')" class="text-red-500 hover:text-red-750 text-[10px] font-bold flex items-center gap-1">
+                            🗑️ Hapus Video
+                        </button>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-455 mb-1.5 dark:text-gray-550 uppercase tracking-wide">Link Video YouTube <span class="text-red-500">*</span></label>
+                            <input type="url" name="youtube_gallery_items[ROW_ID][link]" placeholder="Contoh: https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="form-input py-2 text-xs" required>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-[11px] font-bold text-gray-455 mb-1.5 dark:text-gray-550 uppercase tracking-wide">Judul Video</label>
+                                <input type="text" name="youtube_gallery_items[ROW_ID][title]" placeholder="Masukkan judul video..." class="form-input py-2 text-xs">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-gray-455 mb-1.5 dark:text-gray-550 uppercase tracking-wide">Deskripsi Singkat</label>
+                                <input type="text" name="youtube_gallery_items[ROW_ID][desc]" placeholder="Masukkan deskripsi video..." class="form-input py-2 text-xs">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
             {{-- Gallery / Documentation Card --}}
             <div class="card p-8">
                 <h2 class="text-xl font-extrabold text-gray-900 mb-2 dark:text-white">Arsip Dokumentasi Kegiatan</h2>
@@ -622,22 +556,7 @@
             </div>
         @endif
 
-        @if($activeTab === 'cta')
-            {{-- Card 5: Panggilan Aksi (CTA Section) --}}
-            <div class="card p-8">
-                <h2 class="text-xl font-extrabold text-gray-900 mb-6 dark:text-white border-b border-gray-100 dark:border-emerald-950/20 pb-4">Bagian: Panggilan Aksi (CTA Section)</h2>
-                <div class="space-y-6">
-                    <div>
-                        <label for="cta_title" class="form-label font-bold text-sm">Judul Panggilan Aksi <span class="text-red-500">*</span></label>
-                        <input id="cta_title" name="cta_title" type="text" value="{{ old('cta_title', $settings['cta_title']) }}" required class="form-input">
-                    </div>
-                    <div>
-                        <label for="cta_desc" class="form-label font-bold text-sm">Deskripsi / Paragraf Panggilan Aksi <span class="text-red-500">*</span></label>
-                        <textarea id="cta_desc" name="cta_desc" rows="3" required class="form-input">{{ old('cta_desc', $settings['cta_desc']) }}</textarea>
-                    </div>
-                </div>
-            </div>
-        @endif
+
 
         {{-- Save Button --}}
         <div class="flex justify-end gap-3 pt-4">
@@ -801,6 +720,39 @@
                 if (placeholderEl) placeholderEl.classList.remove('hidden');
             }
         }
+    }
+
+    let ytRowCounter = {{ count($settings['youtube_gallery_items'] ?? []) }};
+    function addYoutubeItem() {
+        const container = document.getElementById('youtube-gallery-items-container');
+        const template = document.getElementById('youtube-item-template').innerHTML;
+        const newRowHtml = template.replace(/ROW_ID/g, ytRowCounter);
+        
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = newRowHtml.trim();
+        container.appendChild(tempDiv.firstChild);
+        ytRowCounter++;
+        updateYoutubeIndices();
+    }
+
+    function removeYoutubeRow(rowId) {
+        const row = document.getElementById('youtube-gallery-item-' + rowId);
+        if (row) {
+            if (confirm('Apakah Anda yakin ingin menghapus video ini dari galeri?')) {
+                row.remove();
+                updateYoutubeIndices();
+            }
+        }
+    }
+
+    function updateYoutubeIndices() {
+        const rows = document.querySelectorAll('.youtube-gallery-row');
+        rows.forEach((row, index) => {
+            const span = row.querySelector('.text-primary-900');
+            if (span && !span.textContent.includes('Baru')) {
+                span.textContent = 'Video #' + (index + 1);
+            }
+        });
     }
 </script>
 @endsection
