@@ -103,16 +103,22 @@ class GalleryController extends Controller
         // Store uploaded photos
         if ($request->hasFile('photos')) {
             $captions = $request->input('captions', []);
+            $items = [];
             foreach ($request->file('photos') as $i => $photo) {
                 $fname = 'gallery_item_' . $gallery->id . '_' . $i . '_' . time() . '.' . $photo->getClientOriginalExtension();
                 $photo->move(public_path('uploads/gallery'), $fname);
-                GalleryItem::create([
+                $items[] = [
                     'gallery_id'  => $gallery->id,
                     'file_path'   => 'uploads/gallery/' . $fname,
                     'file_type'   => 'image',
                     'caption'     => $captions[$i] ?? null,
                     'sort_order'  => $i,
-                ]);
+                    'created_at'  => now(),
+                    'updated_at'  => now(),
+                ];
+            }
+            if (!empty($items)) {
+                GalleryItem::insert($items);
             }
         }
 
@@ -168,17 +174,23 @@ class GalleryController extends Controller
         if ($request->hasFile('photos')) {
             $captions   = $request->input('captions', []);
             $maxOrder   = $gallery->items()->max('sort_order') ?? -1;
+            $items = [];
             foreach ($request->file('photos') as $i => $photo) {
                 $maxOrder++;
                 $fname = 'gallery_item_' . $gallery->id . '_' . $maxOrder . '_' . time() . '.' . $photo->getClientOriginalExtension();
                 $photo->move(public_path('uploads/gallery'), $fname);
-                GalleryItem::create([
+                $items[] = [
                     'gallery_id'  => $gallery->id,
                     'file_path'   => 'uploads/gallery/' . $fname,
                     'file_type'   => 'image',
                     'caption'     => $captions[$i] ?? null,
                     'sort_order'  => $maxOrder,
-                ]);
+                    'created_at'  => now(),
+                    'updated_at'  => now(),
+                ];
+            }
+            if (!empty($items)) {
+                GalleryItem::insert($items);
             }
         }
 

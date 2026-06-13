@@ -18,7 +18,7 @@
         </div>
         @endif
 
-        <form action="{{ route('dashboard.gallery.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+        <form id="gallery-form" action="{{ route('dashboard.gallery.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
             @csrf
 
             {{-- Title --}}
@@ -108,7 +108,7 @@
 
             {{-- Submit and Cancel --}}
             <div class="flex items-center gap-3">
-                <button type="submit" class="btn-primary">
+                <button type="submit" id="submit-btn" class="btn-primary">
                     Simpan Galeri
                 </button>
                 <a href="{{ route('dashboard.gallery') }}" class="btn-secondary">Batal</a>
@@ -129,52 +129,214 @@
         }
     }
 
+    let selectedFiles = [];
+
     const photosInput = document.getElementById('photos-input');
     const container = document.getElementById('photos-preview-container');
     const dropZone = document.getElementById('drop-zone');
 
+    function syncFilesInput() {
+        const dataTransfer = new DataTransfer();
+        selectedFiles.forEach(file => {
+            dataTransfer.items.add(file);
+        });
+        photosInput.files = dataTransfer.files;
+    }
+
+    function updateCaption(index, val) {
+        if (selectedFiles[index]) {
+            selectedFiles[index].captionValue = val;
+        }
+    }
+
+    function removeSelectedFile(index) {
+        selectedFiles.splice(index, 1);
+        syncFilesInput();
+        renderPreviews();
+    }
+
+    function escapeHtml(text) {
+        if (!text) return '';
+        return text
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    let previewUrls = [];
+
+    function revokePreviewUrls() {
+        previewUrls.forEach(url => URL.revokeObjectURL(url));
+        previewUrls = [];
+    }
+
+    function renderPreviews() {
+        revokePreviewUrls();
+        container.innerHTML = '';
+        if (selectedFiles.length > 0) {
+            container.classList.remove('hidden');
+            selectedFiles.forEach((file, index) => {
+                const objectUrl = URL.createObjectURL(file);
+                previewUrls.push(objectUrl);
+                
+                const card = document.createElement('div');
+                card.className = 'relative bg-gray-50 border border-gray-200 rounded-xl p-3 flex flex-col gap-2.5 dark:bg-gray-800/40 dark:border-gray-800 group transition-all duration-300 hover:shadow-md';
+                
+                const captionValue = file.captionValue || '';
+
+                card.innerHTML = `
+                    <div class="relative aspect-video rounded-lg overflow-hidden bg-black/5">
+                        <img src="${objectUrl}" class="w-full h-full object-cover" loading="lazy">
+                        <span class="absolute top-1.5 left-1.5 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded backdrop-blur-sm">
+                            Foto Baru ${index + 1}
+                        </span>
+                        <button type="button" class="absolute top-1.5 right-1.5 bg-red-500 hover:bg-red-600 text-white p-1 rounded-full shadow transition-transform duration-200 hover:scale-110 flex items-center justify-center w-6 h-6" onclick="removeSelectedFile(${index})">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div>
+                        <label class="text-[11px] font-semibold text-gray-500 uppercase tracking-wider block mb-1">Keterangan Foto</label>
+                        <input type="text" name="captions[]" value="${escapeHtml(captionValue)}" 
+                               class="form-input text-xs py-1 px-2.5 rounded-lg w-full" 
+                               placeholder="Tulis caption (opsional)..."
+                               oninput="updateCaption(${index}, this.value)">
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        } else {
+            container.classList.add('hidden');
+        }
+    }
+
+    function compressImage(file, maxWidth, maxHeight, quality) {
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    let width = img.width;
+                    let height = img.height;
+                    
+                    if (width > height) {
+                        if (width > maxWidth) {
+                            height = Math.round((height * maxWidth) / width);
+                            width = maxWidth;
+                        }
+                    } else {
+                        if (height > maxHeight) {
+                            width = Math.round((width * maxHeight) / height);
+                            height = maxHeight;
+                        }
+                    }
+                    
+                    const canvas = document.createElement('canvas');
+                    canvas.width = width;
+                    canvas.height = height;
+                    
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    
+                    canvas.toBlob((blob) => {
+                        if (blob) {
+                            const compressedFile = new File([blob], file.name.substring(0, file.name.lastIndexOf('.')) + '.jpg', {
+                                type: 'image/jpeg',
+                                lastModified: Date.now()
+                            });
+                            compressedFile.captionValue = file.captionValue || '';
+                            resolve(compressedFile);
+                        } else {
+                            resolve(file);
+                        }
+                    }, 'image/jpeg', quality);
+                };
+                img.onerror = () => resolve(file);
+                img.src = e.target.result;
+            };
+            reader.onerror = () => resolve(file);
+            reader.readAsDataURL(file);
+        });
+    }
+
+    async function handleFilesAdded(files) {
+        if (!files) return;
+        
+        const imageFiles = Array.from(files).filter(file => file.type.startsWith('image/'));
+        if (imageFiles.length === 0) return;
+        
+        // Show loading state in drop-zone
+        const dropZoneText = dropZone.querySelector('.text-sm');
+        const originalText = dropZoneText.innerHTML;
+        dropZoneText.innerText = "Mengompresi gambar untuk mempercepat upload...";
+        dropZone.classList.add('pointer-events-none', 'opacity-65');
+        
+        const compressedFiles = [];
+        for (const file of imageFiles) {
+            try {
+                // Compress to max 1600px width/height and 80% quality
+                const compressed = await compressImage(file, 1600, 1600, 0.8);
+                compressedFiles.push(compressed);
+            } catch (e) {
+                compressedFiles.push(file);
+            }
+        }
+        
+        selectedFiles = [...selectedFiles, ...compressedFiles];
+        syncFilesInput();
+        renderPreviews();
+        
+        // Restore drop-zone text
+        dropZoneText.innerHTML = originalText;
+        dropZone.classList.remove('pointer-events-none', 'opacity-65');
+    }
+
+    // Input file selection change
+    photosInput.addEventListener('change', function() {
+        handleFilesAdded(this.files);
+        // Clear input value so selecting the same file again triggers change event
+        this.value = '';
+    });
+
+    // Drag and Drop Events
     ['dragenter', 'dragover'].forEach(eventName => {
         dropZone.addEventListener(eventName, e => {
             e.preventDefault();
-            dropZone.classList.add('border-primary-500', 'bg-primary-50/20');
+            dropZone.classList.add('border-primary-500', 'bg-primary-50/10', 'scale-[1.01]', 'shadow-sm');
         }, false);
     });
 
     ['dragleave', 'drop'].forEach(eventName => {
         dropZone.addEventListener(eventName, e => {
             e.preventDefault();
-            dropZone.classList.remove('border-primary-500', 'bg-primary-50/20');
+            dropZone.classList.remove('border-primary-500', 'bg-primary-50/10', 'scale-[1.01]', 'shadow-sm');
         }, false);
     });
 
-    photosInput.addEventListener('change', function() {
-        container.innerHTML = '';
-        if (this.files && this.files.length > 0) {
-            container.classList.remove('hidden');
-            Array.from(this.files).forEach((file, index) => {
-                const reader = new FileReader();
-                reader.onload = e => {
-                    const card = document.createElement('div');
-                    card.className = 'bg-gray-50 border border-gray-200 rounded-xl p-3 flex flex-col gap-2.5 dark:bg-gray-800/40 dark:border-gray-800';
-                    card.innerHTML = `
-                        <div class="relative aspect-video rounded-lg overflow-hidden bg-black/5">
-                            <img src="${e.target.result}" class="w-full h-full object-cover">
-                            <span class="absolute top-1.5 left-1.5 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded backdrop-blur-sm">
-                                Foto ${index + 1}
-                            </span>
-                        </div>
-                        <div>
-                            <label class="text-[11px] font-semibold text-gray-500 uppercase tracking-wider block mb-1">Keterangan Foto</label>
-                            <input type="text" name="captions[${index}]" class="form-input text-xs py-1 px-2.5 rounded-lg" placeholder="Tulis caption (opsional)...">
-                        </div>
-                    `;
-                    container.appendChild(card);
-                };
-                reader.readAsDataURL(file);
-            });
-        } else {
-            container.classList.add('hidden');
+    dropZone.addEventListener('drop', e => {
+        e.preventDefault();
+        if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+            handleFilesAdded(e.dataTransfer.files);
         }
+    }, false);
+
+    // Form submit loader to prevent double submission and show status
+    const galleryForm = document.getElementById('gallery-form');
+    const submitBtn = document.getElementById('submit-btn');
+
+    galleryForm.addEventListener('submit', function() {
+        submitBtn.disabled = true;
+        submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+        submitBtn.innerHTML = `
+            <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            Mengunggah & Menyimpan...
+        `;
     });
 </script>
 @endsection
